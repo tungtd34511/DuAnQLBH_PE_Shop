@@ -11,14 +11,13 @@ namespace App.Data.Repositories.Base
         Task<TEntity> GetAsync(object[] keys); // Lấy 1
         Task<IEnumerable<TEntity>> GetAllAsync(); // Lấy tất
         // Các phương thức thêm
-        Task<bool> AddOneAsyn(TEntity entity); // thêm 1
-        Task<bool> AddManyAsyn(IEnumerable<TEntity> entity); // thêm một loạt
+        Task<bool> AddOneAsync(TEntity entity); // thêm 1
+        Task<bool> AddManyAsync(IEnumerable<TEntity> entity); // thêm một loạt
         // Các phương thức xóa
-        Task<bool> DeleteOneAsyn(object[] keys);  // Xóa 1
-        Task<bool> DeleteManyAsyn(IEnumerable<TEntity> entity); // Xóa 1 loạt
+        Task<bool> DeleteOneAsync(object[] keys);  // Xóa 1
+        Task<bool> DeleteManyAsync(IEnumerable<TEntity> entity); // Xóa 1 loạt
         // Các phương thức sửa
-        Task<bool> UpdateOneAsyn(TEntity entity); // Sửa 1
-        Task<bool> UpdateManyAsyn(IEnumerable<TEntity> entity); // Sửa 1 loạt
+        Task<bool> UpdateOneAsync(TEntity entity); // Sửa 1
 
     }
 }

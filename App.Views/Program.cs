@@ -1,7 +1,10 @@
 using App.Data.Context;
+using App.Data.Entities;
 using App.Data.Repositories.Base;
 using App.Data.Repositories.Carts;
-using App.Views.Services.Catalog;
+using App.Data.Repositories.Products;
+using App.Views.Views.Layout;
+using App.Views.Views.Product;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,7 +30,7 @@ namespace App.Views
             var host = CreateHostBuilder().Build();
             ServiceProvider = host.Services;
 
-            Application.Run(ServiceProvider.GetRequiredService<Test1>());
+            Application.Run(ServiceProvider.GetRequiredService<_Layout> ());
         }
         public static IServiceProvider ServiceProvider { get; private set; }
         static IHostBuilder CreateHostBuilder()
@@ -37,10 +40,13 @@ namespace App.Views
                 {
                     services.AddDbContext<QLBH_Context>(options =>
                     options.UseSqlServer(@"Data Source=TUNGHACK\SQLEXPRESS;Initial Catalog=DU_AN_QuanLyBanHang_PE_SHOP;Integrated Security=True"));
-                    services.AddTransient<IBaseService, BaseService>();
+                    services.AddTransient<IProductVariationRepositories, ProductVariationRepositories>();
                     services.AddTransient<ICartRepositories, CartRepositories>();
-                    services.AddTransient<Test1>();
-                    //services.AddTransient<Form2>();
+                    services.AddTransient<_Layout>();
+                    services.AddTransient<ProductIndex>();
+                    services.AddTransient<ProductDetails>();
+                    services.AddTransient<CreateProduct>();
+                    services.AddTransient<UpdateProduct>();
                 });
         }
     }

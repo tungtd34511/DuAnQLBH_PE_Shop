@@ -17,25 +17,25 @@ namespace App.Data.Repositories.Base
             _context = context;
             Entities = _context.Set<TEntity>();
         }
-        public async Task<bool> AddManyAsyn(IEnumerable<TEntity> entity)
+        public async Task<bool> AddManyAsync(IEnumerable<TEntity> entity)
         {
             Entities.AddRange(entity);
             return await _context.SaveChangesAsync() >0;
         }
 
-        public async Task<bool> AddOneAsyn(TEntity entity)
+        public async Task<bool> AddOneAsync(TEntity entity)
         {
             Entities.Add(entity);
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> DeleteManyAsyn(IEnumerable<TEntity> entity)
+        public async Task<bool> DeleteManyAsync(IEnumerable<TEntity> entity)
         {
             Entities.RemoveRange(entity);
             return await _context.SaveChangesAsync() > 1;
         }
 
-        public async Task<bool> DeleteOneAsyn(object[] keys)
+        public async Task<bool> DeleteOneAsync(object[] keys)
         {
             var result = await Entities.FindAsync(keys);
             if (result == null)
@@ -55,13 +55,13 @@ namespace App.Data.Repositories.Base
             return result;
         }
 
-        public async Task<bool> UpdateManyAsyn(IEnumerable<TEntity> entity)
+        public async Task<bool> UpdateManyAsync(IEnumerable<TEntity> entity)
         {
             Entities.UpdateRange(entity);
             return await _context.SaveChangesAsync() > 1;
         }
 
-        public async Task<bool> UpdateOneAsyn(TEntity entity)
+        public async Task<bool> UpdateOneAsync(TEntity entity)
         {
             Entities.Update(entity);
             return await _context.SaveChangesAsync() > 1;

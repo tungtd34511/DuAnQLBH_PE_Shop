@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace App.Data.Repositories.Customers
 {
-    public interface IProductRepositories : IBaseRepositories<Customer>
+    public interface ICustomerRepositories : IBaseRepositories<Customer>
     {
     }
 }

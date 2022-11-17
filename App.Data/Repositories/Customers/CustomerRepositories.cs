@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace App.Data.Repositories.Customers
 {
-    public class ProductDetailRepositories : BaseRepositories<Customer>, IProductRepositories
+    public class ProductDetailRepositories : BaseRepositories<Customer>, ICustomerRepositories
     {
         public ProductDetailRepositories(QLBH_Context context) : base(context)
         {

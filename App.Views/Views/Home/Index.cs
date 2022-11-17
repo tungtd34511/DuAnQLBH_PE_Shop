@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace App.Views
+namespace App.Views.Views.Home
 {
-    public partial class Test2 : Form
+    public partial class Index : Form
     {
-        public Test2()
+        public Index()
         {
             InitializeComponent();
         }

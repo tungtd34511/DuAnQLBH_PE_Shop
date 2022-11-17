@@ -9,7 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
+    <Folder Include="Services\Catalog\" />
+    <Folder Include="Services\Product\" />
+    <Folder Include="Views\Customer\" />
+    <Folder Include="Views\Catalog\" />
+    <Folder Include="Views\Promotion\" />
+    <Folder Include="Views\User\" />
+    <Folder Include="Views\Order\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FontAwesome.Sharp" Version="6.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
   </ItemGroup>
 
@@ -18,7 +30,27 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\ViewModels\" />
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Layout\Demo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Product\ProductDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Product\ProductIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

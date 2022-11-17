@@ -11,18 +11,9 @@ namespace App.Data.Context
 {
     public class QLBH_Context : DbContext
     {
-        public QLBH_Context()
-        {
-
-        }
 
         public QLBH_Context(DbContextOptions<QLBH_Context> dbContextOptions) : base(dbContextOptions)
         {
-
-        }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder.UseSqlServer(@"Data Source=TUNGHACK\SQLEXPRESS;Initial Catalog=DU_AN_QuanLyBanHang_PE_SHOP;Integrated Security=True"));
 
         }
 
