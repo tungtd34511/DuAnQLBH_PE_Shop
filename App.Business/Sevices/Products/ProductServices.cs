@@ -1,38 +1,57 @@
 ﻿
+using App.Business.Models.Products;
 using App.Business.Ultilities.Common;
 using App.Data.Entities;
 using App.Data.Repositories.Catalog.Images;
-using App.Data.Repositories.Customers;
+using App.Data.Repositories.Catalog.Categories;
+using App.Data.Repositories.Catalog.Manufacturers;
 using App.Data.Repositories.Products;
 using App.Data.Ultilities.Catalog.Product;
 using App.Data.Ultilities.Common;
 using App.Data.Ultilities.PagingModels;
 using App.Data.Ultilities.ViewModels;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
+using App.Data.Repositories.Catalog.Units;
+using App.Data.Repositories.Catalog.Sizes;
+using App.Data.Repositories.Catalog.Colors;
 
 namespace App.Business.Sevices.Products
 {
     public class ProductServices : IProductServices
     {
         private readonly IProductRepositories _productRepositories;
-        private readonly IProductDetailRepositories _productDetailRepositories;
         private readonly IStorageService _storageService;
         private const string USER_CONTENT_FOLDER_NAME = "Images";
         private readonly IProductImageRepositories _productImageRepositories;
-        public ProductServices(IProductRepositories productRepositories, IProductDetailRepositories productDetailRepositories, IStorageService storageService, IProductImageRepositories productImageRepositories)
+        private readonly ICategoryRepositories _categoryRepositories;
+        private readonly IManufacturerRepositories _manufacturerRepositories;
+        private readonly IUnitRepositories _unitRepositories;
+        private readonly IProductInCategoryRepositories _productInCategoryRepositories;
+        private readonly IProductDetailRepositories _detailRepositories;
+        private readonly ISizeRepositories _sizeRepositories;
+        private readonly IColorRepositories _colorRepositories;
+
+        public ProductServices(IProductRepositories productRepositories, IProductDetailRepositories productDetailRepositories, IStorageService storageService, IProductImageRepositories productImageRepositories, ICategoryRepositories categoryRepositories, IManufacturerRepositories manufacturerRepositories, IUnitRepositories unitRepositories, IProductInCategoryRepositories productInCategoryRepositories, ISizeRepositories sizeRepositories = null, IColorRepositories colorRepositories = null)
         {
             _productRepositories = productRepositories;
-            _productDetailRepositories = productDetailRepositories;
             _storageService = storageService;
             _productImageRepositories = productImageRepositories;
+            _categoryRepositories = categoryRepositories;
+            _manufacturerRepositories = manufacturerRepositories;
+            _unitRepositories = unitRepositories;
+            _productInCategoryRepositories = productInCategoryRepositories;
+            _detailRepositories = productDetailRepositories;
+            _sizeRepositories = sizeRepositories;
+            _colorRepositories = colorRepositories;
         }
-
+        public async Task<DataForProductFilter> GetDataForFilter()
+        {
+            return new DataForProductFilter()
+            {
+                Colors = await _colorRepositories.GetAllForCreate(),
+                Sizes = await _sizeRepositories.GetAllForCreate(),
+                Categories = await _categoryRepositories.GetAllForCreate(),
+            };
+        }
         public async Task<bool> ChangeStatus(ChangeStatusProductRequest request)
         {
             var item = await _productRepositories.GetAsync(new object[] { request.Id });
@@ -40,7 +59,7 @@ namespace App.Business.Sevices.Products
             return await _productRepositories.UpdateOneAsync(item);
         }
 
-        public async Task<bool> Create(AddProductRequest request)
+        public async Task<bool> Create(AddProductRequest request, bool dispose)
         {
             var productdetail = new ProductDetail()
             {
@@ -60,20 +79,30 @@ namespace App.Business.Sevices.Products
                 ProductDetail = productdetail
             };
             //Save image
-            var imgCount = request.Images.Count;
-            if (imgCount > 0)
+            if (request.Images != null)
             {
-                product.ProductImages = new List<ProductImage>();
-                var lstimg = new List<ProductImage>();
-                for (int i = 0; i < imgCount; i++)
+                var imgCount = request.Images.Count;
+                if (imgCount > 0)
                 {
-                    lstimg.Add(new ProductImage()
+                    product.ProductImages = new List<ProductImage>();
+                    var lstimg = new List<ProductImage>();
+                    for (int i = 0; i < imgCount; i++)
                     {
-                        ImagePath = await SaveFile(request.Images[i])
-                    });
-                };
+                        lstimg.Add(new ProductImage()
+                        {
+                            ImagePath = await SaveFile(request.Images[i])
+                        });
+                    };
+                    product.ProductImages.AddRange(lstimg);
+                }
             }
-            return await _productRepositories.AddOneAsync(product);
+            await _productRepositories.AddOneAsync(product);
+
+            return await _productInCategoryRepositories.AddManyAsync(request.categoryIds.Select(c => new ProductInCategory()
+            {
+                CategoryId = c,
+                Product = product
+            }));
         }
 
         public async Task<PagedResult<ProductInPaging>> GetAllPaging(GetPagingProductRequest request) // sẽ lấy query trong repo cho nhanh :)))
@@ -145,13 +174,31 @@ namespace App.Business.Sevices.Products
         }
         public async Task<string> SaveFile(string path)
         {
-            using (FileStream stream = File.Open(path, FileMode.Open))
+            String.IsNullOrEmpty(name);
+            Stream stream = File.OpenRead(path);
+            var originalFileName = Path.GetFileName(path);
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
+            await _storageService.SaveFileAsync(stream, fileName);
+            return "C:\\Users\\taduy\\source\\repos\\DuAnQLBH_PE_Shop\\App.Business\\" + USER_CONTENT_FOLDER_NAME + @"\" + fileName;
+        }
+
+        public async Task<CreateProductView> GetDataForCreate()
+        {
+            var categories = await _categoryRepositories.GetAllForCreate();
+            var Manufacturers = await _manufacturerRepositories.GetAllForCreate();
+            var Units = await _unitRepositories.GetAllForCreate();
+            var products = new List<Product>();
+            return new CreateProductView()
             {
-                var originalFileName = Path.GetFileName(path);
-                var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
-                await _storageService.SaveFileAsync(stream, fileName);
-                return @"C:\Users\taduy\Desktop\DuAnQLBH_PE_Shop\App.Business\" + USER_CONTENT_FOLDER_NAME + @"\" + fileName;
-            }
+                categories = categories,
+                Manufacturers = Manufacturers,
+                Units = Units
+            };
+        }
+
+        public async Task<bool> ContainsName(string name)
+        {
+            return await _detailRepositories.ContainsName(name);
         }
     }
 }

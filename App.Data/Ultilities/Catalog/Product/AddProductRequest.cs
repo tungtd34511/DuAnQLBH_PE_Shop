@@ -12,7 +12,6 @@ namespace App.Data.Ultilities.Catalog.Product
     {
         public decimal Price { set; get; }
         public decimal OriginalPrice { set; get; }
-        public DateTime DateCreated { set; get; }
         public ProductStatus Status { get; set; }
         public string Name { set; get; }
         public string? Description { set; get; }
@@ -21,5 +20,6 @@ namespace App.Data.Ultilities.Catalog.Product
         public int UnitId { get; set; }
         public int ManufacturerId { set; get; }
         public List<string> Images { get; set; } = new List<string>();
+        public List<int> categoryIds { get; set; } = new();
     }
 }

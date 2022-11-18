@@ -1,9 +1,11 @@
 ﻿using App.Data.Configurations;
 using App.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,12 +13,21 @@ namespace App.Data.Context
 {
     public class QLBH_Context : DbContext
     {
-
-        public QLBH_Context(DbContextOptions<QLBH_Context> dbContextOptions) : base(dbContextOptions)
+        public QLBH_Context()
         {
 
         }
+        public QLBH_Context(DbContextOptions<QLBH_Context> dbContextOptions) : base(dbContextOptions)
+        {
+        }
 
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    if (!optionsBuilder.IsConfigured)
+        //    {
+        //        optionsBuilder.UseSqlServer(@"Data Source=TUNGHACK\SQLEXPRESS;Initial Catalog=DU_AN_QuanLyBanHang_PE_SHOP;Integrated Security=True");
+        //    }
+        //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Configure using Fluent API
@@ -39,6 +50,8 @@ namespace App.Data.Context
             modelBuilder.ApplyConfiguration(new UnitConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new UserDetailConfiguration());
+            modelBuilder.ApplyConfigurationsFromAssembly
+                (Assembly.GetExecutingAssembly());
             //Data seeding
             //modelBuilder.Seed();
             //base.OnModelCreating(modelBuilder);

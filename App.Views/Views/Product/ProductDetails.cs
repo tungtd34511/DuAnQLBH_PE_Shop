@@ -1,4 +1,5 @@
-﻿using System;
+﻿using App.Data.Ultilities.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,29 +13,37 @@ namespace App.Views.Views.Product
 {
     public partial class ProductDetails : Form
     {
+        public ProductVm Product { get; set; }
         public ProductDetails()
         {
             InitializeComponent();
         }
-
-        private void label15_Click(object sender, EventArgs e)
+        public async Task LoadDetail()
+        {
+            if(Product.Images!=null &&Product.Images.Count>0) {
+                panlIMG.BackgroundImage = Image.FromFile(Product.Images[0]);
+            }
+            LblName.Text = Product.Name;
+            LblCreated.Text = Product.DateCreated.ToString();
+            LblGender.Text = Product.Gender.ToString();
+            LblNsx.Text = Product.ManufacturerName;
+            LblOriginPrice.Text = Product.OriginalPrice.ToString();
+            LblPrice.Text = Product.Price.ToString();
+            LblUnit.Text = Product.UnitName;
+            //var text = "";
+            
+            //TxtCategories.Text = 
+            TxtDescription.Text = Product.Description;
+            TxtDetail.Text = Product.Details;
+            Btn_Status.Text = Product.Status.ToString();
+        }
+        public async Task LoadMiniImgs()
         {
 
         }
-
-        private void panlIMG_Paint(object sender, PaintEventArgs e)
+        private void BtnBack_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void richTextBox3_TextChanged(object sender, EventArgs e)
-        {
-
+            this.Close();
         }
     }
 }

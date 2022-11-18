@@ -42,10 +42,10 @@ namespace App.Data.Repositories.Products
             {
                 //Oder by
             }
-            if (request.Checks.Any(c => c))
-            {
-                // Lọc theo nhiều giá trị
-            }
+            //if (request.Checks.Any(c => c))
+            //{
+            //    // Lọc theo nhiều giá trị
+            //}
             //3. Paging
             int totalRow = await query.CountAsync();
 

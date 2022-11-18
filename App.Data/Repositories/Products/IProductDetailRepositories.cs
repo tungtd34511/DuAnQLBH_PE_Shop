@@ -10,5 +10,6 @@ namespace App.Data.Repositories.Products
 {
     public interface IProductDetailRepositories : IBaseRepositories<ProductDetail>
     {
+        Task<bool> ContainsName(string text);
     }
 }

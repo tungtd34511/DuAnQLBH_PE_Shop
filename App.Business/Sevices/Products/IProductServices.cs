@@ -1,4 +1,5 @@
 ﻿
+using App.Business.Models.Products;
 using App.Data.Ultilities.Catalog.Product;
 using App.Data.Ultilities.Common;
 using App.Data.Ultilities.PagingModels;
@@ -13,7 +14,7 @@ namespace App.Business.Sevices.Products
 {
     public interface IProductServices
     {
-        Task<bool> Create(AddProductRequest request);
+        Task<bool> Create(AddProductRequest request, bool dispose);
 
         Task<bool> Update(UpdateProductRequest request);
 
@@ -22,5 +23,8 @@ namespace App.Business.Sevices.Products
         Task<ProductVm> GetById(int Id);
         Task<PagedResult<ProductInPaging>> GetAllPaging(GetPagingProductRequest request);
         Task<string> SaveFile(string path);
+        Task<CreateProductView> GetDataForCreate();
+        Task<bool> ContainsName(string name);
+        Task<DataForProductFilter> GetDataForFilter();
     }
 }

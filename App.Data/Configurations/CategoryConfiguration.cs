@@ -17,7 +17,7 @@ namespace App.Data.Configurations
 
             builder.Property(x => x.Id).UseIdentityColumn();
 
-            builder.HasOne(x => x.Parent).WithMany(x => x.Categories).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }

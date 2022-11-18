@@ -1,7 +1,15 @@
+using App.Business.Sevices.Products;
+using App.Business.Ultilities.Common;
 using App.Data.Context;
 using App.Data.Entities;
 using App.Data.Repositories.Base;
 using App.Data.Repositories.Carts;
+using App.Data.Repositories.Catalog.Categories;
+using App.Data.Repositories.Catalog.Colors;
+using App.Data.Repositories.Catalog.Images;
+using App.Data.Repositories.Catalog.Manufacturers;
+using App.Data.Repositories.Catalog.Sizes;
+using App.Data.Repositories.Catalog.Units;
 using App.Data.Repositories.Products;
 using App.Views.Views.Layout;
 using App.Views.Views.Product;
@@ -40,7 +48,18 @@ namespace App.Views
                 {
                     services.AddDbContext<QLBH_Context>(options =>
                     options.UseSqlServer(@"Data Source=TUNGHACK\SQLEXPRESS;Initial Catalog=DU_AN_QuanLyBanHang_PE_SHOP;Integrated Security=True"));
+                    services.AddTransient<IColorRepositories,ColorRepositories>();
+                    services.AddTransient<ISizeRepositories,SizeRepositories>();
                     services.AddTransient<IProductVariationRepositories, ProductVariationRepositories>();
+                    services.AddTransient<IProductInCategoryRepositories, ProductInCategoryRepositories>();
+                    services.AddTransient<IProductRepositories, ProductRepositories>();
+                    services.AddTransient<IProductDetailRepositories, ProductDetailRepositories>();
+                    services.AddTransient<IProductImageRepositories, ProductImageRepositories>();
+                    services.AddTransient<IUnitRepositories, UnitRepositories>();
+                    services.AddTransient<ICategoryRepositories, CategoryRepositories>();
+                    services.AddTransient<IStorageService, FileStorageService>();
+                    services.AddTransient<IManufacturerRepositories, ManufacturerRepositories>();
+                    services.AddTransient<IProductServices, ProductServices>();
                     services.AddTransient<ICartRepositories, CartRepositories>();
                     services.AddTransient<_Layout>();
                     services.AddTransient<ProductIndex>();

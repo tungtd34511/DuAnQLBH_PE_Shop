@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="Models\ViewModels\" />
     <Folder Include="Models\Ultilities\" />
+    <Folder Include="Images\" />
     <Folder Include="Ultilities\" />
     <Folder Include="Sevices\" />
   </ItemGroup>

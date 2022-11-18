@@ -13,7 +13,7 @@ namespace App.Business.Ultilities.Common
 
         public FileStorageService()
         {
-            _userContentFolder = Path.Combine(@"C:\Users\taduy\Desktop\DuAnQLBH_PE_Shop\App.Business\", USER_CONTENT_FOLDER_NAME);
+            _userContentFolder = Path.Combine("C:\\Users\\taduy\\source\\repos\\DuAnQLBH_PE_Shop\\App.Business\\", USER_CONTENT_FOLDER_NAME);
         }
 
         public string GetFileUrl(string fileName)

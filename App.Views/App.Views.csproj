@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Folder Include="Services\Catalog\" />
+    <Folder Include="Services\Common\" />
     <Folder Include="Services\Product\" />
     <Folder Include="Views\Customer\" />
     <Folder Include="Views\Catalog\" />
