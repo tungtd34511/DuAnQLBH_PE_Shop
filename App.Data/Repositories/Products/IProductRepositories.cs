@@ -1,6 +1,6 @@
 ﻿using App.Data.Entities;
 using App.Data.Repositories.Base;
-using App.Data.Ultilities.Catalog.Product;
+using App.Data.Ultilities.Catalog.Products;
 using App.Data.Ultilities.Common;
 using App.Data.Ultilities.PagingModels;
 using App.Data.Ultilities.ViewModels;

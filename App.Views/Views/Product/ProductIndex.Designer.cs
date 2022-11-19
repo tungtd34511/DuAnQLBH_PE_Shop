@@ -36,8 +36,8 @@
             this.btn_last = new FontAwesome.Sharp.IconButton();
             this.btn_next = new FontAwesome.Sharp.IconButton();
             this.btn_firt = new FontAwesome.Sharp.IconButton();
-            this.lbl_lastIndex = new System.Windows.Forms.Label();
-            this.txt_lstShowIndex = new System.Windows.Forms.TextBox();
+            this.LblPageLastIndex = new System.Windows.Forms.Label();
+            this.TxtPageIndex = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -49,11 +49,12 @@
             this.TblProducts = new System.Windows.Forms.FlowLayoutPanel();
             this.PanlFilter = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.CheckUnHide = new System.Windows.Forms.CheckBox();
             this.vbButton6 = new App.Views.Models.Controls.VBButton();
             this.vbButton5 = new App.Views.Models.Controls.VBButton();
             this.vbButton4 = new App.Views.Models.Controls.VBButton();
             this.BtnCreate = new App.Views.Models.Controls.VBButton();
-            this.label16 = new System.Windows.Forms.Label();
+            this.lblResult = new System.Windows.Forms.Label();
             this.Comb_OderBy = new System.Windows.Forms.ComboBox();
             this.customPanel1 = new App.Views.Models.Controls.CustomPanel();
             this.Txt_Search = new System.Windows.Forms.TextBox();
@@ -130,8 +131,8 @@
             this.tableLayoutPanel5.Controls.Add(this.btn_last, 5, 0);
             this.tableLayoutPanel5.Controls.Add(this.btn_next, 4, 0);
             this.tableLayoutPanel5.Controls.Add(this.btn_firt, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.lbl_lastIndex, 3, 0);
-            this.tableLayoutPanel5.Controls.Add(this.txt_lstShowIndex, 2, 0);
+            this.tableLayoutPanel5.Controls.Add(this.LblPageLastIndex, 3, 0);
+            this.tableLayoutPanel5.Controls.Add(this.TxtPageIndex, 2, 0);
             this.tableLayoutPanel5.Location = new System.Drawing.Point(789, 840);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
@@ -158,6 +159,7 @@
             this.btn_Prev.Size = new System.Drawing.Size(40, 40);
             this.btn_Prev.TabIndex = 0;
             this.btn_Prev.UseVisualStyleBackColor = true;
+            this.btn_Prev.Click += new System.EventHandler(this.btn_Prev_Click);
             // 
             // btn_last
             // 
@@ -177,6 +179,7 @@
             this.btn_last.Size = new System.Drawing.Size(40, 40);
             this.btn_last.TabIndex = 3;
             this.btn_last.UseVisualStyleBackColor = true;
+            this.btn_last.Click += new System.EventHandler(this.btn_last_Click);
             // 
             // btn_next
             // 
@@ -196,6 +199,7 @@
             this.btn_next.Size = new System.Drawing.Size(40, 40);
             this.btn_next.TabIndex = 2;
             this.btn_next.UseVisualStyleBackColor = true;
+            this.btn_next.Click += new System.EventHandler(this.btn_next_Click);
             // 
             // btn_firt
             // 
@@ -215,32 +219,35 @@
             this.btn_firt.Size = new System.Drawing.Size(40, 40);
             this.btn_firt.TabIndex = 1;
             this.btn_firt.UseVisualStyleBackColor = true;
+            this.btn_firt.Click += new System.EventHandler(this.btn_firt_Click);
             // 
-            // lbl_lastIndex
+            // LblPageLastIndex
             // 
-            this.lbl_lastIndex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbl_lastIndex.AutoSize = true;
-            this.lbl_lastIndex.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbl_lastIndex.ForeColor = System.Drawing.Color.Black;
-            this.lbl_lastIndex.Location = new System.Drawing.Point(135, 7);
-            this.lbl_lastIndex.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
-            this.lbl_lastIndex.Name = "lbl_lastIndex";
-            this.lbl_lastIndex.Size = new System.Drawing.Size(62, 30);
-            this.lbl_lastIndex.TabIndex = 5;
-            this.lbl_lastIndex.Text = "/ 20";
-            this.lbl_lastIndex.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LblPageLastIndex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.LblPageLastIndex.AutoSize = true;
+            this.LblPageLastIndex.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.LblPageLastIndex.ForeColor = System.Drawing.Color.Black;
+            this.LblPageLastIndex.Location = new System.Drawing.Point(135, 7);
+            this.LblPageLastIndex.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
+            this.LblPageLastIndex.Name = "LblPageLastIndex";
+            this.LblPageLastIndex.Size = new System.Drawing.Size(62, 30);
+            this.LblPageLastIndex.TabIndex = 5;
+            this.LblPageLastIndex.Text = "/ 20";
+            this.LblPageLastIndex.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // txt_lstShowIndex
+            // TxtPageIndex
             // 
-            this.txt_lstShowIndex.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.txt_lstShowIndex.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txt_lstShowIndex.Location = new System.Drawing.Point(80, 4);
-            this.txt_lstShowIndex.Margin = new System.Windows.Forms.Padding(0);
-            this.txt_lstShowIndex.Name = "txt_lstShowIndex";
-            this.txt_lstShowIndex.Size = new System.Drawing.Size(52, 36);
-            this.txt_lstShowIndex.TabIndex = 6;
-            this.txt_lstShowIndex.Text = "1";
-            this.txt_lstShowIndex.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TxtPageIndex.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.TxtPageIndex.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TxtPageIndex.Location = new System.Drawing.Point(80, 4);
+            this.TxtPageIndex.Margin = new System.Windows.Forms.Padding(0);
+            this.TxtPageIndex.Name = "TxtPageIndex";
+            this.TxtPageIndex.Size = new System.Drawing.Size(52, 36);
+            this.TxtPageIndex.TabIndex = 6;
+            this.TxtPageIndex.Text = "1";
+            this.TxtPageIndex.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TxtPageIndex.TextChanged += new System.EventHandler(this.TxtPageIndex_TextChanged);
+            this.TxtPageIndex.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtPageIndex_KeyPress);
             // 
             // tableLayoutPanel7
             // 
@@ -376,11 +383,12 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.CheckUnHide);
             this.panel1.Controls.Add(this.vbButton6);
             this.panel1.Controls.Add(this.vbButton5);
             this.panel1.Controls.Add(this.vbButton4);
             this.panel1.Controls.Add(this.BtnCreate);
-            this.panel1.Controls.Add(this.label16);
+            this.panel1.Controls.Add(this.lblResult);
             this.panel1.Controls.Add(this.Comb_OderBy);
             this.panel1.Controls.Add(this.customPanel1);
             this.panel1.Controls.Add(this.label15);
@@ -390,29 +398,42 @@
             this.panel1.Size = new System.Drawing.Size(1560, 89);
             this.panel1.TabIndex = 1;
             // 
+            // CheckUnHide
+            // 
+            this.CheckUnHide.AutoSize = true;
+            this.CheckUnHide.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.CheckUnHide.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(164)))), ((int)(((byte)(78)))));
+            this.CheckUnHide.Location = new System.Drawing.Point(869, 44);
+            this.CheckUnHide.Name = "CheckUnHide";
+            this.CheckUnHide.Size = new System.Drawing.Size(108, 32);
+            this.CheckUnHide.TabIndex = 14;
+            this.CheckUnHide.Text = "Hiện Ẩn";
+            this.CheckUnHide.UseVisualStyleBackColor = true;
+            this.CheckUnHide.CheckedChanged += new System.EventHandler(this.CheckUnHide_CheckedChanged);
+            // 
             // vbButton6
             // 
             this.vbButton6.BackColor = System.Drawing.Color.Transparent;
             this.vbButton6.BackgroundColor = System.Drawing.Color.Transparent;
-            this.vbButton6.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.vbButton6.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(76)))), ((int)(((byte)(219)))));
             this.vbButton6.BorderRadius = 5;
-            this.vbButton6.BorderSize = 0;
+            this.vbButton6.BorderSize = 2;
             this.vbButton6.FlatAppearance.BorderSize = 0;
             this.vbButton6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.vbButton6.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.vbButton6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(164)))), ((int)(((byte)(78)))));
-            this.vbButton6.IconChar = FontAwesome.Sharp.IconChar.FileAlt;
-            this.vbButton6.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(164)))), ((int)(((byte)(78)))));
-            this.vbButton6.IconFont = FontAwesome.Sharp.IconFont.Solid;
-            this.vbButton6.IconSize = 40;
-            this.vbButton6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.vbButton6.Location = new System.Drawing.Point(654, 36);
+            this.vbButton6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(76)))), ((int)(((byte)(219)))));
+            this.vbButton6.IconChar = FontAwesome.Sharp.IconChar.CaretDown;
+            this.vbButton6.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(76)))), ((int)(((byte)(219)))));
+            this.vbButton6.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.vbButton6.IconSize = 25;
+            this.vbButton6.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.vbButton6.Location = new System.Drawing.Point(630, 36);
             this.vbButton6.Name = "vbButton6";
             this.vbButton6.Size = new System.Drawing.Size(110, 44);
             this.vbButton6.TabIndex = 13;
             this.vbButton6.Text = "Khác";
-            this.vbButton6.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(164)))), ((int)(((byte)(78)))));
-            this.vbButton6.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.vbButton6.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(76)))), ((int)(((byte)(219)))));
+            this.vbButton6.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.vbButton6.UseVisualStyleBackColor = false;
             // 
             // vbButton5
@@ -431,7 +452,7 @@
             this.vbButton5.IconFont = FontAwesome.Sharp.IconFont.Solid;
             this.vbButton5.IconSize = 40;
             this.vbButton5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.vbButton5.Location = new System.Drawing.Point(852, 36);
+            this.vbButton5.Location = new System.Drawing.Point(767, 37);
             this.vbButton5.Name = "vbButton5";
             this.vbButton5.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
             this.vbButton5.Size = new System.Drawing.Size(46, 44);
@@ -456,7 +477,7 @@
             this.vbButton4.IconFont = FontAwesome.Sharp.IconFont.Solid;
             this.vbButton4.IconSize = 40;
             this.vbButton4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.vbButton4.Location = new System.Drawing.Point(478, 36);
+            this.vbButton4.Location = new System.Drawing.Point(459, 36);
             this.vbButton4.Name = "vbButton4";
             this.vbButton4.Size = new System.Drawing.Size(141, 44);
             this.vbButton4.TabIndex = 11;
@@ -491,17 +512,17 @@
             this.BtnCreate.UseVisualStyleBackColor = false;
             this.BtnCreate.Click += new System.EventHandler(this.BtnCreate_Click);
             // 
-            // label16
+            // lblResult
             // 
-            this.label16.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label16.ForeColor = System.Drawing.Color.Black;
-            this.label16.Location = new System.Drawing.Point(1453, 50);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(95, 20);
-            this.label16.TabIndex = 9;
-            this.label16.Text = "128 kết quả";
+            this.lblResult.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblResult.AutoSize = true;
+            this.lblResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblResult.ForeColor = System.Drawing.Color.Black;
+            this.lblResult.Location = new System.Drawing.Point(1453, 50);
+            this.lblResult.Name = "lblResult";
+            this.lblResult.Size = new System.Drawing.Size(95, 20);
+            this.lblResult.TabIndex = 9;
+            this.lblResult.Text = "128 kết quả";
             // 
             // Comb_OderBy
             // 
@@ -511,22 +532,23 @@
             this.Comb_OderBy.Font = new System.Drawing.Font("Segoe UI Light", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Comb_OderBy.FormattingEnabled = true;
             this.Comb_OderBy.Items.AddRange(new object[] {
-            "Không",
-            "Theo tên (A-Z)",
-            "Theo tên (Z-A)",
+            "Không sắp xếp",
             "Theo mã sản phẩm (Tăng)",
             "Theo mã sản phẩm (Giảm)",
+            "Theo tên (A-Z)",
+            "Theo tên (Z-A)",
             "Theo giá bán (Tăng)",
             "Theo giá bán (Giảm)",
-            "Theo giá nhập (Tăng)",
-            "Theo giá nhập (Giảm)",
-            "Theo tổng số lượng (Tăng)",
-            "Theo tổng số lượng (Giảm)"});
-            this.Comb_OderBy.Location = new System.Drawing.Point(924, 36);
+            "Theo trạng thái (Inactive - Active)",
+            "Theo trạng thái (Active - Inactive)",
+            "Ngày tạo (Tăng dần)",
+            "Ngày tạo (Giảm dần)"});
+            this.Comb_OderBy.Location = new System.Drawing.Point(1019, 37);
             this.Comb_OderBy.Margin = new System.Windows.Forms.Padding(0);
             this.Comb_OderBy.Name = "Comb_OderBy";
-            this.Comb_OderBy.Size = new System.Drawing.Size(156, 39);
+            this.Comb_OderBy.Size = new System.Drawing.Size(133, 39);
             this.Comb_OderBy.TabIndex = 8;
+            this.Comb_OderBy.SelectedIndexChanged += new System.EventHandler(this.Comb_OderBy_SelectedIndexChanged);
             // 
             // customPanel1
             // 
@@ -537,9 +559,9 @@
             this.customPanel1.BorderSize = 1;
             this.customPanel1.Controls.Add(this.Txt_Search);
             this.customPanel1.Controls.Add(this.Btn_Search);
-            this.customPanel1.Location = new System.Drawing.Point(1102, 31);
+            this.customPanel1.Location = new System.Drawing.Point(1169, 31);
             this.customPanel1.Name = "customPanel1";
-            this.customPanel1.Size = new System.Drawing.Size(347, 44);
+            this.customPanel1.Size = new System.Drawing.Size(280, 44);
             this.customPanel1.TabIndex = 2;
             this.customPanel1.UnderlinedStyle = false;
             // 
@@ -551,7 +573,7 @@
             this.Txt_Search.Location = new System.Drawing.Point(2, 6);
             this.Txt_Search.Name = "Txt_Search";
             this.Txt_Search.PlaceholderText = "Id, Tên, ...";
-            this.Txt_Search.Size = new System.Drawing.Size(295, 32);
+            this.Txt_Search.Size = new System.Drawing.Size(228, 32);
             this.Txt_Search.TabIndex = 2;
             // 
             // Btn_Search
@@ -565,11 +587,12 @@
             this.Btn_Search.IconFont = FontAwesome.Sharp.IconFont.Solid;
             this.Btn_Search.IconSize = 30;
             this.Btn_Search.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.Btn_Search.Location = new System.Drawing.Point(303, 0);
+            this.Btn_Search.Location = new System.Drawing.Point(236, 0);
             this.Btn_Search.Name = "Btn_Search";
             this.Btn_Search.Size = new System.Drawing.Size(44, 44);
             this.Btn_Search.TabIndex = 1;
             this.Btn_Search.UseVisualStyleBackColor = false;
+            this.Btn_Search.Click += new System.EventHandler(this.Btn_Search_Click);
             // 
             // label15
             // 
@@ -622,8 +645,8 @@
         private FontAwesome.Sharp.IconButton btn_last;
         private FontAwesome.Sharp.IconButton btn_next;
         private FontAwesome.Sharp.IconButton btn_firt;
-        private Label lbl_lastIndex;
-        private TextBox txt_lstShowIndex;
+        private Label LblPageLastIndex;
+        private TextBox TxtPageIndex;
         private Label label1;
         private Label label3;
         private Label label13;
@@ -633,7 +656,7 @@
         private Models.Controls.CustomPanel customPanel1;
         private FontAwesome.Sharp.IconButton Btn_Search;
         private Label label15;
-        private Label label16;
+        private Label lblResult;
         private TextBox Txt_Search;
         private Models.Controls.VBButton vbButton5;
         private Models.Controls.VBButton vbButton4;
@@ -641,5 +664,6 @@
         private Models.Controls.VBButton vbButton6;
         private FlowLayoutPanel TblProducts;
         private FlowLayoutPanel PanlFilter;
+        private CheckBox CheckUnHide;
     }
 }

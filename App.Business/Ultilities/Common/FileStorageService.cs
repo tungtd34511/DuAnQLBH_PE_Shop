@@ -28,13 +28,9 @@ namespace App.Business.Ultilities.Common
             await mediaBinaryStream.CopyToAsync(output);
         }
 
-        public async Task DeleteFileAsync(string fileName)
+        public async Task DeleteFileAsync(string path)
         {
-            var filePath = Path.Combine(_userContentFolder, fileName);
-            if (File.Exists(filePath))
-            {
-                await Task.Run(() => File.Delete(filePath));
-            }
+            File.Delete(path);
         }
     }
 }

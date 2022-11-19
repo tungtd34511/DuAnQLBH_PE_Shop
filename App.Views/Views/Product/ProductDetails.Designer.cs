@@ -43,18 +43,12 @@ namespace App.Views.Views.Product
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.TxtDescription = new System.Windows.Forms.RichTextBox();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.TblPV = new System.Windows.Forms.FlowLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.tbl_lstVer = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.TxtDetail = new System.Windows.Forms.RichTextBox();
@@ -80,8 +74,7 @@ namespace App.Views.Views.Product
             this.panel7 = new System.Windows.Forms.Panel();
             this.Btn_Sale = new FontAwesome.Sharp.IconButton();
             this.Btn_Status = new FontAwesome.Sharp.IconButton();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.vbButton1 = new App.Views.Models.Controls.VBButton();
+            this.TblminiImgs = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.BtnBack = new App.Views.Models.Controls.VBButton();
             this.tableLayoutPanel1.SuspendLayout();
@@ -93,9 +86,6 @@ namespace App.Views.Views.Product
             this.groupBox12.SuspendLayout();
             this.groupBox11.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
-            this.panel6.SuspendLayout();
-            this.tbl_lstVer.SuspendLayout();
-            this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -110,7 +100,6 @@ namespace App.Views.Views.Product
             this.groupBox8.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
             this.panel7.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -153,7 +142,7 @@ namespace App.Views.Views.Product
             this.tableLayoutPanel2.Controls.Add(this.panlIMG, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.customPanel1, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel7, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.TblminiImgs, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 98);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -165,7 +154,7 @@ namespace App.Views.Views.Product
             // 
             // panlIMG
             // 
-            this.panlIMG.BackColor = System.Drawing.SystemColors.Control;
+            this.panlIMG.BackColor = System.Drawing.Color.White;
             this.panlIMG.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.panlIMG.BorderColor = System.Drawing.SystemColors.Control;
             this.panlIMG.BorderFocusColor = System.Drawing.SystemColors.Control;
@@ -194,6 +183,7 @@ namespace App.Views.Views.Product
             this.btn_Prev.Size = new System.Drawing.Size(50, 50);
             this.btn_Prev.TabIndex = 7;
             this.btn_Prev.UseVisualStyleBackColor = false;
+            this.btn_Prev.Click += new System.EventHandler(this.btn_Prev_Click);
             // 
             // btn_Next
             // 
@@ -210,6 +200,7 @@ namespace App.Views.Views.Product
             this.btn_Next.Size = new System.Drawing.Size(50, 50);
             this.btn_Next.TabIndex = 8;
             this.btn_Next.UseVisualStyleBackColor = false;
+            this.btn_Next.Click += new System.EventHandler(this.btn_Next_Click);
             // 
             // customPanel1
             // 
@@ -299,8 +290,8 @@ namespace App.Views.Views.Product
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.TblPV);
             this.groupBox11.Controls.Add(this.tableLayoutPanel5);
-            this.groupBox11.Controls.Add(this.panel6);
             this.groupBox11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox11.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox11.Location = new System.Drawing.Point(3, 354);
@@ -310,6 +301,16 @@ namespace App.Views.Views.Product
             this.groupBox11.TabIndex = 8;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Biến Thể Sản Phẩm";
+            // 
+            // TblPV
+            // 
+            this.TblPV.AutoScroll = true;
+            this.TblPV.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.TblPV.Location = new System.Drawing.Point(10, 77);
+            this.TblPV.Margin = new System.Windows.Forms.Padding(0);
+            this.TblPV.Name = "TblPV";
+            this.TblPV.Size = new System.Drawing.Size(434, 183);
+            this.TblPV.TabIndex = 4;
             // 
             // tableLayoutPanel5
             // 
@@ -380,106 +381,6 @@ namespace App.Views.Views.Product
             this.label13.Size = new System.Drawing.Size(46, 20);
             this.label13.TabIndex = 2;
             this.label13.Text = "Color";
-            // 
-            // panel6
-            // 
-            this.panel6.AutoScroll = true;
-            this.panel6.Controls.Add(this.tbl_lstVer);
-            this.panel6.Location = new System.Drawing.Point(10, 77);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(434, 180);
-            this.panel6.TabIndex = 0;
-            // 
-            // tbl_lstVer
-            // 
-            this.tbl_lstVer.BackColor = System.Drawing.Color.White;
-            this.tbl_lstVer.ColumnCount = 1;
-            this.tbl_lstVer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbl_lstVer.Controls.Add(this.tableLayoutPanel6, 0, 0);
-            this.tbl_lstVer.Location = new System.Drawing.Point(0, 0);
-            this.tbl_lstVer.Margin = new System.Windows.Forms.Padding(0);
-            this.tbl_lstVer.Name = "tbl_lstVer";
-            this.tbl_lstVer.RowCount = 8;
-            this.tbl_lstVer.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbl_lstVer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
-            this.tbl_lstVer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
-            this.tbl_lstVer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
-            this.tbl_lstVer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
-            this.tbl_lstVer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
-            this.tbl_lstVer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
-            this.tbl_lstVer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
-            this.tbl_lstVer.Size = new System.Drawing.Size(410, 295);
-            this.tbl_lstVer.TabIndex = 1;
-            // 
-            // tableLayoutPanel6
-            // 
-            this.tableLayoutPanel6.BackColor = System.Drawing.Color.White;
-            this.tableLayoutPanel6.ColumnCount = 4;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 51F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 198F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 76F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 95F));
-            this.tableLayoutPanel6.Controls.Add(this.label14, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.label16, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.label17, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.label18, 0, 0);
-            this.tableLayoutPanel6.ForeColor = System.Drawing.Color.Black;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 1;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(410, 38);
-            this.tableLayoutPanel6.TabIndex = 4;
-            // 
-            // label14
-            // 
-            this.label14.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label14.ForeColor = System.Drawing.Color.Black;
-            this.label14.Location = new System.Drawing.Point(267, 7);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(40, 23);
-            this.label14.TabIndex = 5;
-            this.label14.Text = "Size";
-            // 
-            // label16
-            // 
-            this.label16.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label16.ForeColor = System.Drawing.Color.Black;
-            this.label16.Location = new System.Drawing.Point(376, 7);
-            this.label16.Margin = new System.Windows.Forms.Padding(3, 0, 7, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(37, 23);
-            this.label16.TabIndex = 4;
-            this.label16.Text = "123";
-            // 
-            // label17
-            // 
-            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label17.ForeColor = System.Drawing.Color.Black;
-            this.label17.Location = new System.Drawing.Point(3, 7);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(45, 23);
-            this.label17.TabIndex = 3;
-            this.label17.Text = "1";
-            // 
-            // label18
-            // 
-            this.label18.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label18.ForeColor = System.Drawing.Color.Black;
-            this.label18.Location = new System.Drawing.Point(54, 7);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(51, 23);
-            this.label18.TabIndex = 2;
-            this.label18.Text = "Color";
             // 
             // tableLayoutPanel3
             // 
@@ -812,36 +713,15 @@ namespace App.Views.Views.Product
             this.Btn_Status.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.Btn_Status.UseVisualStyleBackColor = false;
             // 
-            // flowLayoutPanel1
+            // TblminiImgs
             // 
-            this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.Controls.Add(this.vbButton1);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(627, 146);
-            this.flowLayoutPanel1.TabIndex = 5;
-            // 
-            // vbButton1
-            // 
-            this.vbButton1.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.vbButton1.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.vbButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.vbButton1.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.vbButton1.BorderRadius = 5;
-            this.vbButton1.BorderSize = 0;
-            this.vbButton1.FlatAppearance.BorderSize = 0;
-            this.vbButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.vbButton1.ForeColor = System.Drawing.Color.White;
-            this.vbButton1.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.vbButton1.IconColor = System.Drawing.Color.Black;
-            this.vbButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.vbButton1.Location = new System.Drawing.Point(3, 3);
-            this.vbButton1.Name = "vbButton1";
-            this.vbButton1.Size = new System.Drawing.Size(94, 94);
-            this.vbButton1.TabIndex = 0;
-            this.vbButton1.TextColor = System.Drawing.Color.White;
-            this.vbButton1.UseVisualStyleBackColor = false;
+            this.TblminiImgs.AutoScroll = true;
+            this.TblminiImgs.BackColor = System.Drawing.SystemColors.Control;
+            this.TblminiImgs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TblminiImgs.Location = new System.Drawing.Point(3, 3);
+            this.TblminiImgs.Name = "TblminiImgs";
+            this.TblminiImgs.Size = new System.Drawing.Size(627, 146);
+            this.TblminiImgs.TabIndex = 5;
             // 
             // panel1
             // 
@@ -894,10 +774,6 @@ namespace App.Views.Views.Product
             this.groupBox11.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
-            this.panel6.ResumeLayout(false);
-            this.tbl_lstVer.ResumeLayout(false);
-            this.tableLayoutPanel6.ResumeLayout(false);
-            this.tableLayoutPanel6.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
@@ -921,7 +797,6 @@ namespace App.Views.Views.Product
             this.tableLayoutPanel7.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
-            this.flowLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -962,7 +837,6 @@ namespace App.Views.Views.Product
         private GroupBox groupBox12;
         private RichTextBox TxtDescription;
         private GroupBox groupBox11;
-        private Panel panel6;
         private GroupBox groupBox10;
         private RichTextBox TxtCategories;
         private TableLayoutPanel tableLayoutPanel5;
@@ -970,18 +844,12 @@ namespace App.Views.Views.Product
         private Label label10;
         private Label label12;
         private Label label13;
-        private TableLayoutPanel tbl_lstVer;
-        private TableLayoutPanel tableLayoutPanel6;
-        private Label label14;
-        private Label label16;
-        private Label label17;
-        private Label label18;
         private TableLayoutPanel tableLayoutPanel7;
         private Label LblName;
         private Panel panel7;
         private FontAwesome.Sharp.IconButton Btn_Sale;
         private FontAwesome.Sharp.IconButton Btn_Status;
-        private FlowLayoutPanel flowLayoutPanel1;
-        private VBButton vbButton1;
+        private FlowLayoutPanel TblminiImgs;
+        private FlowLayoutPanel TblPV;
     }
 }

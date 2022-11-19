@@ -1,6 +1,6 @@
 ﻿using App.Business.Models.Products;
 using App.Business.Sevices.Products;
-using App.Data.Ultilities.Catalog.Product;
+using App.Data.Ultilities.Catalog.Products;
 using App.Data.Ultilities.Enums;
 using App.Views.Models.Controls;
 using FontAwesome.Sharp;
@@ -235,9 +235,6 @@ namespace App.Views.Views.Product
             (e.KeyChar != '.'))
             {
                 e.Handled = true;
-            }
-            else
-            {
                 MessageBox.Show("Chỉ được phép nhập số !");
             }
         }

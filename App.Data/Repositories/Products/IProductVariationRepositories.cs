@@ -12,5 +12,6 @@ namespace App.Data.Repositories.Products
     {
         Task<bool> ChangeStatus(int pvId, bool status);
         Task<bool> GetPaging(bool status, string keyword,bool[] oder, bool[] oderby);// trạng thái, từ khóa, sắp xếp tăng giảm, sắp xếp theo
+        Task<List<ProductVariation>> GetByProductId(int pId);
     }
 }

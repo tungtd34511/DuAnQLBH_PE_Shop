@@ -1,7 +1,6 @@
 ﻿using App.Data.Context;
 using App.Data.Entities;
 using App.Data.Repositories.Base;
-using App.Data.Ultilities.Catalog.Product;
 using App.Data.Ultilities.Common;
 using App.Data.Ultilities.PagingModels;
 using App.Data.Ultilities.Enums;
@@ -12,6 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using App.Data.Ultilities.ViewModels;
+using App.Data.Ultilities.Recursives;
+using App.Data.Ultilities.Catalog.Products;
 
 namespace App.Data.Repositories.Products
 {
@@ -25,10 +26,12 @@ namespace App.Data.Repositories.Products
 
         public async Task<PagedResult<ProductInPaging>> GetAllPaging1(GetPagingProductRequest request) // Lấy cho trang Quản lý sản phẩm
         {
+            var list = new List<ProductInQuery>();
+            int totalRow = 0;
             //1. Select join
             var query = from p in _context.Products
                         join pd in _context.ProductDetails on p.Id equals pd.ProductId
-                        select new { p, pd };
+                        select new {p, pd};
 
             //2. filter
             if (!string.IsNullOrEmpty(request.Keyword))
@@ -40,25 +43,62 @@ namespace App.Data.Repositories.Products
             }
             if (request.OderBy != 0) // oder by dropdowlisst in Form ProductIndex
             {
-                //Oder by
+                switch (request.OderBy)
+                {
+                    case 1:
+                        break;
+                    case 2:
+                        query = query.OrderByDescending(c => c.p.Id);
+                        break;
+                    case 3:
+                        query = query.OrderBy(c => c.pd.Name);
+                        break;
+                    case 4:
+                        query = query.OrderByDescending(c => c.pd.Name);
+                        break;
+                    case 5:
+                        query = query.OrderBy(c => c.p.Price);
+                        break;
+                    case 6:
+                        query = query.OrderByDescending(c => c.p.Price);
+                        break;
+                    case 7:
+                        query = query.OrderByDescending(c => c.p.Status);
+                        break;
+                    case 8:
+                        query = query.OrderBy(c => c.p.Status);
+                        break;
+                    case 9:
+                        query = query.OrderBy(c => c.p.DateCreated);
+                        break;
+                    case 10:
+                        query = query.OrderByDescending(c => c.p.DateCreated);
+                        break;
+                }
             }
-            //if (request.Checks.Any(c => c))
-            //{
-            //    // Lọc theo nhiều giá trị
-            //}
-            //3. Paging
-            int totalRow = await query.CountAsync();
 
-            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+
+            list = await query.Select(c => new ProductInQuery() { Product = c.p, ProductDetail = c.pd }).ToListAsync();
+            totalRow = list.Count;
+            //
+            if (request.Checks != null && request.Checks.Any(c => c == true))
+            {
+                listCBox = request.Checks;
+                list =  list.Where(c => GetResultFilter(c.Product.Id)).ToList();
+                totalRow = list.Count;
+            }
+            //3.Paging
+
+            var data =  list.Skip((request.PageIndex - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .Select(x => new ProductInPaging()
                 {
-                    Id = x.p.Id,
-                    Name = x.pd.Name,
-                    Status = x.p.Status,
-                    Description = x.pd.Description,
-                    Price = x.p.Price
-                }).ToListAsync();
+                    Id = x.Product.Id,
+                    Name = x.ProductDetail.Name,
+                    Status = x.Product.Status,
+                    Description = x.ProductDetail.Description,
+                    Price = x.Product.Price
+                }).ToList();
             //4. Select 
 
             var pagedResult = new PagedResult<ProductInPaging>()
@@ -105,6 +145,98 @@ namespace App.Data.Repositories.Products
                 UnitId = unit.Id,
                 UnitName = unit.Name,
             };
+        }
+        public bool[] listCBox { get; set; }
+        public  bool GetResultFilter(int productid)
+        {//Sử dụng đệ quy lấy kết quả cho list điều kiện
+            var dequy = new LstCheckRecursive();
+            int index = 0;
+            List<bool> listMain = new List<bool>();//Tổng kết các kết quả
+            //{ "GIỚI TÍNH", "GIÁ", "NHÓM HÀNG", "TÌNH TRẠNG", "THƯƠNG HIỆU"};
+            //List điều kiện
+            //
+            List<bool> listkq3 = new List<bool>();
+            var cartergories =_context.Categories.Where(c => c.IsDeleted == false).Select(c => c.Id).ToList();
+            var productcategories =  _context.ProductInCategories.Where(c => c.ProductId == productid).Select(c => c.CategoryId).ToList();
+            foreach (var a in cartergories)
+            {
+                if (listCBox[index++])
+                {
+                    listkq3.Add(productcategories.Contains(a));
+                }
+            }
+            if (listkq3.Count > 0)
+            {
+                listMain.Add(dequy.GetBoolHoac(listkq3)); //sử dụng get bool2 vì cùng một nhóm sẽ dùng toán tử hoặc ||
+            }
+            //
+            List<bool> listkq4 = new List<bool>();
+            var colors = _context.Colors.Where(c => c.IsDeleted == false).Select(c => c.Id).ToList();
+            var PVs = _context.ProductVariations.Where(c => c.ProductId == productid).Select(c => c.ColorId).ToList();
+            foreach (var a in colors)
+            {
+                if (listCBox[index++])
+                {
+                    listkq4.Add(PVs.Contains(a));
+                }
+            }
+            if (listkq4.Count > 0)
+            {
+                listMain.Add(dequy.GetBoolHoac(listkq4)); //sử dụng get bool2 vì cùng một nhóm sẽ dùng toán tử hoặc ||
+            }
+            //
+            List<bool> listkq5 = new List<bool>();
+            var sizes = _context.Sizes.Where(c => c.IsDeleted == false).Select(c => c.Id).ToList();
+            var PV2s = _context.ProductVariations.Where(c => c.ProductId == productid).Select(c => c.SizeId).ToList();
+            foreach (var a in sizes)
+            {
+                if (listCBox[index++])
+                {
+                    listkq5.Add(PV2s.Contains(a));
+                }
+            }
+            if (listkq5.Count > 0)
+            {
+                listMain.Add(dequy.GetBoolHoac(listkq5)); //sử dụng get bool2 vì cùng một nhóm sẽ dùng toán tử hoặc ||
+            }
+            //
+            List<bool> listkq2 = new List<bool>();
+            List<decimal> lstGia = new() { 199000, 299000, 399000, 499000, 799000, 999000 };
+            var product = Entities.FirstOrDefault(c => c.Id == productid);
+            for (int i = 0; i <= lstGia.Count; i++)//đệt mợ cái bug khốn nạn sai dấu >=
+            {
+                if (listCBox[index++])
+                {
+                    if (product != null)
+                    {
+                        if (i == 0)
+                        {
+                            listkq2.Add(product.Price < lstGia[i]);
+                        }
+                        else if (i == lstGia.Count)
+                        {
+                            listkq2.Add(product.Price > lstGia[lstGia.Count - 1]);
+                        }
+                        else
+                        {
+                            listkq2.Add((product.Price >= lstGia[i - 1]) && (product.Price <= lstGia[i]));
+                        }
+                    }
+                }
+            }
+            if (listkq2.Count > 0)
+            {
+                listMain.Add(dequy.GetBoolHoac(listkq2)); //sử dụng get bool2 vì cùng một nhóm sẽ dùng toán tử hoặc ||
+            }
+
+            if (listMain.Count > 0)
+            {
+                return dequy.GetBoolVa(listMain);//ĐỆ quy giửa các nhóm đệ quy là và và
+            }
+            else
+            {
+                return true;//Hiện thị tất cả nếu không check box nào đc chọn
+            }
         }
     }
 }

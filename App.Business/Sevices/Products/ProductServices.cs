@@ -6,7 +6,7 @@ using App.Data.Repositories.Catalog.Images;
 using App.Data.Repositories.Catalog.Categories;
 using App.Data.Repositories.Catalog.Manufacturers;
 using App.Data.Repositories.Products;
-using App.Data.Ultilities.Catalog.Product;
+using App.Data.Ultilities.Catalog.Products;
 using App.Data.Ultilities.Common;
 using App.Data.Ultilities.PagingModels;
 using App.Data.Ultilities.ViewModels;
@@ -29,8 +29,8 @@ namespace App.Business.Sevices.Products
         private readonly IProductDetailRepositories _detailRepositories;
         private readonly ISizeRepositories _sizeRepositories;
         private readonly IColorRepositories _colorRepositories;
-
-        public ProductServices(IProductRepositories productRepositories, IProductDetailRepositories productDetailRepositories, IStorageService storageService, IProductImageRepositories productImageRepositories, ICategoryRepositories categoryRepositories, IManufacturerRepositories manufacturerRepositories, IUnitRepositories unitRepositories, IProductInCategoryRepositories productInCategoryRepositories, ISizeRepositories sizeRepositories = null, IColorRepositories colorRepositories = null)
+        private readonly IProductVariationRepositories _productVariationRepositories;
+        public ProductServices(IProductRepositories productRepositories, IProductDetailRepositories productDetailRepositories, IStorageService storageService, IProductImageRepositories productImageRepositories, ICategoryRepositories categoryRepositories, IManufacturerRepositories manufacturerRepositories, IUnitRepositories unitRepositories, IProductInCategoryRepositories productInCategoryRepositories, ISizeRepositories sizeRepositories = null, IColorRepositories colorRepositories = null, IProductVariationRepositories productVariationRepositories = null)
         {
             _productRepositories = productRepositories;
             _storageService = storageService;
@@ -42,6 +42,7 @@ namespace App.Business.Sevices.Products
             _detailRepositories = productDetailRepositories;
             _sizeRepositories = sizeRepositories;
             _colorRepositories = colorRepositories;
+            _productVariationRepositories = productVariationRepositories;
         }
         public async Task<DataForProductFilter> GetDataForFilter()
         {
@@ -115,66 +116,76 @@ namespace App.Business.Sevices.Products
             return await _productRepositories.GetById(Id);
         }
 
-        public async Task<bool> Update(UpdateProductRequest request)
+        public async Task<bool> Update(UpdateProductRequest request, bool dispose)
         {
-            var productdetail = new ProductDetail()
+            try
             {
-                ProductId = request.Id,
-                Description = request.Description,
-                Details = request.Details,
-                Gender = request.Gender,
-                ManufacturerId = request.ManufacturerId,
-                Name = request.Name,
-                UnitId = request.UnitId
-            };
-            var product = new Product()
-            {
-                Id = request.Id,
-                Price = request.Price,
-                OriginalPrice = request.OriginalPrice,
-                Status = request.Status,
-                DateCreated = DateTime.Now,
-                ProductDetail = productdetail
-            };
-            //DeleteImage
-            var deletedimgCount = request.DeletedImgs.Count;
-            if (deletedimgCount > 0)
-            {
-                if (await _productImageRepositories.DeleteManyByRequest(new DeleteImageRequest()
+                var productdetail = await _detailRepositories.GetAsync(new object[] { request.Id });
+                productdetail.ManufacturerId = request.ManufacturerId;
+                productdetail.UnitId = request.UnitId;
+                productdetail.Name = request.Name;
+                productdetail.Details = request.Details;
+                productdetail.Description = request.Description;
+                productdetail.Gender = request.Gender;
+                await _detailRepositories.UpdateOneAsync(productdetail);
+                var product = await _productRepositories.GetAsync(new object[] { request.Id });
+                product.Status = request.Status;
+                product.OriginalPrice = request.OriginalPrice;
+                product.Price = request.Price;
+                await _productRepositories.UpdateOneAsync(product);
+                //DeleteImage
+                var deletedimgCount = request.DeletedImgs.Count;
+                if (deletedimgCount > 0)
                 {
-                    ProductId = request.Id,
-                    Paths = request.DeletedImgs.ToArray()
-                }))
-                {
-                    for (int i = 0; i < deletedimgCount; i++)
+                    if (await _productImageRepositories.DeleteManyByRequest(new DeleteImageRequest()
                     {
-                        var path = request.DeletedImgs[i];
-                        if (File.Exists(path))
+                        ProductId = request.Id,
+                        Paths = request.DeletedImgs.ToArray()
+                    }))
+                    {
+                        for (int i = 0; i < deletedimgCount; i++)
                         {
-                            File.Delete(path);
-                        }
-                    };
+                            var path = request.DeletedImgs[i];
+                            await _storageService.DeleteFileAsync(path);
+                        };
+                    }
                 }
-            }
-            //Save image
-            var imgCount = request.NewImgs.Count;
-            if (imgCount > 0)
-            {
-                product.ProductImages = new List<ProductImage>();
-                var lstimg = new List<ProductImage>();
-                for (int i = 0; i < imgCount; i++)
+                //Save image
+                var imgCount = request.NewImgs.Count;
+                if (imgCount > 0)
                 {
-                    lstimg.Add(new ProductImage()
+                    var lstimg = new List<ProductImage>();
+                    for (int i = 0; i < imgCount; i++)
                     {
-                        ImagePath = await SaveFile(request.NewImgs[i])
-                    });
-                };
+                        lstimg.Add(new ProductImage()
+                        {
+                            ImagePath = await SaveFile(request.NewImgs[i]),
+                            ProductId = request.Id
+                        });
+                    };
+                    await _productImageRepositories.AddManyAsync(lstimg);
+                }
+
+                await _productInCategoryRepositories.AddManyAsync(request.NewCategories.Select(c => new ProductInCategory()
+                {
+                    CategoryId = c,
+                    ProductId = product.Id,
+                }));
+                await _productInCategoryRepositories.DeleteManyAsync(request.DeletedCategories.Select(c => new ProductInCategory()
+                {
+                    CategoryId = c,
+                    ProductId = product.Id,
+                }));
+                return true;
             }
-            return await _productRepositories.UpdateOneAsync(product);
+            catch 
+            {
+
+                return false;
+            }
         }
         public async Task<string> SaveFile(string path)
         {
-            String.IsNullOrEmpty(name);
             Stream stream = File.OpenRead(path);
             var originalFileName = Path.GetFileName(path);
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
@@ -199,6 +210,10 @@ namespace App.Business.Sevices.Products
         public async Task<bool> ContainsName(string name)
         {
             return await _detailRepositories.ContainsName(name);
+        }
+        public async Task<List<ProductVariation>> GetPvbyId (int productid)
+        {
+            return await _productVariationRepositories.GetByProductId(productid);
         }
     }
 }

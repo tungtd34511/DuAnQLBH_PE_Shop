@@ -1,6 +1,7 @@
 ﻿using App.Data.Context;
 using App.Data.Entities;
 using App.Data.Repositories.Base;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,11 @@ namespace App.Data.Repositories.Products
             pv.IsDeleted = status;
             Entities.Update(pv);
             return await _context.SaveChangesAsync()>0;
+        }
+
+        public async Task<List<ProductVariation>> GetByProductId(int pId)
+        {
+            return await Entities.Where(c=>c.ProductId== pId).ToListAsync();
         }
 
         public Task<bool> GetPaging(bool status, string keyword, bool[] oder, bool[] oderby)

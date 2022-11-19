@@ -32,7 +32,7 @@ namespace App.Data.Repositories.Base
         public async Task<bool> DeleteManyAsync(IEnumerable<TEntity> entity)
         {
             Entities.RemoveRange(entity);
-            return await _context.SaveChangesAsync() > 1;
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> DeleteOneAsync(object[] keys)
@@ -58,13 +58,13 @@ namespace App.Data.Repositories.Base
         public async Task<bool> UpdateManyAsync(IEnumerable<TEntity> entity)
         {
             Entities.UpdateRange(entity);
-            return await _context.SaveChangesAsync() > 1;
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> UpdateOneAsync(TEntity entity)
         {
             Entities.Update(entity);
-            return await _context.SaveChangesAsync() > 1;
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

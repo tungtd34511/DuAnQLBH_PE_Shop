@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Data.Ultilities.Catalog.Product
+namespace App.Data.Ultilities.Catalog.Products
 {
     public class UpdateProductRequest
     {
@@ -19,6 +19,8 @@ namespace App.Data.Ultilities.Catalog.Product
         public Gender Gender { set; get; }
         public int UnitId { get; set; }
         public int ManufacturerId { set; get; }
+        public List<int> NewCategories { get; set; } = new List<int>();
+        public List<int> DeletedCategories { get; set; } = new List<int>();
         public List<string> NewImgs { get; set; } = new List<string>();
         public List<string> DeletedImgs { get; set; } = new List<string>();
     }

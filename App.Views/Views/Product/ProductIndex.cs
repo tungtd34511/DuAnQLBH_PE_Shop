@@ -1,9 +1,12 @@
 ﻿using App.Business.Sevices.Products;
-using App.Data.Ultilities.Catalog.Product;
+using App.Data.Ultilities.Catalog.Products;
 using App.Data.Ultilities.Common;
+using App.Data.Ultilities.Enums;
 using App.Data.Ultilities.PagingModels;
 using App.Views.Models.Controls;
 using Microsoft.Extensions.DependencyInjection;
+using System.Windows.Documents;
+using System.Windows.Forms;
 
 namespace App.Views.Views.Product
 {
@@ -11,7 +14,7 @@ namespace App.Views.Views.Product
     {
         private readonly IServiceProvider _serviceProvide;
         private readonly IProductServices _productServices;
-        public GetPagingProductRequest Request { get; set; } = new() { Checks = null, OderBy = 0, PageSize = 20, PageIndex = 1, Keyword = "", UnHide = false };
+        public GetPagingProductRequest Request { get; set; } = new();
         public PagedResult<ProductInPaging> Result { get; set; } = new();
 
         public VBButton _btnBack = new VBButton();
@@ -27,8 +30,10 @@ namespace App.Views.Views.Product
         {
             await LoadFilters();
             await LoadViewTable();
+            await LoadMenuPaging();
         }
         //Load Filter
+        public List<CheckBox> CheckBoxes { get; set; } = new(); // List check box trong View
         public async Task LoadFilters()
         {
             var titles = new List<string>() { "Danh Mục", "Kích Cỡ", "Màu Sắc", "Giá"/*, "Khác" */};
@@ -62,6 +67,7 @@ namespace App.Views.Views.Product
                 vbButton10.FlatAppearance.BorderSize = 0;
                 vbButton10.FlatStyle = FlatStyle.Flat;
                 vbButton10.ForeColor = Color.White;
+                vbButton10.Font = new Font("Segoe UI", 10, FontStyle.Bold);
                 vbButton10.IconChar = FontAwesome.Sharp.IconChar.None;
                 vbButton10.IconColor = Color.Black;
                 vbButton10.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -88,7 +94,7 @@ namespace App.Views.Views.Product
 
                 foreach (var ctl in lstList[index])
                 {
-                    flowLayoutPanel1.Controls.Add(new CheckBox()
+                    var check = new CheckBox()
                     {
                         AutoSize = true,
                         Dock = DockStyle.Top,
@@ -96,9 +102,15 @@ namespace App.Views.Views.Product
                         Size = new Size(101, 24),
                         Text = ctl,
                         UseVisualStyleBackColor = true
-                    });
+                    };
+                    check.Click += async (o, s) =>
+                    {
+                        await Check_Click();
+                    };
+                    flowLayoutPanel1.Controls.Add(check);
+                    CheckBoxes.Add(check);
                 };
-                var heigh = (lstList[index].Count * 30)+10;
+                var heigh = (lstList[index].Count * 30) + 10;
                 flowLayoutPanel1.Height = heigh;
                 //
                 tableLayoutPanel6.Controls.Add(vbButton10, 0, 0);
@@ -129,7 +141,14 @@ namespace App.Views.Views.Product
                 vbButton3.FlatAppearance.BorderSize = 0;
                 vbButton3.FlatStyle = FlatStyle.Flat;
                 vbButton3.ForeColor = Color.White;
-                vbButton3.IconChar = FontAwesome.Sharp.IconChar.EyeSlash;
+                if (item.Status == ProductStatus.Active)
+                {
+                    vbButton3.IconChar = FontAwesome.Sharp.IconChar.EyeSlash;
+                }
+                else
+                {
+                    vbButton3.IconChar = FontAwesome.Sharp.IconChar.Eye;
+                }
                 vbButton3.IconColor = Color.Black;
                 vbButton3.IconFont = FontAwesome.Sharp.IconFont.Solid;
                 vbButton3.IconSize = 27;
@@ -138,6 +157,10 @@ namespace App.Views.Views.Product
                 vbButton3.Size = new Size(34, 34);
                 vbButton3.TextColor = Color.White;
                 vbButton3.UseVisualStyleBackColor = false;
+                vbButton3.Click += async (o, s) =>
+                {
+                    await BtnHide_Click(id1,item.Status);
+                };
                 //
                 var vbButton2 = new VBButton();
                 vbButton2.BackColor = Color.MediumSlateBlue;
@@ -152,11 +175,15 @@ namespace App.Views.Views.Product
                 vbButton2.IconColor = Color.Black;
                 vbButton2.IconFont = FontAwesome.Sharp.IconFont.Solid;
                 vbButton2.IconSize = 27;
-                vbButton2.Name = "vbButton2_"+id;
+                vbButton2.Name = "vbButton2_" + id;
                 vbButton2.Padding = new Padding(0, 3, 0, 0);
                 vbButton2.Size = new Size(34, 34);
                 vbButton2.TextColor = Color.White;
                 vbButton2.UseVisualStyleBackColor = false;
+                vbButton2.Click += async (o, s) =>
+                {
+                    await BtnEdit_Click(id1);
+                };
                 //
                 var label4 = new Label
                 {
@@ -165,7 +192,7 @@ namespace App.Views.Views.Product
                     Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point),
                     ForeColor = Color.Black,
                     Name = "label4",
-                    Text = (index+1).ToString()
+                    Text = (index + 1).ToString()
                 };
 
                 var label5 = new Label
@@ -228,7 +255,7 @@ namespace App.Views.Views.Product
                 vbButton1.IconColor = Color.Black;
                 vbButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
                 vbButton1.IconSize = 27;
-                vbButton1.Name = "vbButton1_"+id;
+                vbButton1.Name = "vbButton1_" + id;
                 vbButton1.Padding = new Padding(0, 3, 0, 0);
                 vbButton1.Size = new Size(34, 34);
                 vbButton1.TextColor = Color.White;
@@ -270,9 +297,23 @@ namespace App.Views.Views.Product
                 //
                 index++;
             }
+            lblResult.Text = Result.TotalRecords.ToString() + " Kết quả";
+        }
+        public async Task LoadMenuPaging()
+        {
+            try
+            {
+
+                TxtPageIndex.Text = Result.PageIndex.ToString();
+                LblPageLastIndex.Text = "/" + Result.PageCount.ToString();
+            }
+            catch
+            {
+
+            }
         }
         #endregion
-        //Details Event cho button Detail;
+        #region Details Event cho button Detail;
         private async Task BtnDetail_Click(int Id)
         {
             var frmDetail = _serviceProvide.GetRequiredService<ProductDetails>();
@@ -287,35 +328,69 @@ namespace App.Views.Views.Product
             this.Controls[0].Visible = false;
             frmDetail.Show();
         }
-        private void vbButton1_Click(object sender, EventArgs e)
+        private async Task BtnEdit_Click(int Id)
         {
-            this.Controls[0].Visible = false;
-            var frmDetail = _serviceProvide.GetRequiredService<ProductDetails>();
-            frmDetail.TopLevel = false;
-            this.Controls.Add(frmDetail);
-            frmDetail.Show();
-            frmDetail.BtnBack.Click += (o, s) =>
-            {
-                frmDetail.Hide();
-                this.Controls[0].Visible = true;
-                frmDetail.Close();
-            };
-        }
-
-        //UpdateProduct
-        private void vbButton2_Click(object sender, EventArgs e)
-        {
-            this.Controls[0].Visible = false;
             var frmDetail = _serviceProvide.GetRequiredService<UpdateProduct>();
             frmDetail.TopLevel = false;
+            frmDetail.Product = await _productServices.GetById(Id);
             this.Controls.Add(frmDetail);
-            frmDetail.Show();
-            frmDetail.BtnBack.Click += (o, s) =>
+            frmDetail.FormClosed += async (o, s) =>
             {
-                frmDetail.Hide();
+                Result = await _productServices.GetAllPaging(Request);
+                await LoadViewTable();
+                await LoadMenuPaging();
                 this.Controls[0].Visible = true;
-                frmDetail.Close();
             };
+            this.Controls[0].Visible = false;
+            frmDetail.Show();
+        }
+        private async Task BtnHide_Click(int Id,ProductStatus status)
+        {
+            if (status == ProductStatus.Active)
+            {
+                if (MessageBox.Show("Bạn có muốn ẩn sản phẩm ?", "PE-SHOP", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    var result = await _productServices.ChangeStatus(new ChangeStatusProductRequest() { Id = Id, Status = ProductStatus.InActive });
+                    if (result)
+                    {
+                        MessageBox.Show("Ẩn sản phẩm thành công !");
+                        Result = await _productServices.GetAllPaging(Request);
+                        await LoadViewTable();
+                        await LoadMenuPaging();
+                    }
+                }
+            }
+            else
+            {
+                if (MessageBox.Show("Bạn có muốn hiện sản phẩm ?", "PE-SHOP", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    var result = await _productServices.ChangeStatus(new ChangeStatusProductRequest() { Id = Id, Status = ProductStatus.Active });
+                    if (result)
+                    {
+                        MessageBox.Show("Hiện sản phẩm thành công !");
+                        Result = await _productServices.GetAllPaging(Request);
+                        await LoadViewTable();
+                        await LoadViewTable();
+                    }
+                }
+            }
+        }
+        private async Task Check_Click()
+        {
+            Request = new();
+            Result = await _productServices.GetAllPaging(await GetPagingRequest());
+            await LoadViewTable();
+            await LoadMenuPaging();
+        }
+        #endregion
+
+        private async Task<GetPagingProductRequest> GetPagingRequest()
+        {
+            Request.Checks = CheckBoxes.Select(c => c.Checked).ToArray();
+            Request.Keyword = Txt_Search.Text;
+            Request.UnHide = CheckUnHide.Checked;
+            Request.OderBy = Comb_OderBy.SelectedIndex;
+            return Request;
         }
         //Create
         private async void BtnCreate_Click(object sender, EventArgs e)
@@ -325,28 +400,122 @@ namespace App.Views.Views.Product
             frmDetail._data = await _productServices.GetDataForCreate();
             await frmDetail.LoadDataToView();
             this.Controls.Add(frmDetail);
-            frmDetail.FormClosed += (o, s) =>
+            frmDetail.FormClosed += async (o, s) =>
             {
+                Result = await _productServices.GetAllPaging(Request);
+                await LoadViewTable();
+                await LoadMenuPaging();
                 this.Controls[0].Visible = true;
             };
             this.Controls[0].Visible = false;
             frmDetail.Show();
         }
-
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void flowLayoutPanel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private async void ProductIndex_Load(object sender, EventArgs e)
         {
             Result = await _productServices.GetAllPaging(Request);
+
             await LoadForm();
         }
+        #region Paging
+        private async void CheckUnHide_CheckedChanged(object sender, EventArgs e)
+        {
+            await Check_Click();
+        }
+        private async void Btn_Search_Click(object sender, EventArgs e)
+        {
+            await Check_Click();
+        }
+        private async void Comb_OderBy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            await Check_Click();
+        }
+        private async Task PageIndex_Changed()
+        {
+            Result = await _productServices.GetAllPaging(await GetPagingRequest());
+            await LoadViewTable();
+            await LoadMenuPaging();
+        }
+
+        private async void btn_firt_Click(object sender, EventArgs e)
+        {
+            if (Result.PageIndex != 1)
+            {
+                await PageIndex_Changed();
+            }
+            else
+            {
+                MessageBox.Show("Đã là trang đầu tiên!");
+            }
+        }
+
+        private async void btn_Prev_Click(object sender, EventArgs e)
+        {
+            if (Result.PageIndex > 1)
+            {
+                await PageIndex_Changed();
+            }
+            else
+            {
+                MessageBox.Show("Đã là trang đầu tiên!");
+            }
+        }
+
+        private async void TxtPageIndex_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                var index = Convert.ToInt32(TxtPageIndex.Text);
+                if (index > 0 && index < Result.PageSize)
+                {
+                    Result.PageIndex = index;
+                    await PageIndex_Changed();
+                }
+                else
+                {
+                    TxtPageIndex.Text = Result.PageIndex.ToString();
+                    MessageBox.Show("Số trang phải lớn hơn 0 và nhỏ hơn hoặc bằng tổng số lượng trang!");
+                }
+            }
+            catch
+            {
+                TxtPageIndex.Text = Result.PageIndex.ToString();
+            }
+        }
+
+        private async void btn_next_Click(object sender, EventArgs e)
+        {
+            if (Result.PageIndex < Result.PageSize)
+            {
+                await PageIndex_Changed();
+            }
+            else
+            {
+                MessageBox.Show("Đã là trang cuối!");
+            }
+        }
+
+        private async void btn_last_Click(object sender, EventArgs e)
+        {
+            if (Result.PageIndex < Result.PageSize)
+            {
+                await PageIndex_Changed();
+            }
+            else
+            {
+                MessageBox.Show("Đã là trang cuối!");
+            }
+        }
+
+        private void TxtPageIndex_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+            (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+                MessageBox.Show("Chỉ được phép nhập số !");
+            }
+        }
+        #endregion
+
     }
 }

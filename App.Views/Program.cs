@@ -48,6 +48,7 @@ namespace App.Views
                 {
                     services.AddDbContext<QLBH_Context>(options =>
                     options.UseSqlServer(@"Data Source=TUNGHACK\SQLEXPRESS;Initial Catalog=DU_AN_QuanLyBanHang_PE_SHOP;Integrated Security=True"));
+                    services.AddTransient<IProductVariationRepositories,ProductVariationRepositories>();
                     services.AddTransient<IColorRepositories,ColorRepositories>();
                     services.AddTransient<ISizeRepositories,SizeRepositories>();
                     services.AddTransient<IProductVariationRepositories, ProductVariationRepositories>();
