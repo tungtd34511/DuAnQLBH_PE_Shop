@@ -16,8 +16,6 @@ namespace App.Views.Views.Product
         private readonly IProductServices _productServices;
         public GetPagingProductRequest Request { get; set; } = new();
         public PagedResult<ProductInPaging> Result { get; set; } = new();
-
-        public VBButton _btnBack = new VBButton();
         public ProductIndex(IServiceProvider serviceProvide, IProductServices productServices)
         {
             InitializeComponent();
@@ -268,6 +266,10 @@ namespace App.Views.Views.Product
                 var tableLayoutPanel4 = new TableLayoutPanel();
                 tableLayoutPanel4.BackColor = Color.White;
                 tableLayoutPanel4.ColumnCount = 9;
+                if (index % 2 == 0)
+                {
+                    tableLayoutPanel4.BackColor = Color.Gainsboro;
+                }
                 tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 56F));
                 tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 71F));
                 tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 399F));
@@ -410,12 +412,6 @@ namespace App.Views.Views.Product
             this.Controls[0].Visible = false;
             frmDetail.Show();
         }
-        private async void ProductIndex_Load(object sender, EventArgs e)
-        {
-            Result = await _productServices.GetAllPaging(Request);
-
-            await LoadForm();
-        }
         #region Paging
         private async void CheckUnHide_CheckedChanged(object sender, EventArgs e)
         {
@@ -517,5 +513,10 @@ namespace App.Views.Views.Product
         }
         #endregion
 
+        private async void ProductIndex_Load(object sender, EventArgs e)
+        {
+            Result = await _productServices.GetAllPaging(Request);
+            await LoadForm();
+        }
     }
 }

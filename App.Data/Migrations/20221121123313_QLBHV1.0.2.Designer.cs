@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App.Data.Migrations
 {
     [DbContext(typeof(QLBH_Context))]
-    [Migration("20221117143639_V1.0.1")]
-    partial class V101
+    [Migration("20221121123313_QLBHV1.0.2")]
+    partial class QLBHV102
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,6 +32,12 @@ namespace App.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("CartIndex")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("CustomerMoney")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("CustomerName")
                         .HasColumnType("nvarchar(max)");
 
@@ -42,9 +48,6 @@ namespace App.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShipEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ShipName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShipPhoneNumber")

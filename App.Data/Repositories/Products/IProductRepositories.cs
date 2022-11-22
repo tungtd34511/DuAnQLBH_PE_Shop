@@ -16,5 +16,6 @@ namespace App.Data.Repositories.Products
     {
         Task<PagedResult<ProductInPaging>> GetAllPaging1(GetPagingProductRequest request);
         Task<ProductVm> GetById(int prodcutId);
+        Task<PagedResult<ProductInShoppingVm>> GetPagingForShopping(GetPagingShoppingRequest request);
     }
 }

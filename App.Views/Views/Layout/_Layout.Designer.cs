@@ -33,22 +33,23 @@ namespace App.Views.Views.Layout
         {
             this.Tbl_HomeView = new System.Windows.Forms.TableLayoutPanel();
             this.tbl_Menu = new System.Windows.Forms.TableLayoutPanel();
-            this.vbButton12 = new App.Views.Models.Controls.VBButton();
-            this.vbButton8 = new App.Views.Models.Controls.VBButton();
-            this.vbButton7 = new App.Views.Models.Controls.VBButton();
-            this.vbButton6 = new App.Views.Models.Controls.VBButton();
-            this.vbButton5 = new App.Views.Models.Controls.VBButton();
-            this.vbButton4 = new App.Views.Models.Controls.VBButton();
             this.tbl_Logo = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.vbButton1 = new App.Views.Models.Controls.VBButton();
             this.customPanel1 = new App.Views.Models.Controls.CustomPanel();
             this.button2 = new FontAwesome.Sharp.IconButton();
             this.vbButton2 = new App.Views.Models.Controls.VBButton();
-            this.vbButton3 = new App.Views.Models.Controls.VBButton();
+            this.vbButton12 = new App.Views.Models.Controls.VBButton();
+            this.vbButton8 = new App.Views.Models.Controls.VBButton();
+            this.vbButton7 = new App.Views.Models.Controls.VBButton();
+            this.vbButton6 = new App.Views.Models.Controls.VBButton();
+            this.vbButton5 = new App.Views.Models.Controls.VBButton();
+            this.vbButton4 = new App.Views.Models.Controls.VBButton();
+            this.BtnHome = new App.Views.Models.Controls.VBButton();
             this.vbButton9 = new App.Views.Models.Controls.VBButton();
             this.vbButton10 = new App.Views.Models.Controls.VBButton();
             this.vbButton11 = new App.Views.Models.Controls.VBButton();
+            this.PanlDesktop = new System.Windows.Forms.Panel();
             this.Tbl_HomeView.SuspendLayout();
             this.tbl_Menu.SuspendLayout();
             this.tbl_Logo.SuspendLayout();
@@ -62,6 +63,7 @@ namespace App.Views.Views.Layout
             this.Tbl_HomeView.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17.91667F));
             this.Tbl_HomeView.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 82.08334F));
             this.Tbl_HomeView.Controls.Add(this.tbl_Menu, -1, 0);
+            this.Tbl_HomeView.Controls.Add(this.PanlDesktop, 1, 0);
             this.Tbl_HomeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Tbl_HomeView.Location = new System.Drawing.Point(0, 0);
             this.Tbl_HomeView.Margin = new System.Windows.Forms.Padding(19, 5, 21, 5);
@@ -70,22 +72,21 @@ namespace App.Views.Views.Layout
             this.Tbl_HomeView.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.Tbl_HomeView.Size = new System.Drawing.Size(1920, 991);
             this.Tbl_HomeView.TabIndex = 0;
-            this.Tbl_HomeView.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
             // tbl_Menu
             // 
             this.tbl_Menu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
             this.tbl_Menu.ColumnCount = 1;
             this.tbl_Menu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbl_Menu.Controls.Add(this.tbl_Logo, 0, 0);
+            this.tbl_Menu.Controls.Add(this.customPanel1, 0, 1);
             this.tbl_Menu.Controls.Add(this.vbButton12, 0, 12);
             this.tbl_Menu.Controls.Add(this.vbButton8, 0, 7);
             this.tbl_Menu.Controls.Add(this.vbButton7, 0, 6);
             this.tbl_Menu.Controls.Add(this.vbButton6, 0, 5);
             this.tbl_Menu.Controls.Add(this.vbButton5, 0, 4);
             this.tbl_Menu.Controls.Add(this.vbButton4, 0, 3);
-            this.tbl_Menu.Controls.Add(this.tbl_Logo, 0, 0);
-            this.tbl_Menu.Controls.Add(this.customPanel1, 0, 1);
-            this.tbl_Menu.Controls.Add(this.vbButton3, 0, 2);
+            this.tbl_Menu.Controls.Add(this.BtnHome, 0, 2);
             this.tbl_Menu.Controls.Add(this.vbButton9, 0, 8);
             this.tbl_Menu.Controls.Add(this.vbButton10, 0, 9);
             this.tbl_Menu.Controls.Add(this.vbButton11, 0, 10);
@@ -96,188 +97,19 @@ namespace App.Views.Views.Layout
             this.tbl_Menu.RowCount = 13;
             this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 114F));
-            this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tbl_Menu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
             this.tbl_Menu.Size = new System.Drawing.Size(344, 991);
             this.tbl_Menu.TabIndex = 0;
-            this.tbl_Menu.Paint += new System.Windows.Forms.PaintEventHandler(this.tbl_Menu_Paint);
-            // 
-            // vbButton12
-            // 
-            this.vbButton12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
-            this.vbButton12.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
-            this.vbButton12.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.vbButton12.BorderRadius = 5;
-            this.vbButton12.BorderSize = 0;
-            this.vbButton12.FlatAppearance.BorderSize = 0;
-            this.vbButton12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.vbButton12.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.vbButton12.ForeColor = System.Drawing.Color.White;
-            this.vbButton12.IconChar = FontAwesome.Sharp.IconChar.Home;
-            this.vbButton12.IconColor = System.Drawing.Color.White;
-            this.vbButton12.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.vbButton12.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.vbButton12.Location = new System.Drawing.Point(1, 915);
-            this.vbButton12.Margin = new System.Windows.Forms.Padding(1);
-            this.vbButton12.Name = "vbButton12";
-            this.vbButton12.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
-            this.vbButton12.Size = new System.Drawing.Size(342, 68);
-            this.vbButton12.TabIndex = 12;
-            this.vbButton12.Text = "       Đăng Xuất";
-            this.vbButton12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.vbButton12.TextColor = System.Drawing.Color.White;
-            this.vbButton12.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.vbButton12.UseVisualStyleBackColor = false;
-            // 
-            // vbButton8
-            // 
-            this.vbButton8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
-            this.vbButton8.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
-            this.vbButton8.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.vbButton8.BorderRadius = 5;
-            this.vbButton8.BorderSize = 0;
-            this.vbButton8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.vbButton8.FlatAppearance.BorderSize = 0;
-            this.vbButton8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.vbButton8.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.vbButton8.ForeColor = System.Drawing.Color.White;
-            this.vbButton8.IconChar = FontAwesome.Sharp.IconChar.Home;
-            this.vbButton8.IconColor = System.Drawing.Color.White;
-            this.vbButton8.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.vbButton8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.vbButton8.Location = new System.Drawing.Point(1, 521);
-            this.vbButton8.Margin = new System.Windows.Forms.Padding(1);
-            this.vbButton8.Name = "vbButton8";
-            this.vbButton8.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
-            this.vbButton8.Size = new System.Drawing.Size(342, 68);
-            this.vbButton8.TabIndex = 8;
-            this.vbButton8.Text = "       Danh Mục";
-            this.vbButton8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.vbButton8.TextColor = System.Drawing.Color.White;
-            this.vbButton8.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.vbButton8.UseVisualStyleBackColor = false;
-            // 
-            // vbButton7
-            // 
-            this.vbButton7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
-            this.vbButton7.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
-            this.vbButton7.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.vbButton7.BorderRadius = 5;
-            this.vbButton7.BorderSize = 0;
-            this.vbButton7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.vbButton7.FlatAppearance.BorderSize = 0;
-            this.vbButton7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.vbButton7.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.vbButton7.ForeColor = System.Drawing.Color.White;
-            this.vbButton7.IconChar = FontAwesome.Sharp.IconChar.Home;
-            this.vbButton7.IconColor = System.Drawing.Color.White;
-            this.vbButton7.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.vbButton7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.vbButton7.Location = new System.Drawing.Point(1, 451);
-            this.vbButton7.Margin = new System.Windows.Forms.Padding(1);
-            this.vbButton7.Name = "vbButton7";
-            this.vbButton7.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
-            this.vbButton7.Size = new System.Drawing.Size(342, 68);
-            this.vbButton7.TabIndex = 7;
-            this.vbButton7.Text = "       Khuyến Mãi";
-            this.vbButton7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.vbButton7.TextColor = System.Drawing.Color.White;
-            this.vbButton7.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.vbButton7.UseVisualStyleBackColor = false;
-            // 
-            // vbButton6
-            // 
-            this.vbButton6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
-            this.vbButton6.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
-            this.vbButton6.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.vbButton6.BorderRadius = 5;
-            this.vbButton6.BorderSize = 0;
-            this.vbButton6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.vbButton6.FlatAppearance.BorderSize = 0;
-            this.vbButton6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.vbButton6.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.vbButton6.ForeColor = System.Drawing.Color.White;
-            this.vbButton6.IconChar = FontAwesome.Sharp.IconChar.Home;
-            this.vbButton6.IconColor = System.Drawing.Color.White;
-            this.vbButton6.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.vbButton6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.vbButton6.Location = new System.Drawing.Point(1, 381);
-            this.vbButton6.Margin = new System.Windows.Forms.Padding(1);
-            this.vbButton6.Name = "vbButton6";
-            this.vbButton6.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
-            this.vbButton6.Size = new System.Drawing.Size(342, 68);
-            this.vbButton6.TabIndex = 6;
-            this.vbButton6.Text = "       Hóa Đơn";
-            this.vbButton6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.vbButton6.TextColor = System.Drawing.Color.White;
-            this.vbButton6.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.vbButton6.UseVisualStyleBackColor = false;
-            // 
-            // vbButton5
-            // 
-            this.vbButton5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
-            this.vbButton5.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
-            this.vbButton5.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.vbButton5.BorderRadius = 5;
-            this.vbButton5.BorderSize = 0;
-            this.vbButton5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.vbButton5.FlatAppearance.BorderSize = 0;
-            this.vbButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.vbButton5.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.vbButton5.ForeColor = System.Drawing.Color.White;
-            this.vbButton5.IconChar = FontAwesome.Sharp.IconChar.Home;
-            this.vbButton5.IconColor = System.Drawing.Color.White;
-            this.vbButton5.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.vbButton5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.vbButton5.Location = new System.Drawing.Point(1, 311);
-            this.vbButton5.Margin = new System.Windows.Forms.Padding(1);
-            this.vbButton5.Name = "vbButton5";
-            this.vbButton5.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
-            this.vbButton5.Size = new System.Drawing.Size(342, 68);
-            this.vbButton5.TabIndex = 5;
-            this.vbButton5.Text = "       Sản Phẩm";
-            this.vbButton5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.vbButton5.TextColor = System.Drawing.Color.White;
-            this.vbButton5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.vbButton5.UseVisualStyleBackColor = false;
-            // 
-            // vbButton4
-            // 
-            this.vbButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
-            this.vbButton4.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
-            this.vbButton4.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.vbButton4.BorderRadius = 5;
-            this.vbButton4.BorderSize = 0;
-            this.vbButton4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.vbButton4.FlatAppearance.BorderSize = 0;
-            this.vbButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.vbButton4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.vbButton4.ForeColor = System.Drawing.Color.White;
-            this.vbButton4.IconChar = FontAwesome.Sharp.IconChar.Home;
-            this.vbButton4.IconColor = System.Drawing.Color.White;
-            this.vbButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.vbButton4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.vbButton4.Location = new System.Drawing.Point(1, 241);
-            this.vbButton4.Margin = new System.Windows.Forms.Padding(1);
-            this.vbButton4.Name = "vbButton4";
-            this.vbButton4.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
-            this.vbButton4.Size = new System.Drawing.Size(342, 68);
-            this.vbButton4.TabIndex = 4;
-            this.vbButton4.Text = "       Bán Hàng";
-            this.vbButton4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.vbButton4.TextColor = System.Drawing.Color.White;
-            this.vbButton4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.vbButton4.UseVisualStyleBackColor = false;
             // 
             // tbl_Logo
             // 
@@ -395,33 +227,196 @@ namespace App.Views.Views.Layout
             this.vbButton2.TextColor = System.Drawing.Color.White;
             this.vbButton2.UseVisualStyleBackColor = false;
             // 
-            // vbButton3
+            // vbButton12
             // 
-            this.vbButton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
-            this.vbButton3.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
-            this.vbButton3.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.vbButton3.BorderRadius = 5;
-            this.vbButton3.BorderSize = 0;
-            this.vbButton3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.vbButton3.FlatAppearance.BorderSize = 0;
-            this.vbButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.vbButton3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.vbButton3.ForeColor = System.Drawing.Color.White;
-            this.vbButton3.IconChar = FontAwesome.Sharp.IconChar.Home;
-            this.vbButton3.IconColor = System.Drawing.Color.White;
-            this.vbButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.vbButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.vbButton3.Location = new System.Drawing.Point(1, 171);
-            this.vbButton3.Margin = new System.Windows.Forms.Padding(1);
-            this.vbButton3.Name = "vbButton3";
-            this.vbButton3.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
-            this.vbButton3.Size = new System.Drawing.Size(342, 68);
-            this.vbButton3.TabIndex = 3;
-            this.vbButton3.Text = "       Trang Chủ";
-            this.vbButton3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.vbButton3.TextColor = System.Drawing.Color.White;
-            this.vbButton3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.vbButton3.UseVisualStyleBackColor = false;
+            this.vbButton12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
+            this.vbButton12.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
+            this.vbButton12.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.vbButton12.BorderRadius = 5;
+            this.vbButton12.BorderSize = 0;
+            this.vbButton12.FlatAppearance.BorderSize = 0;
+            this.vbButton12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.vbButton12.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.vbButton12.ForeColor = System.Drawing.Color.White;
+            this.vbButton12.IconChar = FontAwesome.Sharp.IconChar.ReplyAll;
+            this.vbButton12.IconColor = System.Drawing.Color.White;
+            this.vbButton12.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.vbButton12.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.vbButton12.Location = new System.Drawing.Point(1, 922);
+            this.vbButton12.Margin = new System.Windows.Forms.Padding(1);
+            this.vbButton12.Name = "vbButton12";
+            this.vbButton12.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.vbButton12.Size = new System.Drawing.Size(342, 68);
+            this.vbButton12.TabIndex = 12;
+            this.vbButton12.Text = "       Đăng Xuất";
+            this.vbButton12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.vbButton12.TextColor = System.Drawing.Color.White;
+            this.vbButton12.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.vbButton12.UseVisualStyleBackColor = false;
+            // 
+            // vbButton8
+            // 
+            this.vbButton8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
+            this.vbButton8.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
+            this.vbButton8.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.vbButton8.BorderRadius = 5;
+            this.vbButton8.BorderSize = 0;
+            this.vbButton8.FlatAppearance.BorderSize = 0;
+            this.vbButton8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.vbButton8.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.vbButton8.ForeColor = System.Drawing.Color.White;
+            this.vbButton8.IconChar = FontAwesome.Sharp.IconChar.Scroll;
+            this.vbButton8.IconColor = System.Drawing.Color.White;
+            this.vbButton8.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.vbButton8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.vbButton8.Location = new System.Drawing.Point(1, 521);
+            this.vbButton8.Margin = new System.Windows.Forms.Padding(1);
+            this.vbButton8.Name = "vbButton8";
+            this.vbButton8.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.vbButton8.Size = new System.Drawing.Size(342, 68);
+            this.vbButton8.TabIndex = 8;
+            this.vbButton8.Text = "       Danh Mục";
+            this.vbButton8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.vbButton8.TextColor = System.Drawing.Color.White;
+            this.vbButton8.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.vbButton8.UseVisualStyleBackColor = false;
+            // 
+            // vbButton7
+            // 
+            this.vbButton7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
+            this.vbButton7.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
+            this.vbButton7.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.vbButton7.BorderRadius = 5;
+            this.vbButton7.BorderSize = 0;
+            this.vbButton7.FlatAppearance.BorderSize = 0;
+            this.vbButton7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.vbButton7.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.vbButton7.ForeColor = System.Drawing.Color.White;
+            this.vbButton7.IconChar = FontAwesome.Sharp.IconChar.Shopify;
+            this.vbButton7.IconColor = System.Drawing.Color.White;
+            this.vbButton7.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.vbButton7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.vbButton7.Location = new System.Drawing.Point(1, 451);
+            this.vbButton7.Margin = new System.Windows.Forms.Padding(1);
+            this.vbButton7.Name = "vbButton7";
+            this.vbButton7.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.vbButton7.Size = new System.Drawing.Size(342, 68);
+            this.vbButton7.TabIndex = 7;
+            this.vbButton7.Text = "       Khuyến Mãi";
+            this.vbButton7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.vbButton7.TextColor = System.Drawing.Color.White;
+            this.vbButton7.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.vbButton7.UseVisualStyleBackColor = false;
+            // 
+            // vbButton6
+            // 
+            this.vbButton6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
+            this.vbButton6.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
+            this.vbButton6.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.vbButton6.BorderRadius = 5;
+            this.vbButton6.BorderSize = 0;
+            this.vbButton6.FlatAppearance.BorderSize = 0;
+            this.vbButton6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.vbButton6.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.vbButton6.ForeColor = System.Drawing.Color.White;
+            this.vbButton6.IconChar = FontAwesome.Sharp.IconChar.Coins;
+            this.vbButton6.IconColor = System.Drawing.Color.White;
+            this.vbButton6.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.vbButton6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.vbButton6.Location = new System.Drawing.Point(1, 381);
+            this.vbButton6.Margin = new System.Windows.Forms.Padding(1);
+            this.vbButton6.Name = "vbButton6";
+            this.vbButton6.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.vbButton6.Size = new System.Drawing.Size(342, 68);
+            this.vbButton6.TabIndex = 6;
+            this.vbButton6.Text = "       Hóa Đơn";
+            this.vbButton6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.vbButton6.TextColor = System.Drawing.Color.White;
+            this.vbButton6.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.vbButton6.UseVisualStyleBackColor = false;
+            // 
+            // vbButton5
+            // 
+            this.vbButton5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
+            this.vbButton5.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
+            this.vbButton5.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.vbButton5.BorderRadius = 5;
+            this.vbButton5.BorderSize = 0;
+            this.vbButton5.FlatAppearance.BorderSize = 0;
+            this.vbButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.vbButton5.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.vbButton5.ForeColor = System.Drawing.Color.White;
+            this.vbButton5.IconChar = FontAwesome.Sharp.IconChar.Shapes;
+            this.vbButton5.IconColor = System.Drawing.Color.White;
+            this.vbButton5.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.vbButton5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.vbButton5.Location = new System.Drawing.Point(1, 311);
+            this.vbButton5.Margin = new System.Windows.Forms.Padding(1);
+            this.vbButton5.Name = "vbButton5";
+            this.vbButton5.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.vbButton5.Size = new System.Drawing.Size(342, 68);
+            this.vbButton5.TabIndex = 5;
+            this.vbButton5.Text = "       Sản Phẩm";
+            this.vbButton5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.vbButton5.TextColor = System.Drawing.Color.White;
+            this.vbButton5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.vbButton5.UseVisualStyleBackColor = false;
+            this.vbButton5.Click += new System.EventHandler(this.vbButton5_Click);
+            // 
+            // vbButton4
+            // 
+            this.vbButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
+            this.vbButton4.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
+            this.vbButton4.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.vbButton4.BorderRadius = 5;
+            this.vbButton4.BorderSize = 0;
+            this.vbButton4.FlatAppearance.BorderSize = 0;
+            this.vbButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.vbButton4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.vbButton4.ForeColor = System.Drawing.Color.White;
+            this.vbButton4.IconChar = FontAwesome.Sharp.IconChar.CartArrowDown;
+            this.vbButton4.IconColor = System.Drawing.Color.White;
+            this.vbButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.vbButton4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.vbButton4.Location = new System.Drawing.Point(1, 241);
+            this.vbButton4.Margin = new System.Windows.Forms.Padding(1);
+            this.vbButton4.Name = "vbButton4";
+            this.vbButton4.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.vbButton4.Size = new System.Drawing.Size(342, 68);
+            this.vbButton4.TabIndex = 4;
+            this.vbButton4.Text = "       Bán Hàng";
+            this.vbButton4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.vbButton4.TextColor = System.Drawing.Color.White;
+            this.vbButton4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.vbButton4.UseVisualStyleBackColor = false;
+            this.vbButton4.Click += new System.EventHandler(this.vbButton4_Click);
+            // 
+            // BtnHome
+            // 
+            this.BtnHome.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
+            this.BtnHome.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
+            this.BtnHome.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnHome.BorderRadius = 5;
+            this.BtnHome.BorderSize = 0;
+            this.BtnHome.FlatAppearance.BorderSize = 0;
+            this.BtnHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnHome.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.BtnHome.ForeColor = System.Drawing.Color.White;
+            this.BtnHome.IconChar = FontAwesome.Sharp.IconChar.Home;
+            this.BtnHome.IconColor = System.Drawing.Color.White;
+            this.BtnHome.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.BtnHome.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnHome.Location = new System.Drawing.Point(1, 171);
+            this.BtnHome.Margin = new System.Windows.Forms.Padding(1);
+            this.BtnHome.Name = "BtnHome";
+            this.BtnHome.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.BtnHome.Size = new System.Drawing.Size(342, 68);
+            this.BtnHome.TabIndex = 3;
+            this.BtnHome.Text = "       Trang Chủ";
+            this.BtnHome.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnHome.TextColor = System.Drawing.Color.White;
+            this.BtnHome.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnHome.UseVisualStyleBackColor = false;
             // 
             // vbButton9
             // 
@@ -434,7 +429,7 @@ namespace App.Views.Views.Layout
             this.vbButton9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.vbButton9.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.vbButton9.ForeColor = System.Drawing.Color.White;
-            this.vbButton9.IconChar = FontAwesome.Sharp.IconChar.Home;
+            this.vbButton9.IconChar = FontAwesome.Sharp.IconChar.ChartColumn;
             this.vbButton9.IconColor = System.Drawing.Color.White;
             this.vbButton9.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.vbButton9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -461,7 +456,7 @@ namespace App.Views.Views.Layout
             this.vbButton10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.vbButton10.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.vbButton10.ForeColor = System.Drawing.Color.White;
-            this.vbButton10.IconChar = FontAwesome.Sharp.IconChar.Home;
+            this.vbButton10.IconChar = FontAwesome.Sharp.IconChar.UniversalAccess;
             this.vbButton10.IconColor = System.Drawing.Color.White;
             this.vbButton10.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.vbButton10.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -488,7 +483,7 @@ namespace App.Views.Views.Layout
             this.vbButton11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.vbButton11.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.vbButton11.ForeColor = System.Drawing.Color.White;
-            this.vbButton11.IconChar = FontAwesome.Sharp.IconChar.Home;
+            this.vbButton11.IconChar = FontAwesome.Sharp.IconChar.Jira;
             this.vbButton11.IconColor = System.Drawing.Color.White;
             this.vbButton11.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.vbButton11.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -504,6 +499,15 @@ namespace App.Views.Views.Layout
             this.vbButton11.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.vbButton11.UseVisualStyleBackColor = false;
             // 
+            // PanlDesktop
+            // 
+            this.PanlDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PanlDesktop.Location = new System.Drawing.Point(344, 0);
+            this.PanlDesktop.Margin = new System.Windows.Forms.Padding(0);
+            this.PanlDesktop.Name = "PanlDesktop";
+            this.PanlDesktop.Size = new System.Drawing.Size(1576, 991);
+            this.PanlDesktop.TabIndex = 1;
+            // 
             // _Layout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -515,6 +519,7 @@ namespace App.Views.Views.Layout
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "_Layout";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this._Layout_Load);
             this.Tbl_HomeView.ResumeLayout(false);
             this.tbl_Menu.ResumeLayout(false);
             this.tbl_Logo.ResumeLayout(false);
@@ -539,10 +544,11 @@ namespace App.Views.Views.Layout
         private VBButton vbButton6;
         private VBButton vbButton5;
         private VBButton vbButton4;
-        private VBButton vbButton3;
+        private VBButton BtnHome;
         private VBButton vbButton9;
         private VBButton vbButton12;
         private VBButton vbButton10;
         private VBButton vbButton11;
+        private Panel PanlDesktop;
     }
 }

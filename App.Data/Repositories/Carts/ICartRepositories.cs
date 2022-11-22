@@ -10,6 +10,5 @@ namespace App.Data.Repositories.Carts
 {
     public interface ICartRepositories : IBaseRepositories<Cart>
     {
-        Task<string> Hello(string text);
     }
 }

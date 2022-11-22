@@ -30,6 +30,12 @@ namespace App.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("CartIndex")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("CustomerMoney")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("CustomerName")
                         .HasColumnType("nvarchar(max)");
 
@@ -40,9 +46,6 @@ namespace App.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShipEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ShipName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShipPhoneNumber")

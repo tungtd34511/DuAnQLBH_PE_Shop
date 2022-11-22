@@ -44,7 +44,7 @@ namespace App.Views.Views.Product
             btnDelete.ForeColor = Color.White;
             btnDelete.IconChar = IconChar.XmarkCircle;
             btnDelete.IconColor = Color.Red;
-            btnDelete.IconFont = IconFont.Auto;
+            btnDelete.IconFont = IconFont.Solid;
             btnDelete.IconSize = 29;
             btnDelete.Location = new Point(108, 0);
             btnDelete.Name = "btnDelete";

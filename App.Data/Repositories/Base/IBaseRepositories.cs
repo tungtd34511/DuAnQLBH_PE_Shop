@@ -18,6 +18,7 @@ namespace App.Data.Repositories.Base
         Task<bool> DeleteManyAsync(IEnumerable<TEntity> entity); // Xóa 1 loạt
         // Các phương thức sửa
         Task<bool> UpdateOneAsync(TEntity entity); // Sửa 1
+        Task<bool> UpdateManyAsync(IEnumerable<TEntity> entity);
 
     }
 }

@@ -1,4 +1,5 @@
 using App.Business.Sevices.Products;
+using App.Business.Sevices.Shoppings;
 using App.Business.Ultilities.Common;
 using App.Data.Context;
 using App.Data.Entities;
@@ -10,9 +11,11 @@ using App.Data.Repositories.Catalog.Images;
 using App.Data.Repositories.Catalog.Manufacturers;
 using App.Data.Repositories.Catalog.Sizes;
 using App.Data.Repositories.Catalog.Units;
+using App.Data.Repositories.Orders;
 using App.Data.Repositories.Products;
 using App.Views.Views.Layout;
 using App.Views.Views.Product;
+using App.Views.Views.Shopping;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -62,11 +65,19 @@ namespace App.Views
                     services.AddTransient<IManufacturerRepositories, ManufacturerRepositories>();
                     services.AddTransient<IProductServices, ProductServices>();
                     services.AddTransient<ICartRepositories, CartRepositories>();
+                    services.AddTransient<IProductInCartRepositories,ProductInCartRepositories>();
+                    services.AddTransient<IOrderRepositories,OrderRepositories>();
+                    //
+                    services.AddTransient<IShoppingService,ShoppingService>();
+
+                    //
                     services.AddTransient<_Layout>();
                     services.AddTransient<ProductIndex>();
                     services.AddTransient<ProductDetails>();
                     services.AddTransient<CreateProduct>();
                     services.AddTransient<UpdateProduct>();
+                    services.AddTransient<ShoppingIndex>();
+                    services.AddTransient<AddToCart>();
                 });
         }
     }

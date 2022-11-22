@@ -10,11 +10,12 @@ namespace App.Data.Entities
     {
         public int Id { get; set; }
         public string? CustomerName { get; set; }
-        public string? ShipName { set; get; }
+        public decimal? CustomerMoney { set; get; }
         public string? ShipAddress { set; get; }
         public string? ShipEmail { set; get; }
         public string? ShipPhoneNumber { set; get; }
         public string? Description { set; get; }
+        public int CartIndex { set; get; }
         public virtual List<ProductInCart> ProductInCarts { get; set; }
     }
 }

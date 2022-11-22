@@ -31,7 +31,7 @@ namespace App.Data.Repositories.Products
             //1. Select join
             var query = from p in _context.Products
                         join pd in _context.ProductDetails on p.Id equals pd.ProductId
-                        select new {p, pd};
+                        select new { p, pd };
 
             //2. filter
             if (!string.IsNullOrEmpty(request.Keyword))
@@ -84,12 +84,12 @@ namespace App.Data.Repositories.Products
             if (request.Checks != null && request.Checks.Any(c => c == true))
             {
                 listCBox = request.Checks;
-                list =  list.Where(c => GetResultFilter(c.Product.Id)).ToList();
+                list = list.Where(c => GetResultFilter(c.Product.Id)).ToList();
                 totalRow = list.Count;
             }
             //3.Paging
 
-            var data =  list.Skip((request.PageIndex - 1) * request.PageSize)
+            var data = list.Skip((request.PageIndex - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .Select(x => new ProductInPaging()
                 {
@@ -147,7 +147,7 @@ namespace App.Data.Repositories.Products
             };
         }
         public bool[] listCBox { get; set; }
-        public  bool GetResultFilter(int productid)
+        public bool GetResultFilter(int productid)
         {//Sử dụng đệ quy lấy kết quả cho list điều kiện
             var dequy = new LstCheckRecursive();
             int index = 0;
@@ -156,8 +156,8 @@ namespace App.Data.Repositories.Products
             //List điều kiện
             //
             List<bool> listkq3 = new List<bool>();
-            var cartergories =_context.Categories.Where(c => c.IsDeleted == false).Select(c => c.Id).ToList();
-            var productcategories =  _context.ProductInCategories.Where(c => c.ProductId == productid).Select(c => c.CategoryId).ToList();
+            var cartergories = _context.Categories.Where(c => c.IsDeleted == false).Select(c => c.Id).ToList();
+            var productcategories = _context.ProductInCategories.Where(c => c.ProductId == productid).Select(c => c.CategoryId).ToList();
             foreach (var a in cartergories)
             {
                 if (listCBox[index++])
@@ -237,6 +237,32 @@ namespace App.Data.Repositories.Products
             {
                 return true;//Hiện thị tất cả nếu không check box nào đc chọn
             }
+        }
+
+        public async Task<PagedResult<ProductInShoppingVm>> GetPagingForShopping(GetPagingShoppingRequest request)
+        {
+            var query = from p in _context.Products
+                        join pd in _context.ProductDetails on p.Id equals pd.ProductId
+                        where _context.ProductVariations.Where(c => c.IsDeleted == false && c.Stock > 0).Select(c => c.ProductId).Contains(p.Id)
+                        select new { p, pd, img=_context.ProductImages.FirstOrDefault(c=>c.ProductId==p.Id)};
+            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .Select(x => new ProductInShoppingVm()
+                {
+                    Id = x.p.Id,
+                    Name = x.pd.Name,
+                    Price = x.p.Price,
+                    ThumbailImage = x.img.ImagePath
+                }).ToListAsync();
+            //4. Select 
+
+            var pagedResult = new PagedResult<ProductInShoppingVm>()
+            {
+                PageSize = request.PageSize,
+                PageIndex = request.PageIndex,
+                Items = data
+            };
+            return pagedResult;
         }
     }
 }
