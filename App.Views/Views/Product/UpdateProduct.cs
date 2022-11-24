@@ -1,10 +1,15 @@
 ﻿using App.Business.Models.Products;
 using App.Business.Sevices.Products;
+using App.Data.Ultilities.Catalog.Manufacturers;
 using App.Data.Ultilities.Catalog.Products;
 using App.Data.Ultilities.Enums;
 using App.Data.Ultilities.ViewModels;
 using App.Views.Models.Controls;
+using App.Views.Views.Catalog.Categories;
+using App.Views.Views.Catalog.Manufacturers;
+using App.Views.Views.Catalog.Units;
 using FontAwesome.Sharp;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,15 +24,17 @@ namespace App.Views.Views.Product
 {
     public partial class UpdateProduct : Form
     {
+        private readonly IServiceProvider _serviceProvider;
         private readonly IProductServices _services;
         public ProductVm Product { get; set; }
         public UpdateProductRequest Request { get; set; } = new();
         public CreateProductView Data { set; get; }
-        
-        public UpdateProduct(IProductServices services)
+
+        public UpdateProduct(IProductServices services, IServiceProvider serviceProvider)
         {
             InitializeComponent();
             _services = services;
+            _serviceProvider = serviceProvider;
         }
 
         private async Task AddImg(string path)
@@ -256,6 +263,58 @@ namespace App.Views.Views.Product
             foreach (var a in Product.Images)
             {
                 await AddImg(a);
+            }
+        }
+
+        private void vbButton1_Click(object sender, EventArgs e)
+        {
+            var form = _serviceProvider.GetRequiredService<AddUnit>();
+            form.FormClosed += (o, s) =>
+            {
+                if (form.Unit.Id != 0)
+                {
+                    CombUnits.Items.Add(form.Unit.Name);
+                    Data.Units.Add(new Data.Ultilities.Catalog.Units.UnitForCreate() { Id = form.Unit.Id, Name = form.Unit.Name });
+                    CombUnits.SelectedIndex = CombUnits.Items.Count - 1;
+                }
+            };
+            form.ShowDialog();
+        }
+
+        private void vbButton2_Click(object sender, EventArgs e)
+        {
+            var form = _serviceProvider.GetRequiredService<CreateManufacture>();
+            form.FormClosed += (o, s) =>
+            {
+                if (form.Manufacturer.Id != 0)
+                {
+                    CboxNsx.Items.Add(form.Manufacturer.Name);
+                    Data.Manufacturers.Add(new ManufacturerInCreateProduct { Id = form.Manufacturer.Id, Name = form.Manufacturer.Name });
+                    CboxNsx.SelectedIndex = CombUnits.Items.Count - 1;
+                }
+            };
+            form.ShowDialog();
+        }
+
+        private void vbButton3_Click(object sender, EventArgs e)
+        {
+            var form = _serviceProvider.GetRequiredService<CreateCategory>();
+            form.FormClosed += (o, s) =>
+            {
+                if (form.Category.Id != 0)
+                {
+                    TblCategories.Controls.Add(new CheckBox() { Text = form.Category.Name, Checked = true, Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)  });
+                    Data.categories.Add(new Data.Ultilities.Catalog.Categories.CategoryForCreate() { Id = form.Category.Id, Name = form.Category.Name });
+                }
+            };
+            form.ShowDialog();
+        }
+
+        private void vbButton6_Click(object sender, EventArgs e)
+        {
+            foreach (var item in TblCategories.Controls)
+            {
+                ((CheckBox)item).Checked = false;
             }
         }
     }

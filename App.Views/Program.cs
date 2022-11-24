@@ -1,5 +1,10 @@
+using App.Business.Sevices.Catalogs.Categories;
+using App.Business.Sevices.Catalogs.Manufactures;
+using App.Business.Sevices.Catalogs.Units;
+using App.Business.Sevices.Orders;
 using App.Business.Sevices.Products;
 using App.Business.Sevices.Shoppings;
+using App.Business.Sevices.ThongKes;
 using App.Business.Ultilities.Common;
 using App.Data.Context;
 using App.Data.Entities;
@@ -11,11 +16,17 @@ using App.Data.Repositories.Catalog.Images;
 using App.Data.Repositories.Catalog.Manufacturers;
 using App.Data.Repositories.Catalog.Sizes;
 using App.Data.Repositories.Catalog.Units;
+using App.Data.Repositories.Customers;
 using App.Data.Repositories.Orders;
 using App.Data.Repositories.Products;
+using App.Views.Views.Catalog.Categories;
+using App.Views.Views.Catalog.Manufacturers;
+using App.Views.Views.Catalog.Units;
 using App.Views.Views.Layout;
+using App.Views.Views.Orders;
 using App.Views.Views.Product;
 using App.Views.Views.Shopping;
+using App.Views.Views.ThongKe;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -63,13 +74,19 @@ namespace App.Views
                     services.AddTransient<ICategoryRepositories, CategoryRepositories>();
                     services.AddTransient<IStorageService, FileStorageService>();
                     services.AddTransient<IManufacturerRepositories, ManufacturerRepositories>();
-                    services.AddTransient<IProductServices, ProductServices>();
                     services.AddTransient<ICartRepositories, CartRepositories>();
                     services.AddTransient<IProductInCartRepositories,ProductInCartRepositories>();
                     services.AddTransient<IOrderRepositories,OrderRepositories>();
+                    services.AddTransient<IOrderHistoryRepositories,OrderHistoryRepositories>();
+                    services.AddTransient<ICustomerRepositories, CustomerRepositories>();
                     //
                     services.AddTransient<IShoppingService,ShoppingService>();
-
+                    services.AddTransient<IOrderService, OrderService>();
+                    services.AddTransient<IProductServices, ProductServices>();
+                    services.AddTransient<IThongKeServices, ThongKeServices>();
+                    services.AddTransient<ICategoryService, CategoryService>();
+                    services.AddTransient<IManufactureServices, ManufactureService>();
+                    services.AddTransient<IUnitServices, UnitService>();
                     //
                     services.AddTransient<_Layout>();
                     services.AddTransient<ProductIndex>();
@@ -78,6 +95,16 @@ namespace App.Views
                     services.AddTransient<UpdateProduct>();
                     services.AddTransient<ShoppingIndex>();
                     services.AddTransient<AddToCart>();
+                    services.AddTransient<OrderIndex>();
+                    services.AddTransient<OderDetail>();
+                    services.AddTransient<EditOrder>();
+                    services.AddTransient<ThongKeIndex>();
+                    services.AddTransient<CategoryIndex>();
+                    services.AddTransient<CreateCategory>();
+                    services.AddTransient<ManufactureIndex>();
+                    services.AddTransient<CreateManufacture>();
+                    services.AddTransient<UnitIndex>();
+                    services.AddTransient<AddUnit>();
                 });
         }
     }

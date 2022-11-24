@@ -13,14 +13,13 @@
     <Folder Include="Services\Common\" />
     <Folder Include="Services\Product\" />
     <Folder Include="Views\Customer\" />
-    <Folder Include="Views\Catalog\" />
     <Folder Include="Views\Promotion\" />
     <Folder Include="Views\User\" />
-    <Folder Include="Views\Order\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FontAwesome.Sharp" Version="6.1.1" />
+    <PackageReference Include="LiveCharts.WinForms" Version="0.9.7.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />

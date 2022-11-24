@@ -1,9 +1,14 @@
 ﻿using App.Business.Models.Products;
 using App.Business.Sevices.Products;
+using App.Data.Ultilities.Catalog.Manufacturers;
 using App.Data.Ultilities.Catalog.Products;
 using App.Data.Ultilities.Enums;
 using App.Views.Models.Controls;
+using App.Views.Views.Catalog.Categories;
+using App.Views.Views.Catalog.Manufacturers;
+using App.Views.Views.Catalog.Units;
 using FontAwesome.Sharp;
+using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
@@ -15,12 +20,14 @@ namespace App.Views.Views.Product
     {
         public AddProductRequest _addProductRequest;
         private readonly IProductServices _productservices;
+        private readonly IServiceProvider _serviceProvider;
         public CreateProductView _data { set; get; }
         private List<string> _images { set; get; }
-        public  CreateProduct(IProductServices productservices)
+        public CreateProduct(IProductServices productservices, IServiceProvider serviceProvider)
         {
             InitializeComponent();
             _productservices = productservices;
+            _serviceProvider = serviceProvider;
         }
         public async Task LoadDataToView() //Load các combobox
         {
@@ -236,6 +243,64 @@ namespace App.Views.Views.Product
             {
                 e.Handled = true;
                 MessageBox.Show("Chỉ được phép nhập số !");
+            }
+        }
+
+        private void vbButton1_Click(object sender, EventArgs e)
+        {
+            var form = _serviceProvider.GetRequiredService<AddUnit>();
+            form.FormClosed += (o, s) =>
+            {
+                if (form.Unit.Id != 0)
+                {
+                    CombUnits.Items.Add(form.Unit.Name);
+                    _data.Units.Add(new Data.Ultilities.Catalog.Units.UnitForCreate() { Id = form.Unit.Id, Name = form.Unit.Name });
+                    CombUnits.SelectedIndex = CombUnits.Items.Count - 1;
+                }
+            };
+            form.ShowDialog();
+        }
+
+        private void vbButton2_Click(object sender, EventArgs e)
+        {
+            var form = _serviceProvider.GetRequiredService<CreateManufacture>();
+            form.FormClosed += (o, s) =>
+            {
+                if (form.Manufacturer.Id != 0)
+                {
+                    CboxNsx.Items.Add(form.Manufacturer.Name);
+                    _data.Manufacturers.Add(new ManufacturerInCreateProduct { Id = form.Manufacturer.Id, Name = form.Manufacturer.Name });
+                    CboxNsx.SelectedIndex = CombUnits.Items.Count - 1;
+                }
+            };
+            form.ShowDialog();
+        }
+
+        private void vbButton3_Click(object sender, EventArgs e)
+        {
+            var form = _serviceProvider.GetRequiredService<CreateCategory>();
+            form.FormClosed += (o, s) =>
+            {
+                if (form.Category.Id != 0)
+                {
+                    TblCategories.Controls.Add(new CheckBox() { Text = form.Category.Name,Checked=true,Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point) });
+                    _data.categories.Add(new Data.Ultilities.Catalog.Categories.CategoryForCreate() { Id = form.Category.Id, Name = form.Category.Name });
+                }
+            };
+            form.ShowDialog();
+        }
+
+        private void vbButton5_Click(object sender, EventArgs e)
+        {
+            TblImgs.Controls.Clear();
+            _images.Clear();
+        }
+
+        private void vbButton6_Click(object sender, EventArgs e)
+        {
+            foreach (var item in TblCategories.Controls)
+            {
+                ((CheckBox)item).Checked = false;
             }
         }
     }

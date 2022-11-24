@@ -31,6 +31,7 @@ namespace App.Views.Views.Layout
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.Tbl_HomeView = new System.Windows.Forms.TableLayoutPanel();
             this.tbl_Menu = new System.Windows.Forms.TableLayoutPanel();
             this.tbl_Logo = new System.Windows.Forms.TableLayoutPanel();
@@ -48,12 +49,16 @@ namespace App.Views.Views.Layout
             this.BtnHome = new App.Views.Models.Controls.VBButton();
             this.vbButton9 = new App.Views.Models.Controls.VBButton();
             this.vbButton10 = new App.Views.Models.Controls.VBButton();
-            this.vbButton11 = new App.Views.Models.Controls.VBButton();
             this.PanlDesktop = new System.Windows.Forms.Panel();
+            this.MenuCatalog = new App.Views.Models.Controls.RJDropdownMenu(this.components);
+            this.danhMụcSảnPhẩmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nhàSảnXuấtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.đơnVịSảnPhẩmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Tbl_HomeView.SuspendLayout();
             this.tbl_Menu.SuspendLayout();
             this.tbl_Logo.SuspendLayout();
             this.customPanel1.SuspendLayout();
+            this.MenuCatalog.SuspendLayout();
             this.SuspendLayout();
             // 
             // Tbl_HomeView
@@ -89,7 +94,6 @@ namespace App.Views.Views.Layout
             this.tbl_Menu.Controls.Add(this.BtnHome, 0, 2);
             this.tbl_Menu.Controls.Add(this.vbButton9, 0, 8);
             this.tbl_Menu.Controls.Add(this.vbButton10, 0, 9);
-            this.tbl_Menu.Controls.Add(this.vbButton11, 0, 10);
             this.tbl_Menu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbl_Menu.Location = new System.Drawing.Point(0, 0);
             this.tbl_Menu.Margin = new System.Windows.Forms.Padding(0);
@@ -275,11 +279,12 @@ namespace App.Views.Views.Layout
             this.vbButton8.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
             this.vbButton8.Size = new System.Drawing.Size(342, 68);
             this.vbButton8.TabIndex = 8;
-            this.vbButton8.Text = "       Danh Mục";
+            this.vbButton8.Text = "       Danh Sách";
             this.vbButton8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.vbButton8.TextColor = System.Drawing.Color.White;
             this.vbButton8.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.vbButton8.UseVisualStyleBackColor = false;
+            this.vbButton8.Click += new System.EventHandler(this.vbButton8_Click);
             // 
             // vbButton7
             // 
@@ -334,6 +339,7 @@ namespace App.Views.Views.Layout
             this.vbButton6.TextColor = System.Drawing.Color.White;
             this.vbButton6.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.vbButton6.UseVisualStyleBackColor = false;
+            this.vbButton6.Click += new System.EventHandler(this.vbButton6_Click);
             // 
             // vbButton5
             // 
@@ -444,6 +450,7 @@ namespace App.Views.Views.Layout
             this.vbButton9.TextColor = System.Drawing.Color.White;
             this.vbButton9.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.vbButton9.UseVisualStyleBackColor = false;
+            this.vbButton9.Click += new System.EventHandler(this.vbButton9_Click);
             // 
             // vbButton10
             // 
@@ -472,33 +479,6 @@ namespace App.Views.Views.Layout
             this.vbButton10.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.vbButton10.UseVisualStyleBackColor = false;
             // 
-            // vbButton11
-            // 
-            this.vbButton11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
-            this.vbButton11.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
-            this.vbButton11.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.vbButton11.BorderRadius = 5;
-            this.vbButton11.BorderSize = 0;
-            this.vbButton11.FlatAppearance.BorderSize = 0;
-            this.vbButton11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.vbButton11.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.vbButton11.ForeColor = System.Drawing.Color.White;
-            this.vbButton11.IconChar = FontAwesome.Sharp.IconChar.Jira;
-            this.vbButton11.IconColor = System.Drawing.Color.White;
-            this.vbButton11.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.vbButton11.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.vbButton11.Location = new System.Drawing.Point(1, 731);
-            this.vbButton11.Margin = new System.Windows.Forms.Padding(1);
-            this.vbButton11.Name = "vbButton11";
-            this.vbButton11.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
-            this.vbButton11.Size = new System.Drawing.Size(342, 68);
-            this.vbButton11.TabIndex = 11;
-            this.vbButton11.Text = "       Khác";
-            this.vbButton11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.vbButton11.TextColor = System.Drawing.Color.White;
-            this.vbButton11.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.vbButton11.UseVisualStyleBackColor = false;
-            // 
             // PanlDesktop
             // 
             this.PanlDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -507,6 +487,39 @@ namespace App.Views.Views.Layout
             this.PanlDesktop.Name = "PanlDesktop";
             this.PanlDesktop.Size = new System.Drawing.Size(1576, 991);
             this.PanlDesktop.TabIndex = 1;
+            // 
+            // MenuCatalog
+            // 
+            this.MenuCatalog.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.MenuCatalog.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.MenuCatalog.IsMainMenu = false;
+            this.MenuCatalog.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.danhMụcSảnPhẩmToolStripMenuItem,
+            this.nhàSảnXuấtToolStripMenuItem,
+            this.đơnVịSảnPhẩmToolStripMenuItem});
+            this.MenuCatalog.MenuItemHeight = 25;
+            this.MenuCatalog.MenuItemTextColor = System.Drawing.Color.Empty;
+            this.MenuCatalog.Name = "MenuCatalog";
+            this.MenuCatalog.PrimaryColor = System.Drawing.Color.Empty;
+            this.MenuCatalog.Size = new System.Drawing.Size(275, 100);
+            // 
+            // danhMụcSảnPhẩmToolStripMenuItem
+            // 
+            this.danhMụcSảnPhẩmToolStripMenuItem.Name = "danhMụcSảnPhẩmToolStripMenuItem";
+            this.danhMụcSảnPhẩmToolStripMenuItem.Size = new System.Drawing.Size(274, 32);
+            this.danhMụcSảnPhẩmToolStripMenuItem.Text = "Danh Mục Sản Phẩm";
+            // 
+            // nhàSảnXuấtToolStripMenuItem
+            // 
+            this.nhàSảnXuấtToolStripMenuItem.Name = "nhàSảnXuấtToolStripMenuItem";
+            this.nhàSảnXuấtToolStripMenuItem.Size = new System.Drawing.Size(274, 32);
+            this.nhàSảnXuấtToolStripMenuItem.Text = "Nhà Sản Xuất";
+            // 
+            // đơnVịSảnPhẩmToolStripMenuItem
+            // 
+            this.đơnVịSảnPhẩmToolStripMenuItem.Name = "đơnVịSảnPhẩmToolStripMenuItem";
+            this.đơnVịSảnPhẩmToolStripMenuItem.Size = new System.Drawing.Size(274, 32);
+            this.đơnVịSảnPhẩmToolStripMenuItem.Text = "Đơn Vị Sản Phẩm";
             // 
             // _Layout
             // 
@@ -525,6 +538,7 @@ namespace App.Views.Views.Layout
             this.tbl_Logo.ResumeLayout(false);
             this.tbl_Logo.PerformLayout();
             this.customPanel1.ResumeLayout(false);
+            this.MenuCatalog.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -548,7 +562,10 @@ namespace App.Views.Views.Layout
         private VBButton vbButton9;
         private VBButton vbButton12;
         private VBButton vbButton10;
-        private VBButton vbButton11;
         private Panel PanlDesktop;
+        private RJDropdownMenu MenuCatalog;
+        private ToolStripMenuItem danhMụcSảnPhẩmToolStripMenuItem;
+        private ToolStripMenuItem nhàSảnXuấtToolStripMenuItem;
+        private ToolStripMenuItem đơnVịSảnPhẩmToolStripMenuItem;
     }
 }

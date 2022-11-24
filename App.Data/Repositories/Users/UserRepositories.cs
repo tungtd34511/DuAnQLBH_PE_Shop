@@ -13,6 +13,7 @@ namespace App.Data.Repositories.Users
 {
     public class UserRepositories : BaseRepositories<User>, IUserRepositories
     {
+
         public UserRepositories(QLBH_Context context) : base(context)
         {
         }

@@ -1,5 +1,6 @@
 ﻿using App.Data.Entities;
 using App.Data.Repositories.Carts;
+using App.Data.Repositories.Customers;
 using App.Data.Repositories.Orders;
 using App.Data.Repositories.Products;
 using App.Data.Ultilities.Catalog.Carts;
@@ -21,13 +22,15 @@ namespace App.Business.Sevices.Shoppings
         private readonly ICartRepositories _cartRepositories;
         private readonly IProductInCartRepositories _productInCartRepositories;
         private readonly IOrderRepositories _orderRepositories;
-        public ShoppingService(IProductRepositories productRepositories, IProductVariationRepositories productVariationRepositories, ICartRepositories cartRepositories, IProductInCartRepositories productInCartRepositories, IOrderRepositories orderRepositories)
+        private readonly ICustomerRepositories _customerRepositories;
+        public ShoppingService(IProductRepositories productRepositories, IProductVariationRepositories productVariationRepositories, ICartRepositories cartRepositories, IProductInCartRepositories productInCartRepositories, IOrderRepositories orderRepositories, ICustomerRepositories customerRepositories)
         {
             _productRepositories = productRepositories;
             _productVariationRepositories = productVariationRepositories;
             _cartRepositories = cartRepositories;
             _productInCartRepositories = productInCartRepositories;
             _orderRepositories = orderRepositories;
+            _customerRepositories = customerRepositories;
         }
 
         public async Task<PagedResult<ProductInShoppingVm>> GetProducts(GetPagingShoppingRequest request)
@@ -103,6 +106,11 @@ namespace App.Business.Sevices.Shoppings
         public async Task<List<ProductInCart>> GetProductInCarts(int cartid)
         {
             return await _productInCartRepositories.GetByCartID(cartid);
+        }
+
+        public async Task<IEnumerable<Customer>> GetByPhoneNumber(string phonenumber)
+        {
+            return await _customerRepositories.GetByPhoneNumber(phonenumber);
         }
     }
 }

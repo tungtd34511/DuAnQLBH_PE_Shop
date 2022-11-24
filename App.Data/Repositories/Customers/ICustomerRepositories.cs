@@ -10,5 +10,6 @@ namespace App.Data.Repositories.Customers
 {
     public interface ICustomerRepositories : IBaseRepositories<Customer>
     {
+        Task<IEnumerable<Customer>> GetByPhoneNumber(string phonenumber);
     }
 }

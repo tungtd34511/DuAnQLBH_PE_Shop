@@ -30,6 +30,7 @@ namespace App.Views.Views.Shopping
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.TblCartTittles = new System.Windows.Forms.FlowLayoutPanel();
             this.BtnAddOrder = new App.Views.Models.Controls.VBButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -39,7 +40,7 @@ namespace App.Views.Views.Shopping
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.vbButton3 = new App.Views.Models.Controls.VBButton();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtSearchCustomer = new System.Windows.Forms.TextBox();
             this.txtCustomerName = new System.Windows.Forms.TextBox();
             this.vbButton4 = new App.Views.Models.Controls.VBButton();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -52,18 +53,15 @@ namespace App.Views.Views.Shopping
             this.lblmoneyover = new System.Windows.Forms.Label();
             this.txtTotalBill = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.LblTotalprice = new System.Windows.Forms.Label();
-            this.txtMorePrice = new System.Windows.Forms.TextBox();
             this.txtCustomerMoney = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.vbButton2 = new App.Views.Models.Controls.VBButton();
             this.label9 = new System.Windows.Forms.Label();
             this.customPanel8 = new App.Views.Models.Controls.CustomPanel();
             this.label17 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.CombOrderstatus = new System.Windows.Forms.ComboBox();
             this.customPanel9 = new App.Views.Models.Controls.CustomPanel();
             this.txtDescription = new System.Windows.Forms.RichTextBox();
             this.iconButton1 = new FontAwesome.Sharp.IconButton();
@@ -83,6 +81,10 @@ namespace App.Views.Views.Shopping
             this.vbButton7 = new App.Views.Models.Controls.VBButton();
             this.vbButton6 = new App.Views.Models.Controls.VBButton();
             this.TblItems = new System.Windows.Forms.FlowLayoutPanel();
+            this.MenuCustomers = new App.Views.Models.Controls.RJDropdownMenu(this.components);
+            this.sssToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sssToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.TblCartTittles.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.customPanel1.SuspendLayout();
@@ -102,10 +104,12 @@ namespace App.Views.Views.Shopping
             this.customPanel2.SuspendLayout();
             this.customPanel3.SuspendLayout();
             this.customPanel7.SuspendLayout();
+            this.MenuCustomers.SuspendLayout();
             this.SuspendLayout();
             // 
             // TblCartTittles
             // 
+            this.TblCartTittles.AutoScroll = true;
             this.TblCartTittles.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(76)))), ((int)(((byte)(219)))));
             this.TblCartTittles.Controls.Add(this.BtnAddOrder);
             this.TblCartTittles.Dock = System.Windows.Forms.DockStyle.Top;
@@ -216,7 +220,7 @@ namespace App.Views.Views.Shopping
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 88.80407F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.19593F));
             this.tableLayoutPanel6.Controls.Add(this.vbButton3, 1, 0);
-            this.tableLayoutPanel6.Controls.Add(this.textBox2, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.txtSearchCustomer, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.txtCustomerName, 0, 1);
             this.tableLayoutPanel6.Controls.Add(this.vbButton4, 1, 1);
             this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 0);
@@ -231,16 +235,16 @@ namespace App.Views.Views.Shopping
             // vbButton3
             // 
             this.vbButton3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.vbButton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(76)))), ((int)(((byte)(219)))));
-            this.vbButton3.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(76)))), ((int)(((byte)(219)))));
-            this.vbButton3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(76)))), ((int)(((byte)(219)))));
+            this.vbButton3.BackColor = System.Drawing.Color.White;
+            this.vbButton3.BackgroundColor = System.Drawing.Color.White;
+            this.vbButton3.BorderColor = System.Drawing.Color.White;
             this.vbButton3.BorderRadius = 5;
             this.vbButton3.BorderSize = 1;
             this.vbButton3.FlatAppearance.BorderSize = 0;
             this.vbButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.vbButton3.ForeColor = System.Drawing.Color.White;
             this.vbButton3.IconChar = FontAwesome.Sharp.IconChar.Search;
-            this.vbButton3.IconColor = System.Drawing.Color.White;
+            this.vbButton3.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(76)))), ((int)(((byte)(219)))));
             this.vbButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.vbButton3.IconSize = 35;
             this.vbButton3.Location = new System.Drawing.Point(353, 13);
@@ -252,15 +256,16 @@ namespace App.Views.Views.Shopping
             this.vbButton3.TextColor = System.Drawing.Color.White;
             this.vbButton3.UseVisualStyleBackColor = false;
             // 
-            // textBox2
+            // txtSearchCustomer
             // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox2.Location = new System.Drawing.Point(3, 14);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.PlaceholderText = "Tìm Kiếm (Vd:097...)";
-            this.textBox2.Size = new System.Drawing.Size(343, 34);
-            this.textBox2.TabIndex = 1;
+            this.txtSearchCustomer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSearchCustomer.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtSearchCustomer.Location = new System.Drawing.Point(3, 14);
+            this.txtSearchCustomer.Name = "txtSearchCustomer";
+            this.txtSearchCustomer.PlaceholderText = "Tìm Kiếm (Vd:097...)";
+            this.txtSearchCustomer.Size = new System.Drawing.Size(343, 34);
+            this.txtSearchCustomer.TabIndex = 1;
+            this.txtSearchCustomer.TextChanged += new System.EventHandler(this.txtSearchCustomer_TextChanged);
             // 
             // txtCustomerName
             // 
@@ -364,8 +369,8 @@ namespace App.Views.Views.Shopping
             this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 2;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45.13274F));
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 54.86726F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 34.51328F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 65.48672F));
             this.tableLayoutPanel7.Size = new System.Drawing.Size(409, 678);
             this.tableLayoutPanel7.TabIndex = 1;
             // 
@@ -375,26 +380,23 @@ namespace App.Views.Views.Shopping
             this.tableLayoutPanel8.ColumnCount = 2;
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.64268F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 52.35732F));
-            this.tableLayoutPanel8.Controls.Add(this.lblmoneyover, 1, 4);
-            this.tableLayoutPanel8.Controls.Add(this.txtTotalBill, 1, 2);
             this.tableLayoutPanel8.Controls.Add(this.label8, 0, 0);
-            this.tableLayoutPanel8.Controls.Add(this.label11, 0, 1);
-            this.tableLayoutPanel8.Controls.Add(this.label10, 0, 4);
             this.tableLayoutPanel8.Controls.Add(this.LblTotalprice, 1, 0);
-            this.tableLayoutPanel8.Controls.Add(this.txtMorePrice, 1, 1);
-            this.tableLayoutPanel8.Controls.Add(this.txtCustomerMoney, 1, 3);
-            this.tableLayoutPanel8.Controls.Add(this.label12, 0, 3);
-            this.tableLayoutPanel8.Controls.Add(this.panel1, 0, 2);
+            this.tableLayoutPanel8.Controls.Add(this.panel1, 0, 1);
+            this.tableLayoutPanel8.Controls.Add(this.txtTotalBill, 1, 1);
+            this.tableLayoutPanel8.Controls.Add(this.txtCustomerMoney, 1, 2);
+            this.tableLayoutPanel8.Controls.Add(this.label12, 0, 2);
+            this.tableLayoutPanel8.Controls.Add(this.label10, 0, 3);
+            this.tableLayoutPanel8.Controls.Add(this.lblmoneyover, 1, 3);
             this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
-            this.tableLayoutPanel8.RowCount = 5;
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel8.RowCount = 4;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(403, 299);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(403, 228);
             this.tableLayoutPanel8.TabIndex = 2;
             // 
             // lblmoneyover
@@ -403,7 +405,7 @@ namespace App.Views.Views.Shopping
             this.lblmoneyover.AutoSize = true;
             this.lblmoneyover.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblmoneyover.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(76)))), ((int)(((byte)(219)))));
-            this.lblmoneyover.Location = new System.Drawing.Point(376, 256);
+            this.lblmoneyover.Location = new System.Drawing.Point(376, 196);
             this.lblmoneyover.Name = "lblmoneyover";
             this.lblmoneyover.Size = new System.Drawing.Size(24, 28);
             this.lblmoneyover.TabIndex = 10;
@@ -416,12 +418,13 @@ namespace App.Views.Views.Shopping
             this.txtTotalBill.AutoSize = true;
             this.txtTotalBill.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.txtTotalBill.ForeColor = System.Drawing.Color.Red;
-            this.txtTotalBill.Location = new System.Drawing.Point(376, 136);
+            this.txtTotalBill.Location = new System.Drawing.Point(376, 76);
             this.txtTotalBill.Name = "txtTotalBill";
             this.txtTotalBill.Size = new System.Drawing.Size(24, 28);
             this.txtTotalBill.TabIndex = 9;
             this.txtTotalBill.Text = "0";
             this.txtTotalBill.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.txtTotalBill.Click += new System.EventHandler(this.txtTotalBill_Click);
             // 
             // label8
             // 
@@ -435,24 +438,12 @@ namespace App.Views.Views.Shopping
             this.label8.Text = "Tổng tiền hàng";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label11
-            // 
-            this.label11.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label11.Location = new System.Drawing.Point(3, 76);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(91, 28);
-            this.label11.TabIndex = 4;
-            this.label11.Text = "Thu Khác";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // label10
             // 
             this.label10.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label10.Location = new System.Drawing.Point(3, 256);
+            this.label10.Location = new System.Drawing.Point(3, 196);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(93, 28);
             this.label10.TabIndex = 3;
@@ -471,23 +462,11 @@ namespace App.Views.Views.Shopping
             this.LblTotalprice.Text = "0";
             this.LblTotalprice.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // txtMorePrice
-            // 
-            this.txtMorePrice.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.txtMorePrice.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtMorePrice.Location = new System.Drawing.Point(246, 73);
-            this.txtMorePrice.Margin = new System.Windows.Forms.Padding(5);
-            this.txtMorePrice.Name = "txtMorePrice";
-            this.txtMorePrice.Size = new System.Drawing.Size(152, 34);
-            this.txtMorePrice.TabIndex = 7;
-            this.txtMorePrice.Text = "0";
-            this.txtMorePrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
             // txtCustomerMoney
             // 
             this.txtCustomerMoney.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.txtCustomerMoney.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtCustomerMoney.Location = new System.Drawing.Point(246, 193);
+            this.txtCustomerMoney.Location = new System.Drawing.Point(246, 133);
             this.txtCustomerMoney.Margin = new System.Windows.Forms.Padding(5);
             this.txtCustomerMoney.Name = "txtCustomerMoney";
             this.txtCustomerMoney.Size = new System.Drawing.Size(152, 34);
@@ -501,7 +480,7 @@ namespace App.Views.Views.Shopping
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(76)))), ((int)(((byte)(219)))));
-            this.label12.Location = new System.Drawing.Point(3, 196);
+            this.label12.Location = new System.Drawing.Point(3, 136);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(173, 28);
             this.label12.TabIndex = 5;
@@ -510,40 +489,12 @@ namespace App.Views.Views.Shopping
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.vbButton2);
             this.panel1.Controls.Add(this.label9);
-            this.panel1.Location = new System.Drawing.Point(0, 120);
+            this.panel1.Location = new System.Drawing.Point(0, 60);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(192, 60);
             this.panel1.TabIndex = 11;
-            // 
-            // vbButton2
-            // 
-            this.vbButton2.BackColor = System.Drawing.Color.White;
-            this.vbButton2.BackgroundColor = System.Drawing.Color.White;
-            this.vbButton2.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.vbButton2.BorderRadius = 25;
-            this.vbButton2.BorderSize = 0;
-            this.vbButton2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.vbButton2.FlatAppearance.BorderSize = 0;
-            this.vbButton2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
-            this.vbButton2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.vbButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.vbButton2.Font = new System.Drawing.Font("Segoe UI Semibold", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.vbButton2.ForeColor = System.Drawing.Color.White;
-            this.vbButton2.IconChar = FontAwesome.Sharp.IconChar.Ticket;
-            this.vbButton2.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(76)))), ((int)(((byte)(219)))));
-            this.vbButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.vbButton2.Location = new System.Drawing.Point(153, 0);
-            this.vbButton2.Name = "vbButton2";
-            this.vbButton2.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.vbButton2.Size = new System.Drawing.Size(39, 60);
-            this.vbButton2.TabIndex = 4;
-            this.vbButton2.TabStop = false;
-            this.vbButton2.Text = "-%";
-            this.vbButton2.TextColor = System.Drawing.Color.White;
-            this.vbButton2.UseVisualStyleBackColor = false;
             // 
             // label9
             // 
@@ -565,14 +516,14 @@ namespace App.Views.Views.Shopping
             this.customPanel8.BorderRadius = 5;
             this.customPanel8.BorderSize = 1;
             this.customPanel8.Controls.Add(this.label17);
-            this.customPanel8.Controls.Add(this.comboBox1);
+            this.customPanel8.Controls.Add(this.CombOrderstatus);
             this.customPanel8.Controls.Add(this.customPanel9);
             this.customPanel8.Controls.Add(this.vbButton12);
             this.customPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.customPanel8.Location = new System.Drawing.Point(3, 308);
+            this.customPanel8.Location = new System.Drawing.Point(3, 237);
             this.customPanel8.Name = "customPanel8";
             this.customPanel8.Padding = new System.Windows.Forms.Padding(3);
-            this.customPanel8.Size = new System.Drawing.Size(403, 367);
+            this.customPanel8.Size = new System.Drawing.Size(403, 438);
             this.customPanel8.TabIndex = 3;
             this.customPanel8.UnderlinedStyle = false;
             // 
@@ -587,18 +538,18 @@ namespace App.Views.Views.Shopping
             this.label17.TabIndex = 5;
             this.label17.Text = "Loại Thanh Toán";
             // 
-            // comboBox1
+            // CombOrderstatus
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.comboBox1.Items.AddRange(new object[] {
+            this.CombOrderstatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CombOrderstatus.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.CombOrderstatus.Items.AddRange(new object[] {
             "Thanh Toán Trực Tiếp",
-            "Đặt Hàng",
-            "Đặt Hàng Đã Thanh Toán"});
-            this.comboBox1.Location = new System.Drawing.Point(185, 237);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(213, 36);
-            this.comboBox1.TabIndex = 0;
+            "Đặt Hàng"});
+            this.CombOrderstatus.Location = new System.Drawing.Point(185, 237);
+            this.CombOrderstatus.Name = "CombOrderstatus";
+            this.CombOrderstatus.Size = new System.Drawing.Size(213, 36);
+            this.CombOrderstatus.TabIndex = 0;
+            this.CombOrderstatus.SelectedIndexChanged += new System.EventHandler(this.CombOrderstatus_SelectedIndexChanged);
             // 
             // customPanel9
             // 
@@ -624,9 +575,9 @@ namespace App.Views.Views.Shopping
             this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDescription.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtDescription.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtDescription.Location = new System.Drawing.Point(2, 35);
+            this.txtDescription.Location = new System.Drawing.Point(2, 37);
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(393, 189);
+            this.txtDescription.Size = new System.Drawing.Size(393, 187);
             this.txtDescription.TabIndex = 0;
             this.txtDescription.Text = "N/A";
             // 
@@ -645,7 +596,7 @@ namespace App.Views.Views.Shopping
             this.iconButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.iconButton1.Location = new System.Drawing.Point(2, 2);
             this.iconButton1.Name = "iconButton1";
-            this.iconButton1.Size = new System.Drawing.Size(393, 33);
+            this.iconButton1.Size = new System.Drawing.Size(393, 35);
             this.iconButton1.TabIndex = 1;
             this.iconButton1.Text = "Ghi Chú";
             this.iconButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -923,10 +874,41 @@ namespace App.Views.Views.Shopping
             this.TblItems.AutoScroll = true;
             this.TblItems.BackColor = System.Drawing.Color.White;
             this.TblItems.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TblItems.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.TblItems.Location = new System.Drawing.Point(3, 3);
             this.TblItems.Name = "TblItems";
             this.TblItems.Size = new System.Drawing.Size(1140, 479);
             this.TblItems.TabIndex = 2;
+            // 
+            // MenuCustomers
+            // 
+            this.MenuCustomers.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.MenuCustomers.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.MenuCustomers.IsMainMenu = false;
+            this.MenuCustomers.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sssToolStripMenuItem,
+            this.sssToolStripMenuItem1});
+            this.MenuCustomers.MenuItemHeight = 25;
+            this.MenuCustomers.MenuItemTextColor = System.Drawing.Color.Empty;
+            this.MenuCustomers.Name = "MenuCustomers";
+            this.MenuCustomers.PrimaryColor = System.Drawing.Color.Empty;
+            this.MenuCustomers.Size = new System.Drawing.Size(109, 68);
+            // 
+            // sssToolStripMenuItem
+            // 
+            this.sssToolStripMenuItem.Name = "sssToolStripMenuItem";
+            this.sssToolStripMenuItem.Size = new System.Drawing.Size(108, 32);
+            this.sssToolStripMenuItem.Text = "sss";
+            // 
+            // sssToolStripMenuItem1
+            // 
+            this.sssToolStripMenuItem1.Name = "sssToolStripMenuItem1";
+            this.sssToolStripMenuItem1.Size = new System.Drawing.Size(108, 32);
+            this.sssToolStripMenuItem1.Text = "sss";
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // ShoppingIndex
             // 
@@ -938,6 +920,7 @@ namespace App.Views.Views.Shopping
             this.Name = "ShoppingIndex";
             this.Padding = new System.Windows.Forms.Padding(5, 5, 10, 5);
             this.Text = "ShoppingIndex";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ShoppingIndex_FormClosing);
             this.Load += new System.EventHandler(this.ShoppingIndex_Load);
             this.TblCartTittles.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -964,6 +947,7 @@ namespace App.Views.Views.Shopping
             this.customPanel3.ResumeLayout(false);
             this.customPanel7.ResumeLayout(false);
             this.customPanel7.PerformLayout();
+            this.MenuCustomers.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -985,7 +969,7 @@ namespace App.Views.Views.Shopping
         private TabPage tabPage1;
         private TableLayoutPanel tableLayoutPanel6;
         private VBButton vbButton3;
-        private TextBox textBox2;
+        private TextBox txtSearchCustomer;
         private TextBox txtCustomerName;
         private VBButton vbButton4;
         private TabPage tabPage2;
@@ -1002,15 +986,13 @@ namespace App.Views.Views.Shopping
         private Label lblmoneyover;
         private Label txtTotalBill;
         private Label label8;
-        private Label label11;
         private Label label10;
         private Label LblTotalprice;
-        private TextBox txtMorePrice;
         private TextBox txtCustomerMoney;
         private Label label12;
         private CustomPanel customPanel8;
         private Label label17;
-        private ComboBox comboBox1;
+        private ComboBox CombOrderstatus;
         private CustomPanel customPanel9;
         private RichTextBox txtDescription;
         private FontAwesome.Sharp.IconButton iconButton1;
@@ -1021,7 +1003,10 @@ namespace App.Views.Views.Shopping
         private TextBox txtAddress;
         private TextBox txtEmail;
         private Panel panel1;
-        private VBButton vbButton2;
         private Label label9;
+        private RJDropdownMenu MenuCustomers;
+        private ToolStripMenuItem sssToolStripMenuItem;
+        private ToolStripMenuItem sssToolStripMenuItem1;
+        private System.Windows.Forms.Timer timer1;
     }
 }

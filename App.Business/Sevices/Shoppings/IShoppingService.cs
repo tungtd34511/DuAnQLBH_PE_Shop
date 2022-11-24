@@ -22,5 +22,6 @@ namespace App.Business.Sevices.Shoppings
         Task<bool> AddOrder(Order order);
         Task<bool> RemoveCart(Cart cart);
         Task<List<ProductInCart>> GetProductInCarts(int cartid);
+        Task<IEnumerable<Customer>> GetByPhoneNumber(string phonenumber);
     }
 }

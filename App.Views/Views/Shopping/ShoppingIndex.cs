@@ -15,15 +15,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
+using Timer = System.Windows.Forms.Timer;
 
 namespace App.Views.Views.Shopping
 {
     public partial class ShoppingIndex : Form
     {
+        #region Fields and Property
         private readonly IShoppingService _shoppingService;
         private readonly IServiceProvider _serviceProviders;
-
+        public IEnumerable<Customer> Customers { get; set; }
         public delegate void AddToCarts(AddToCartRequest request);
         public PagedResult<ProductInShoppingVm> Result { get; set; } = new();
         public GetPagingShoppingRequest Request { get; set; } = new() { PageSize = 12 };
@@ -31,175 +33,31 @@ namespace App.Views.Views.Shopping
         public List<CartItemViewModel> CartItems { get; set; }
         public Cart CartShow { get; set; }
         public Panel PanlActive { get; set; } = new(); // làm sáng hóa đơn được bật
+        #endregion
+        #region Constructer
         public ShoppingIndex(IShoppingService shoppingService, IServiceProvider serviceProviders)
         {
             InitializeComponent();
             _shoppingService = shoppingService;
             _serviceProviders = serviceProviders;
         }
-        /// <summary>
-        /// /
-        /// </summary>
-        /// <param name="pnl"></param>
-        /// <returns></returns>
-        private async Task AcctiveTitleOder(Panel pnl)
+        #endregion
+        #region Mehthods
+        //Loaddata to View
+        private async Task LoadBill()
         {
-            if (PanlActive.Controls.Count > 0)
+            if (!CartItems.Any())
             {
-                PanlActive.BackColor = System.Drawing.Color.FromArgb(90, 76, 219);
-                PanlActive.Controls[0].BackColor = System.Drawing.Color.FromArgb(90, 76, 219);
-                PanlActive.Controls[0].ForeColor = System.Drawing.Color.White;
+                LblTotalprice.Text = "0";
+                txtTotalBill.Text = "0";
             }
-            PanlActive = pnl;
-            PanlActive.BackColor = System.Drawing.Color.White;
-            PanlActive.Controls[0].ForeColor = System.Drawing.Color.FromArgb(90, 76, 219);
-            PanlActive.Controls[0].BackColor = System.Drawing.Color.White;
-
-        }
-        private async void BtnAddOrder_Click(object sender, EventArgs e)
-        {
-            var cart = new Cart() { CartIndex = Carts.Last().CartIndex + 1 ,CustomerMoney=0};
-            await _shoppingService.AddCart(cart);
-            Carts.Add(cart);
-            await AddPanlCart(cart);
-            var i = cart.Id;
-        }
-        private async Task<Panel> AddPanlCart(Cart cart)
-        {
-            // 
-            // pnlCart
-            // 
-            var BtnSpan = new Button();
-
-            BtnSpan.BackColor = System.Drawing.Color.LightGray;
-            BtnSpan.Dock = System.Windows.Forms.DockStyle.Right;
-            BtnSpan.FlatAppearance.BorderSize = 0;
-            BtnSpan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            BtnSpan.Margin = new System.Windows.Forms.Padding(3, 8, 3, 8);
-            BtnSpan.Name = "BtnSpan";
-            BtnSpan.Size = new System.Drawing.Size(2, 44);
-            BtnSpan.UseVisualStyleBackColor = false;
-
-            var BtnDeleteCart = new VBButton();
-
-            BtnDeleteCart.BackColor = System.Drawing.Color.Transparent;
-            BtnDeleteCart.BackgroundColor = System.Drawing.Color.Transparent;
-            BtnDeleteCart.BorderColor = System.Drawing.Color.PaleVioletRed;
-            BtnDeleteCart.BorderRadius = 20;
-            BtnDeleteCart.BorderSize = 0;
-            BtnDeleteCart.Dock = System.Windows.Forms.DockStyle.Right;
-            BtnDeleteCart.FlatAppearance.BorderSize = 0;
-            BtnDeleteCart.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            BtnDeleteCart.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            BtnDeleteCart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            BtnDeleteCart.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            BtnDeleteCart.ForeColor = System.Drawing.Color.White;
-            BtnDeleteCart.IconChar = FontAwesome.Sharp.IconChar.XmarkCircle;
-            BtnDeleteCart.IconColor = System.Drawing.Color.Gainsboro;
-            BtnDeleteCart.IconFont = FontAwesome.Sharp.IconFont.Solid;
-            BtnDeleteCart.IconSize = 30;
-            BtnDeleteCart.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            BtnDeleteCart.Name = "BtnDeleteCart";
-            BtnDeleteCart.Size = new System.Drawing.Size(38, 44);
-            BtnDeleteCart.TextColor = System.Drawing.Color.White;
-            BtnDeleteCart.UseVisualStyleBackColor = false;
-
-            var BtnCart = new Button();
-
-            BtnCart.BackColor = System.Drawing.Color.FromArgb(90, 76, 219);
-            BtnCart.Dock = System.Windows.Forms.DockStyle.Fill;
-            BtnCart.FlatAppearance.BorderSize = 0;
-            BtnCart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            BtnCart.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            BtnCart.Location = new System.Drawing.Point(3, 3);
-            BtnCart.Name = "BtnCart";
-            BtnCart.Size = new System.Drawing.Size(154, 44);
-            BtnCart.ForeColor = System.Drawing.Color.White;
-            BtnCart.Text = "Giỏ Hàng " + cart.CartIndex;
-            BtnCart.UseVisualStyleBackColor = false;
-
-            var pnlCart = new Panel();
-            pnlCart.BackColor = System.Drawing.Color.FromArgb(90, 76, 219);
-            pnlCart.Controls.Add(BtnCart);
-            pnlCart.Controls.Add(BtnDeleteCart);
-            pnlCart.Controls.Add(BtnSpan);
-            pnlCart.Margin = new System.Windows.Forms.Padding(0);
-            pnlCart.Name = "pnlCart";
-            pnlCart.Padding = new System.Windows.Forms.Padding(5);
-            pnlCart.Size = new System.Drawing.Size(200, 50);
-            pnlCart.TabIndex = 0;
-
-            //
-            TblCartTittles.Controls.Add(pnlCart);
-            BtnDeleteCart.Click += async (o, s) =>
+            else
             {
-                var i = TblCartTittles.Controls.IndexOf(pnlCart); // Vị trí của cart trong ds
-                if (await _shoppingService.RemoveCart(cart))
-                {
-                    TblCartTittles.Controls.Remove(pnlCart);
-                    Carts.Remove(cart);
-                    if (Carts.Count == 0)
-                    {
-                        var cart1 = new Cart() { CartIndex = 1, CustomerMoney = 0 };
-                        Carts.Add(cart1);
-                        await _shoppingService.AddCart(cart1);
-                        await AcctiveTitleOder(await AddPanlCart(cart1));
-                        CartShow = cart1;
-                        var items = await _shoppingService.GetProductInCarts(CartShow.Id);
-                        if (!items.Any())
-                        {
-                            CartShow.ProductInCarts = new();
-                        }
-                        else
-                        {
-                            CartShow.ProductInCarts = items;
-                        }
-                        CartShow.ProductInCarts = new();
-                        CartItems = new();
-                        await LoadCartDetail(cart1);
-                    }
-                    else
-                    {
-                        if (CartShow == cart)
-                        {
-                            if (i < Carts.Count-1)
-                            {
-                                await AcctiveTitleOder((Panel)TblCartTittles.Controls[i]);
-                                CartShow = Carts[i];
-                                await LoadCartDetail(CartShow);
-                            }
-                            else
-                            {
-                                await AcctiveTitleOder((Panel)TblCartTittles.Controls[i-1]);
-                                CartShow = Carts[i-1];
-                                await LoadCartDetail(CartShow);
-                            }
-                        }
-                    }
-                }
-            };
-            BtnCart.Click += async (o, s) =>
-            {
-                await SetDetailCartShow();
-                await _shoppingService.UpdateCart(CartShow);
-                await AcctiveTitleOder(pnlCart);
-                CartShow = cart;
-                CartItems = await _shoppingService.GetItemByCartId(cart.Id);
-                await LoadCartDetail(cart);
-            };
-            BtnAddOrder.SendToBack();//Đẩy button ra sau;
-            return pnlCart;
+                var total = CartItems.Select(d => d.Price * d.Quantity).Sum();
+                LblTotalprice.Text = total.ToString();
+                txtTotalBill.Text = (total * 100 / 100).ToString();
+            }
         }
-        private async Task SetDetailCartShow()
-        {
-            CartShow.Description = txtDescription.Text;
-            CartShow.CustomerName = txtCustomerName.Text;
-            CartShow.CustomerMoney = Convert.ToDecimal(txtCustomerMoney.Text);
-            CartShow.ShipEmail = txtEmail.Text;
-            CartShow.ShipPhoneNumber = txtPhoneNumber.Text;
-            CartShow.ShipAddress = txtAddress.Text;
-        }
-        //Load danh sách san phẩm
         private async Task LoadTblProducts()
         {
             foreach (var item in Result.Items)
@@ -310,57 +168,135 @@ namespace App.Views.Views.Shopping
             txtPhoneNumber.Text = cart.ShipPhoneNumber;
             txtDescription.Text = cart.Description;
         }
-        private async Task LoadBill()
+        //
+        private async Task SetupList()
         {
-            if (!CartItems.Any())
+            var items = await _shoppingService.GetProductInCarts(CartShow.Id);
+            if (!items.Any())
             {
-                LblTotalprice.Text = "0";
-                txtMorePrice.Text = "0";
-                txtTotalBill.Text = "0";
-            }
-            else
-            {
-                var total = CartItems.Select(c => c.Price * c.Quantity).Sum();
-                LblTotalprice.Text = total.ToString();
-                txtMorePrice.Text = (total * 10 / 100).ToString();
-                txtTotalBill.Text = (total * 110 / 100).ToString();
-            }
-        }
-        private async void ShoppingIndex_Load(object sender, EventArgs e)
-        {
-            Result = await _shoppingService.GetProducts(Request);
-            await LoadTblProducts();
-            Carts = (await _shoppingService.GetAllCarts()).ToList();
-            if (!Carts.Any())
-            {
-                var cart = new Cart() { CartIndex = 1 ,CustomerMoney =0};
-                Carts.Add(cart);
-                CartItems = new();
-                CartShow = cart;
                 CartShow.ProductInCarts = new();
-                await _shoppingService.AddCart(cart);
-                await AcctiveTitleOder(await AddPanlCart(cart));
+                CartItems = new();
             }
             else
             {
-                foreach (var cart in Carts)
-                {
-                    await AddPanlCart(cart);
-                }
-                await AcctiveTitleOder((Panel)TblCartTittles.Controls[0]);
-                CartShow = Carts[0];
-                var items = await _shoppingService.GetProductInCarts(CartShow.Id);
-                if (!items.Any())
-                {
-                    CartShow.ProductInCarts = new();
-                }
-                else
-                {
-                    CartShow.ProductInCarts = items;
-                }
+                CartShow.ProductInCarts = items;
                 CartItems = await _shoppingService.GetItemByCartId(CartShow.Id);
-                await LoadCartDetail(CartShow);
             }
+            await LoadCartDetail(CartShow);
+        }
+        private async Task<Panel> AddPanlCart(Cart cart)
+        {
+            // 
+            // pnlCart
+            // 
+            var BtnSpan = new Button();
+
+            BtnSpan.BackColor = System.Drawing.Color.LightGray;
+            BtnSpan.Dock = System.Windows.Forms.DockStyle.Right;
+            BtnSpan.FlatAppearance.BorderSize = 0;
+            BtnSpan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            BtnSpan.Margin = new System.Windows.Forms.Padding(3, 8, 3, 8);
+            BtnSpan.Name = "BtnSpan";
+            BtnSpan.Size = new System.Drawing.Size(2, 44);
+            BtnSpan.UseVisualStyleBackColor = false;
+
+            var BtnDeleteCart = new VBButton();
+
+            BtnDeleteCart.BackColor = System.Drawing.Color.Transparent;
+            BtnDeleteCart.BackgroundColor = System.Drawing.Color.Transparent;
+            BtnDeleteCart.BorderColor = System.Drawing.Color.PaleVioletRed;
+            BtnDeleteCart.BorderRadius = 20;
+            BtnDeleteCart.BorderSize = 0;
+            BtnDeleteCart.Dock = System.Windows.Forms.DockStyle.Right;
+            BtnDeleteCart.FlatAppearance.BorderSize = 0;
+            BtnDeleteCart.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            BtnDeleteCart.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            BtnDeleteCart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            BtnDeleteCart.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            BtnDeleteCart.ForeColor = System.Drawing.Color.White;
+            BtnDeleteCart.IconChar = FontAwesome.Sharp.IconChar.XmarkCircle;
+            BtnDeleteCart.IconColor = System.Drawing.Color.Gainsboro;
+            BtnDeleteCart.IconFont = FontAwesome.Sharp.IconFont.Solid;
+            BtnDeleteCart.IconSize = 30;
+            BtnDeleteCart.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            BtnDeleteCart.Name = "BtnDeleteCart";
+            BtnDeleteCart.Size = new System.Drawing.Size(38, 44);
+            BtnDeleteCart.TextColor = System.Drawing.Color.White;
+            BtnDeleteCart.UseVisualStyleBackColor = false;
+
+            var BtnCart = new Button();
+
+            BtnCart.BackColor = System.Drawing.Color.FromArgb(90, 76, 219);
+            BtnCart.Dock = System.Windows.Forms.DockStyle.Fill;
+            BtnCart.FlatAppearance.BorderSize = 0;
+            BtnCart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            BtnCart.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            BtnCart.Location = new System.Drawing.Point(3, 3);
+            BtnCart.Name = "BtnCart";
+            BtnCart.Size = new System.Drawing.Size(154, 44);
+            BtnCart.ForeColor = System.Drawing.Color.White;
+            BtnCart.Text = "Giỏ Hàng " + cart.CartIndex;
+            BtnCart.UseVisualStyleBackColor = false;
+
+            var pnlCart = new Panel();
+            pnlCart.BackColor = System.Drawing.Color.FromArgb(90, 76, 219);
+            pnlCart.Controls.Add(BtnCart);
+            pnlCart.Controls.Add(BtnDeleteCart);
+            pnlCart.Controls.Add(BtnSpan);
+            pnlCart.Margin = new System.Windows.Forms.Padding(0);
+            pnlCart.Name = "pnlCart";
+            pnlCart.Padding = new System.Windows.Forms.Padding(5);
+            pnlCart.Size = new System.Drawing.Size(200, 50);
+            pnlCart.TabIndex = 0;
+
+            //
+            TblCartTittles.Controls.Add(pnlCart);
+            BtnDeleteCart.Click += async (o, s) =>
+            {
+                var i = TblCartTittles.Controls.IndexOf(pnlCart); // Vị trí của cart trong ds
+                if (await _shoppingService.RemoveCart(cart))
+                {
+                    TblCartTittles.Controls.Remove(pnlCart);
+                    Carts.Remove(cart);
+                    if (Carts.Count == 0)
+                    {
+                        var cart1 = new Cart() { CartIndex = 1, CustomerMoney = 0 };
+                        Carts.Add(cart1);
+                        await _shoppingService.AddCart(cart1);
+                        await AcctiveTitleOder(await AddPanlCart(cart1));
+                        CartShow = cart1;
+                        await SetupList();
+                    }
+                    else
+                    {
+                        if (CartShow == cart)
+                        {
+                            if (i < Carts.Count - 1)
+                            {
+                                await AcctiveTitleOder((Panel)TblCartTittles.Controls[i]);
+                                CartShow = Carts[i];
+                                await SetupList();
+                            }
+                            else
+                            {
+                                await AcctiveTitleOder((Panel)TblCartTittles.Controls[i - 1]);
+                                CartShow = Carts[i - 1];
+                                await SetupList();
+                            }
+                        }
+                    }
+                }
+            };
+            BtnCart.Click += async (o, s) =>
+            {
+                await SetDetailCartShow();
+                await _shoppingService.UpdateCart(CartShow);
+                await AcctiveTitleOder(pnlCart);
+                CartShow = cart;
+                await SetupList();
+            };
+            BtnAddOrder.SendToBack();//Đẩy button ra sau;
+            return pnlCart;
         }
         private async Task ShowAddToCart(int productId)
         {
@@ -517,11 +453,33 @@ namespace App.Views.Views.Shopping
             tblItemCart.Size = new System.Drawing.Size(1119, 60);
             tblItemCart.TabIndex = 0;
             //
+
+
+            //
             TblItems.Controls.Add(tblItemCart);
             TblItems.Controls.Add(button2);
+            //
+            var i = TblItems.Controls.IndexOf(tblItemCart);
+            // Remove product
+            vbButton1.Click += async (o, s) =>
+            {
+                TblItems.Controls.RemoveAt(i);
+                TblItems.Controls.RemoveAt(i); // xóa gạch ngang
+                CartItems.RemoveAt(i / 2);
+                CartShow.ProductInCarts.RemoveAt(i / 2);
+                await LoadBill();
+            };
+            numericUpDown1.ValueChanged += async (o, s) =>
+            {
+                CartItems[i / 2].Quantity = Convert.ToInt32(numericUpDown1.Value);
+                CartShow.ProductInCarts[i / 2].Quantity = Convert.ToInt32(numericUpDown1.Value);
+                label6.Text = (CartItems[i / 2].Quantity * product.Price).ToString() + " vnđ";
+                await LoadBill();
+            };
         }
         private async void AddProductToCart(AddToCartRequest request)
         {
+            var product = Result.Items.FirstOrDefault(c => c.Id == request.productId);
             var item = CartShow.ProductInCarts.FirstOrDefault(c => c.ProductVariationId == request.PvId);
             if (item != null)
             {
@@ -537,25 +495,55 @@ namespace App.Views.Views.Shopping
                     ProductVariationId = request.PvId,
                     Quantity = request.Quantity
                 });
-                CartItems.Add(new CartItemViewModel() { CartId = CartShow.Id, ColorId = request.ColorId, SizeId = request.SizeId, ColorName = request.ColorName, Sizename = request.SizeName, ProductId = request.productId, Quantity = request.Quantity, ProductName = request.productName, PvId = request.PvId });
+                CartItems.Add(new CartItemViewModel() { CartId = CartShow.Id, ColorId = request.ColorId, SizeId = request.SizeId, ColorName = request.ColorName, Sizename = request.SizeName, ProductId = request.productId, Quantity = request.Quantity, ProductName = request.productName, PvId = request.PvId, Price = product.Price, ThumbailImage = product.ThumbailImage });
+                await LoadCartDetail(CartShow);
             }
         }
-
-        private async Task<Order> GetOder()
+        // Hiệu ứng
+        private async Task AcctiveTitleOder(Panel pnl)
         {
+            if (PanlActive.Controls.Count > 0)
+            {
+                PanlActive.BackColor = System.Drawing.Color.FromArgb(90, 76, 219);
+                PanlActive.Controls[0].BackColor = System.Drawing.Color.FromArgb(90, 76, 219);
+                PanlActive.Controls[0].ForeColor = System.Drawing.Color.White;
+            }
+            PanlActive = pnl;
+            PanlActive.BackColor = System.Drawing.Color.White;
+            PanlActive.Controls[0].ForeColor = System.Drawing.Color.FromArgb(90, 76, 219);
+            PanlActive.Controls[0].BackColor = System.Drawing.Color.White;
+
+        }
+        // Set data for Create Order and Updatecart
+        private async Task SetDetailCartShow()
+        {
+            CartShow.Description = txtDescription.Text;
+            CartShow.CustomerName = txtCustomerName.Text;
+            CartShow.CustomerMoney = Convert.ToDecimal(txtCustomerMoney.Text);
+            CartShow.ShipEmail = txtEmail.Text;
+            CartShow.ShipPhoneNumber = txtPhoneNumber.Text;
+            CartShow.ShipAddress = txtAddress.Text;
+        }
+        private async Task<Order> SetOder()
+        {
+            var total = CartItems.Select(d => d.Price * d.Quantity).Sum();
             var oder = new Order()
             {
                 ShipAddress = txtAddress.Text,
                 ShipEmail = txtEmail.Text,
                 ShipName = txtCustomerName.Text,
                 ShipPhoneNumber = txtPhoneNumber.Text,
-                Status = Data.Ultilities.Enums.OrderStatus.Success,
+                Status = CombOrderstatus.SelectedIndex == 0 ? Data.Ultilities.Enums.OrderStatus.Success : Data.Ultilities.Enums.OrderStatus.Confirmed,
                 Created = DateTime.Now,
+                IsShipping = CombOrderstatus.SelectedIndex == 0 ? false : true,
                 Description = txtDescription.Text,
-                Total = Convert.ToDecimal(txtTotalBill.Text)
+                Total = total,
+                ProductInOrders =  CartItems.Select(c=>new ProductInOrder() { Created=DateTime.Now,Price=c.Price,ProductVariationId=c.PvId,Quantity=c.Quantity}).ToList()
             };
             return oder;
         }
+        #endregion
+        #region Events
         //Thanh Toán hoặc đặt hàng
         private async void vbButton12_Click(object sender, EventArgs e)
         {
@@ -563,10 +551,40 @@ namespace App.Views.Views.Shopping
             {
                 if (MessageBox.Show("Bạn có muốn thanh toán!", "Thông báo", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    var result = await _shoppingService.AddOrder(await GetOder());
+                    var result = await _shoppingService.AddOrder(await SetOder());
                     if (result)
                     {
                         MessageBox.Show("Thanh toán thành công!");
+                        var i = TblCartTittles.Controls.IndexOf(PanlActive); // Vị trí của cart trong ds
+                        if (await _shoppingService.RemoveCart(CartShow))
+                        {
+                            TblCartTittles.Controls.Remove(PanlActive);
+                            Carts.Remove(CartShow);
+                            if (Carts.Count == 0)
+                            {
+                                var cart1 = new Cart() { CartIndex = 1, CustomerMoney = 0 };
+                                Carts.Add(cart1);
+                                await _shoppingService.AddCart(cart1);
+                                await AcctiveTitleOder(await AddPanlCart(cart1));
+                                CartShow = cart1;
+                                await SetupList();
+                            }
+                            else
+                            {
+                                if (i < Carts.Count - 1)
+                                {
+                                    await AcctiveTitleOder((Panel)TblCartTittles.Controls[i]);
+                                    CartShow = Carts[i];
+                                    await SetupList();
+                                }
+                                else
+                                {
+                                    await AcctiveTitleOder((Panel)TblCartTittles.Controls[i - 1]);
+                                    CartShow = Carts[i - 1];
+                                    await SetupList();
+                                }
+                            }
+                        }
                     }
                     else
                     {
@@ -574,6 +592,77 @@ namespace App.Views.Views.Shopping
                     }
                 }
             }
+        }
+        private async void ShoppingIndex_Load(object sender, EventArgs e)
+        {
+            //
+            CombOrderstatus.SelectedIndex = 0;
+            //
+            Result = await _shoppingService.GetProducts(Request);
+            await LoadTblProducts();
+            Carts = (await _shoppingService.GetAllCarts()).ToList();
+            if (!Carts.Any())
+            {
+                var cart = new Cart() { CartIndex = 1, CustomerMoney = 0 };
+                Carts.Add(cart);
+                CartShow = cart;
+                await _shoppingService.AddCart(cart);
+                await AcctiveTitleOder(await AddPanlCart(cart));
+                await SetupList();
+            }
+            else
+            {
+                foreach (var cart in Carts)
+                {
+                    await AddPanlCart(cart);
+                }
+                await AcctiveTitleOder((Panel)TblCartTittles.Controls[0]);
+                CartShow = Carts[0];
+                await SetupList();
+            }
+        }
+        private async void ShoppingIndex_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // lưu giỏ hàng
+            await SetDetailCartShow();
+            await _shoppingService.UpdateCart(CartShow);
+        }
+        private async void BtnAddOrder_Click(object sender, EventArgs e)
+        {
+            var cart = new Cart() { CartIndex = Carts.Last().CartIndex + 1, CustomerMoney = 0 };
+            await _shoppingService.AddCart(cart);
+            Carts.Add(cart);
+            await AddPanlCart(cart);
+            var i = cart.Id;
+        }
+        #endregion
+
+        int time = 0;
+        private void txtSearchCustomer_TextChanged(object sender, EventArgs e)
+        {
+            timer1.Start();
+        }
+
+        private async void timer1_Tick(object sender, EventArgs e)
+        {
+            time++;
+            if (time % 20 == 0)
+            {
+                time = 0;
+                Customers = await _shoppingService.GetByPhoneNumber(txtSearchCustomer.Text);
+                MenuCustomers.Items.Clear();
+                foreach(var item in Customers)
+                {
+                    MenuCustomers.Items.Add(item.Name);
+                }
+                MenuCustomers.Show(txtSearchCustomer, 0, Txt_Search.Height + 5);
+                timer1.Stop();
+            }
+        }
+
+        private void CombOrderstatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BtnAddOrder.Text = CombOrderstatus.SelectedIndex == 0 ? "Thanh Toán" : "Đặt Hàng";
         }
     }
 }

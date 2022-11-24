@@ -326,6 +326,7 @@
             this.vbButton1.TabIndex = 11;
             this.vbButton1.TextColor = System.Drawing.Color.White;
             this.vbButton1.UseVisualStyleBackColor = false;
+            this.vbButton1.Click += new System.EventHandler(this.vbButton1_Click);
             // 
             // CombUnits
             // 
@@ -488,6 +489,7 @@
             this.vbButton2.TabIndex = 13;
             this.vbButton2.TextColor = System.Drawing.Color.White;
             this.vbButton2.UseVisualStyleBackColor = false;
+            this.vbButton2.Click += new System.EventHandler(this.vbButton2_Click);
             // 
             // CboxNsx
             // 
@@ -652,6 +654,7 @@
             this.vbButton6.TabIndex = 15;
             this.vbButton6.TextColor = System.Drawing.Color.White;
             this.vbButton6.UseVisualStyleBackColor = false;
+            this.vbButton6.Click += new System.EventHandler(this.vbButton6_Click);
             // 
             // TblCategories
             // 
@@ -682,6 +685,7 @@
             this.vbButton3.TabIndex = 12;
             this.vbButton3.TextColor = System.Drawing.Color.White;
             this.vbButton3.UseVisualStyleBackColor = false;
+            this.vbButton3.Click += new System.EventHandler(this.vbButton3_Click);
             // 
             // UpdateProduct
             // 

@@ -461,7 +461,7 @@ namespace App.Views.Views.Product
             try
             {
                 var index = Convert.ToInt32(TxtPageIndex.Text);
-                if (index > 0 && index < Result.PageSize)
+                if (index > 0 && index < Result.PageCount)
                 {
                     Result.PageIndex = index;
                     await PageIndex_Changed();
@@ -480,7 +480,7 @@ namespace App.Views.Views.Product
 
         private async void btn_next_Click(object sender, EventArgs e)
         {
-            if (Result.PageIndex < Result.PageSize)
+            if (Result.PageIndex < Result.PageCount)
             {
                 await PageIndex_Changed();
             }
@@ -492,7 +492,7 @@ namespace App.Views.Views.Product
 
         private async void btn_last_Click(object sender, EventArgs e)
         {
-            if (Result.PageIndex < Result.PageSize)
+            if (Result.PageIndex < Result.PageCount)
             {
                 await PageIndex_Changed();
             }

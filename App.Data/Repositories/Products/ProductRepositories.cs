@@ -32,7 +32,6 @@ namespace App.Data.Repositories.Products
             var query = from p in _context.Products
                         join pd in _context.ProductDetails on p.Id equals pd.ProductId
                         select new { p, pd };
-
             //2. filter
             if (!string.IsNullOrEmpty(request.Keyword))
                 query = query.Where(x => x.pd.Name.ToLower().Contains(request.Keyword.ToLower()));

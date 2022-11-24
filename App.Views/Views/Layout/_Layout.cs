@@ -1,8 +1,13 @@
 ﻿
 using App.Business.Sevices.Products;
 using App.Views.Models.Controls;
+using App.Views.Views.Catalog.Categories;
+using App.Views.Views.Catalog.Manufacturers;
+using App.Views.Views.Catalog.Units;
+using App.Views.Views.Orders;
 using App.Views.Views.Product;
 using App.Views.Views.Shopping;
+using App.Views.Views.ThongKe;
 using FontAwesome.Sharp;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -28,6 +33,7 @@ namespace App.Views.Views.Layout
         {
             InitializeComponent();
             _serviceProvide = serviceProvide;
+            
         }
         private async Task OpenchildForm(Form form)
         {
@@ -75,6 +81,23 @@ namespace App.Views.Views.Layout
         {
             await AcctiveBtn(BtnHome);
             await LoadCustomControl();
+            MenuCatalog.IsMainMenu = true;
+            MenuCatalog.Items[0].Click += async (o, s) =>
+            {
+                await AcctiveBtn(vbButton8);
+                await OpenchildForm(_serviceProvide.GetRequiredService<CategoryIndex>());
+            };
+            MenuCatalog.Items[1].Click += async (o, s) =>
+            {
+                await AcctiveBtn(vbButton8);
+                await OpenchildForm(_serviceProvide.GetRequiredService<ManufactureIndex>());
+            };
+            MenuCatalog.Items[2].Click += async (o, s) =>
+            {
+                await AcctiveBtn(vbButton8);
+                await OpenchildForm(_serviceProvide.GetRequiredService<UnitIndex>());
+            };
+
         }
 
         private async void vbButton5_Click(object sender, EventArgs e)
@@ -91,6 +114,26 @@ namespace App.Views.Views.Layout
             {
                 await OpenchildForm(_serviceProvide.GetRequiredService<ShoppingIndex>());
             }
+        }
+
+        private async void vbButton6_Click(object sender, EventArgs e)
+        {
+            if (_btnAcctive != vbButton6)
+            {
+                await OpenchildForm(_serviceProvide.GetRequiredService<OrderIndex>());
+            }
+        }
+
+        private async void vbButton9_Click(object sender, EventArgs e)
+        {
+            if (_btnAcctive != vbButton9)
+            {
+                await OpenchildForm(_serviceProvide.GetRequiredService<ThongKeIndex>());
+            }
+        }
+        private void vbButton8_Click(object sender, EventArgs e)
+        {
+            MenuCatalog.Show(vbButton8, vbButton8.Width, 0);
         }
     }
 }
