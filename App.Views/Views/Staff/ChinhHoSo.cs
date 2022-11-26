@@ -8,15 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace App.Views.Views.User
+namespace App.Views.Views.Staff
 {
-    public partial class ThemNhanVien : Form
+    public partial class ChinhHoSo : Form
     {
-        public ThemNhanVien()
+        public ChinhHoSo()
         {
             InitializeComponent();
         }
-
-        
     }
 }

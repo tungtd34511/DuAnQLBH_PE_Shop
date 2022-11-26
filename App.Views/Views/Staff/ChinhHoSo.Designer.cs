@@ -1,6 +1,6 @@
-﻿namespace App.Views.Views.User
+﻿namespace App.Views.Views.Staff
 {
-    partial class DoiThongTin
+    partial class ChinhHoSo
     {
         /// <summary>
         /// Required designer variable.
@@ -31,29 +31,32 @@
             this.vbButton1 = new App.Views.Models.Controls.VBButton();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.tb_Email = new System.Windows.Forms.TextBox();
             this.vbButton2 = new App.Views.Models.Controls.VBButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbb_ChucVu = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.vbButton9 = new App.Views.Models.Controls.VBButton();
+            this.ptb_Anh = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.Btn_Sua = new App.Views.Models.Controls.VBButton();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.tb_DiaChi = new System.Windows.Forms.TextBox();
             this.vbButton4 = new App.Views.Models.Controls.VBButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tb_CCCD = new System.Windows.Forms.TextBox();
             this.vbButton3 = new App.Views.Models.Controls.VBButton();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dtp_NgaySinh = new System.Windows.Forms.DateTimePicker();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.rdb_Nu = new System.Windows.Forms.RadioButton();
+            this.rdb_Nam = new System.Windows.Forms.RadioButton();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.tb_Sdt = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.tb_HoTen = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.vbButton5 = new App.Views.Models.Controls.VBButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -73,14 +76,11 @@
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.textBox10 = new System.Windows.Forms.TextBox();
             this.vbButton8 = new App.Views.Models.Controls.VBButton();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.vbButton9 = new App.Views.Models.Controls.VBButton();
-            this.BtnBack = new App.Views.Models.Controls.VBButton();
             this.tableLayoutPanel3.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptb_Anh)).BeginInit();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -141,7 +141,7 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.textBox3);
+            this.groupBox5.Controls.Add(this.tb_Email);
             this.groupBox5.Controls.Add(this.vbButton2);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox5.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -152,14 +152,14 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Email";
             // 
-            // textBox3
+            // tb_Email
             // 
-            this.textBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox3.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox3.Location = new System.Drawing.Point(3, 30);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(376, 30);
-            this.textBox3.TabIndex = 14;
+            this.tb_Email.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb_Email.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tb_Email.Location = new System.Drawing.Point(3, 30);
+            this.tb_Email.Name = "tb_Email";
+            this.tb_Email.Size = new System.Drawing.Size(376, 30);
+            this.tb_Email.TabIndex = 14;
             // 
             // vbButton2
             // 
@@ -185,7 +185,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.comboBox1);
+            this.groupBox2.Controls.Add(this.cbb_ChucVu);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox2.Location = new System.Drawing.Point(3, 249);
@@ -195,10 +195,19 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Chức Vụ";
             // 
+            // cbb_ChucVu
+            // 
+            this.cbb_ChucVu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbb_ChucVu.FormattingEnabled = true;
+            this.cbb_ChucVu.Location = new System.Drawing.Point(3, 30);
+            this.cbb_ChucVu.Name = "cbb_ChucVu";
+            this.cbb_ChucVu.Size = new System.Drawing.Size(376, 36);
+            this.cbb_ChucVu.TabIndex = 0;
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.vbButton9);
-            this.groupBox1.Controls.Add(this.pictureBox1);
+            this.groupBox1.Controls.Add(this.ptb_Anh);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
@@ -208,14 +217,36 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ảnh";
             // 
-            // pictureBox1
+            // vbButton9
             // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 30);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(376, 207);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.vbButton9.BackColor = System.Drawing.Color.White;
+            this.vbButton9.BackgroundColor = System.Drawing.Color.White;
+            this.vbButton9.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.vbButton9.BorderRadius = 15;
+            this.vbButton9.BorderSize = 0;
+            this.vbButton9.FlatAppearance.BorderSize = 0;
+            this.vbButton9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.vbButton9.ForeColor = System.Drawing.Color.White;
+            this.vbButton9.IconChar = FontAwesome.Sharp.IconChar.PlusCircle;
+            this.vbButton9.IconColor = System.Drawing.Color.MediumSlateBlue;
+            this.vbButton9.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.vbButton9.IconSize = 29;
+            this.vbButton9.Location = new System.Drawing.Point(302, -2);
+            this.vbButton9.Name = "vbButton9";
+            this.vbButton9.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.vbButton9.Size = new System.Drawing.Size(31, 31);
+            this.vbButton9.TabIndex = 17;
+            this.vbButton9.TextColor = System.Drawing.Color.White;
+            this.vbButton9.UseVisualStyleBackColor = false;
+            // 
+            // ptb_Anh
+            // 
+            this.ptb_Anh.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ptb_Anh.Location = new System.Drawing.Point(3, 30);
+            this.ptb_Anh.Name = "ptb_Anh";
+            this.ptb_Anh.Size = new System.Drawing.Size(376, 207);
+            this.ptb_Anh.TabIndex = 0;
+            this.ptb_Anh.TabStop = false;
             // 
             // panel1
             // 
@@ -242,7 +273,7 @@
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.BtnBack, 0, 7);
+            this.tableLayoutPanel2.Controls.Add(this.Btn_Sua, 0, 7);
             this.tableLayoutPanel2.Controls.Add(this.groupBox6, 0, 6);
             this.tableLayoutPanel2.Controls.Add(this.groupBox3, 0, 5);
             this.tableLayoutPanel2.Controls.Add(this.groupBox11, 0, 4);
@@ -267,9 +298,31 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(421, 582);
             this.tableLayoutPanel2.TabIndex = 19;
             // 
+            // Btn_Sua
+            // 
+            this.Btn_Sua.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.Btn_Sua.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.Btn_Sua.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.Btn_Sua.BorderRadius = 5;
+            this.Btn_Sua.BorderSize = 0;
+            this.Btn_Sua.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Btn_Sua.FlatAppearance.BorderSize = 0;
+            this.Btn_Sua.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Btn_Sua.ForeColor = System.Drawing.Color.White;
+            this.Btn_Sua.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.Btn_Sua.IconColor = System.Drawing.Color.Black;
+            this.Btn_Sua.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.Btn_Sua.Location = new System.Drawing.Point(3, 530);
+            this.Btn_Sua.Name = "Btn_Sua";
+            this.Btn_Sua.Size = new System.Drawing.Size(415, 49);
+            this.Btn_Sua.TabIndex = 19;
+            this.Btn_Sua.Text = "Chỉnh sửa hồ sơ";
+            this.Btn_Sua.TextColor = System.Drawing.Color.White;
+            this.Btn_Sua.UseVisualStyleBackColor = false;
+            // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.textBox6);
+            this.groupBox6.Controls.Add(this.tb_DiaChi);
             this.groupBox6.Controls.Add(this.vbButton4);
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox6.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -280,14 +333,14 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Địa chỉ";
             // 
-            // textBox6
+            // tb_DiaChi
             // 
-            this.textBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox6.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox6.Location = new System.Drawing.Point(3, 30);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(409, 30);
-            this.textBox6.TabIndex = 14;
+            this.tb_DiaChi.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb_DiaChi.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tb_DiaChi.Location = new System.Drawing.Point(3, 30);
+            this.tb_DiaChi.Name = "tb_DiaChi";
+            this.tb_DiaChi.Size = new System.Drawing.Size(409, 30);
+            this.tb_DiaChi.TabIndex = 14;
             // 
             // vbButton4
             // 
@@ -313,7 +366,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.textBox2);
+            this.groupBox3.Controls.Add(this.tb_CCCD);
             this.groupBox3.Controls.Add(this.vbButton3);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -324,14 +377,14 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Căn Cước Công Dân";
             // 
-            // textBox2
+            // tb_CCCD
             // 
-            this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox2.Location = new System.Drawing.Point(3, 30);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(409, 30);
-            this.textBox2.TabIndex = 14;
+            this.tb_CCCD.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb_CCCD.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tb_CCCD.Location = new System.Drawing.Point(3, 30);
+            this.tb_CCCD.Name = "tb_CCCD";
+            this.tb_CCCD.Size = new System.Drawing.Size(409, 30);
+            this.tb_CCCD.TabIndex = 14;
             // 
             // vbButton3
             // 
@@ -357,7 +410,7 @@
             // 
             // groupBox11
             // 
-            this.groupBox11.Controls.Add(this.dateTimePicker2);
+            this.groupBox11.Controls.Add(this.dtp_NgaySinh);
             this.groupBox11.Controls.Add(this.vbButton1);
             this.groupBox11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox11.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -368,18 +421,18 @@
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Ngày Sinh";
             // 
-            // dateTimePicker2
+            // dtp_NgaySinh
             // 
-            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker2.Location = new System.Drawing.Point(10, 45);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(402, 34);
-            this.dateTimePicker2.TabIndex = 14;
+            this.dtp_NgaySinh.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtp_NgaySinh.Location = new System.Drawing.Point(10, 45);
+            this.dtp_NgaySinh.Name = "dtp_NgaySinh";
+            this.dtp_NgaySinh.Size = new System.Drawing.Size(402, 34);
+            this.dtp_NgaySinh.TabIndex = 14;
             // 
             // groupBox10
             // 
-            this.groupBox10.Controls.Add(this.radioButton1);
-            this.groupBox10.Controls.Add(this.radioButton2);
+            this.groupBox10.Controls.Add(this.rdb_Nu);
+            this.groupBox10.Controls.Add(this.rdb_Nam);
             this.groupBox10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox10.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox10.Location = new System.Drawing.Point(3, 209);
@@ -389,31 +442,31 @@
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Giới Tính";
             // 
-            // radioButton1
+            // rdb_Nu
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(205, 36);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(60, 32);
-            this.radioButton1.TabIndex = 1;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Nữ";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.rdb_Nu.AutoSize = true;
+            this.rdb_Nu.Location = new System.Drawing.Point(205, 36);
+            this.rdb_Nu.Name = "rdb_Nu";
+            this.rdb_Nu.Size = new System.Drawing.Size(60, 32);
+            this.rdb_Nu.TabIndex = 1;
+            this.rdb_Nu.TabStop = true;
+            this.rdb_Nu.Text = "Nữ";
+            this.rdb_Nu.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // rdb_Nam
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(10, 36);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(76, 32);
-            this.radioButton2.TabIndex = 0;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Nam";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.rdb_Nam.AutoSize = true;
+            this.rdb_Nam.Location = new System.Drawing.Point(10, 36);
+            this.rdb_Nam.Name = "rdb_Nam";
+            this.rdb_Nam.Size = new System.Drawing.Size(76, 32);
+            this.rdb_Nam.TabIndex = 0;
+            this.rdb_Nam.TabStop = true;
+            this.rdb_Nam.Text = "Nam";
+            this.rdb_Nam.UseVisualStyleBackColor = true;
             // 
             // groupBox9
             // 
-            this.groupBox9.Controls.Add(this.textBox5);
+            this.groupBox9.Controls.Add(this.tb_Sdt);
             this.groupBox9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox9.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox9.Location = new System.Drawing.Point(3, 136);
@@ -423,18 +476,18 @@
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Số Điện Thoại";
             // 
-            // textBox5
+            // tb_Sdt
             // 
-            this.textBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox5.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox5.Location = new System.Drawing.Point(3, 30);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(409, 30);
-            this.textBox5.TabIndex = 4;
+            this.tb_Sdt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb_Sdt.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tb_Sdt.Location = new System.Drawing.Point(3, 30);
+            this.tb_Sdt.Name = "tb_Sdt";
+            this.tb_Sdt.Size = new System.Drawing.Size(409, 30);
+            this.tb_Sdt.TabIndex = 4;
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.textBox4);
+            this.groupBox4.Controls.Add(this.tb_HoTen);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox4.Location = new System.Drawing.Point(3, 60);
@@ -444,14 +497,14 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Họ Và Tên";
             // 
-            // textBox4
+            // tb_HoTen
             // 
-            this.textBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox4.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox4.Location = new System.Drawing.Point(3, 30);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(409, 30);
-            this.textBox4.TabIndex = 4;
+            this.tb_HoTen.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb_HoTen.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tb_HoTen.Location = new System.Drawing.Point(3, 30);
+            this.tb_HoTen.Name = "tb_HoTen";
+            this.tb_HoTen.Size = new System.Drawing.Size(409, 30);
+            this.tb_HoTen.TabIndex = 4;
             // 
             // label3
             // 
@@ -715,59 +768,6 @@
             this.vbButton8.TextColor = System.Drawing.Color.White;
             this.vbButton8.UseVisualStyleBackColor = false;
             // 
-            // comboBox1
-            // 
-            this.comboBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(3, 30);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(376, 36);
-            this.comboBox1.TabIndex = 0;
-            // 
-            // vbButton9
-            // 
-            this.vbButton9.BackColor = System.Drawing.Color.White;
-            this.vbButton9.BackgroundColor = System.Drawing.Color.White;
-            this.vbButton9.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.vbButton9.BorderRadius = 15;
-            this.vbButton9.BorderSize = 0;
-            this.vbButton9.FlatAppearance.BorderSize = 0;
-            this.vbButton9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.vbButton9.ForeColor = System.Drawing.Color.White;
-            this.vbButton9.IconChar = FontAwesome.Sharp.IconChar.PlusCircle;
-            this.vbButton9.IconColor = System.Drawing.Color.MediumSlateBlue;
-            this.vbButton9.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.vbButton9.IconSize = 29;
-            this.vbButton9.Location = new System.Drawing.Point(302, -2);
-            this.vbButton9.Name = "vbButton9";
-            this.vbButton9.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.vbButton9.Size = new System.Drawing.Size(31, 31);
-            this.vbButton9.TabIndex = 17;
-            this.vbButton9.TextColor = System.Drawing.Color.White;
-            this.vbButton9.UseVisualStyleBackColor = false;
-            // 
-            // BtnBack
-            // 
-            this.BtnBack.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.BtnBack.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.BtnBack.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnBack.BorderRadius = 5;
-            this.BtnBack.BorderSize = 0;
-            this.BtnBack.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BtnBack.FlatAppearance.BorderSize = 0;
-            this.BtnBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnBack.ForeColor = System.Drawing.Color.White;
-            this.BtnBack.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.BtnBack.IconColor = System.Drawing.Color.Black;
-            this.BtnBack.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.BtnBack.Location = new System.Drawing.Point(3, 530);
-            this.BtnBack.Name = "BtnBack";
-            this.BtnBack.Size = new System.Drawing.Size(415, 49);
-            this.BtnBack.TabIndex = 19;
-            this.BtnBack.Text = "Chỉnh sửa hồ sơ";
-            this.BtnBack.TextColor = System.Drawing.Color.White;
-            this.BtnBack.UseVisualStyleBackColor = false;
-            // 
             // DoiThongTin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -784,7 +784,7 @@
             this.groupBox5.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptb_Anh)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -823,29 +823,29 @@
         private Models.Controls.VBButton vbButton1;
         private TableLayoutPanel tableLayoutPanel3;
         private GroupBox groupBox5;
-        private TextBox textBox3;
+        private TextBox tb_Email;
         private Models.Controls.VBButton vbButton2;
         private GroupBox groupBox2;
         private GroupBox groupBox1;
-        private PictureBox pictureBox1;
+        private PictureBox ptb_Anh;
         private Panel panel1;
         private Label label1;
         private TableLayoutPanel tableLayoutPanel2;
         private GroupBox groupBox6;
-        private TextBox textBox6;
+        private TextBox tb_DiaChi;
         private Models.Controls.VBButton vbButton4;
         private GroupBox groupBox3;
-        private TextBox textBox2;
+        private TextBox tb_CCCD;
         private Models.Controls.VBButton vbButton3;
         private GroupBox groupBox11;
-        private DateTimePicker dateTimePicker2;
+        private DateTimePicker dtp_NgaySinh;
         private GroupBox groupBox10;
-        private RadioButton radioButton1;
-        private RadioButton radioButton2;
+        private RadioButton rdb_Nu;
+        private RadioButton rdb_Nam;
         private GroupBox groupBox9;
-        private TextBox textBox5;
+        private TextBox tb_Sdt;
         private GroupBox groupBox4;
-        private TextBox textBox4;
+        private TextBox tb_HoTen;
         private Label label3;
         private Models.Controls.VBButton vbButton5;
         private TableLayoutPanel tableLayoutPanel1;
@@ -865,8 +865,8 @@
         private GroupBox groupBox14;
         private TextBox textBox10;
         private Models.Controls.VBButton vbButton8;
-        private ComboBox comboBox1;
+        private ComboBox cbb_ChucVu;
         private Models.Controls.VBButton vbButton9;
-        public Models.Controls.VBButton BtnBack;
+        public Models.Controls.VBButton Btn_Sua;
     }
 }

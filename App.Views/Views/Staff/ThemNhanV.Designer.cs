@@ -1,6 +1,6 @@
-﻿namespace App.Views.Views.User
+﻿namespace App.Views.Views.Staff
 {
-    partial class ThemNhanVien
+    partial class ThemNhanV
     {
         /// <summary>
         /// Required designer variable.
@@ -38,8 +38,7 @@
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.ptb_Anh = new System.Windows.Forms.PictureBox();
-            this.vbButton6 = new App.Views.Models.Controls.VBButton();
-            this.vbButton4 = new App.Views.Models.Controls.VBButton();
+            this.btn_ThemAnh = new App.Views.Models.Controls.VBButton();
             this.vbButton5 = new App.Views.Models.Controls.VBButton();
             this.BtnAddImg = new App.Views.Models.Controls.VBButton();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -101,7 +100,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 95F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 104F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1006, 993);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1006, 986);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // panel1
@@ -110,7 +109,7 @@
             this.panel1.Controls.Add(this.Btn_Them);
             this.panel1.Controls.Add(this.Btn_Thoat);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(310, 892);
+            this.panel1.Location = new System.Drawing.Point(310, 885);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(693, 98);
             this.panel1.TabIndex = 5;
@@ -135,6 +134,7 @@
             this.btn_LamMoi.Text = "Làm mới";
             this.btn_LamMoi.TextColor = System.Drawing.Color.White;
             this.btn_LamMoi.UseVisualStyleBackColor = false;
+            this.btn_LamMoi.Click += new System.EventHandler(this.btn_LamMoi_Click);
             // 
             // Btn_Them
             // 
@@ -156,6 +156,7 @@
             this.Btn_Them.Text = "Thêm";
             this.Btn_Them.TextColor = System.Drawing.Color.White;
             this.Btn_Them.UseVisualStyleBackColor = false;
+            this.Btn_Them.Click += new System.EventHandler(this.Btn_Them_Click);
             // 
             // Btn_Thoat
             // 
@@ -170,13 +171,14 @@
             this.Btn_Thoat.IconChar = FontAwesome.Sharp.IconChar.None;
             this.Btn_Thoat.IconColor = System.Drawing.Color.Black;
             this.Btn_Thoat.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.Btn_Thoat.Location = new System.Drawing.Point(522, 22);
+            this.Btn_Thoat.Location = new System.Drawing.Point(524, 22);
             this.Btn_Thoat.Name = "Btn_Thoat";
             this.Btn_Thoat.Size = new System.Drawing.Size(153, 50);
             this.Btn_Thoat.TabIndex = 0;
             this.Btn_Thoat.Text = "Thoát";
             this.Btn_Thoat.TextColor = System.Drawing.Color.White;
             this.Btn_Thoat.UseVisualStyleBackColor = false;
+            this.Btn_Thoat.Click += new System.EventHandler(this.Btn_Thoat_Click);
             // 
             // label15
             // 
@@ -203,7 +205,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1000, 788);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1000, 781);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // tableLayoutPanel4
@@ -217,14 +219,13 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.29397F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(554, 782);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(554, 775);
             this.tableLayoutPanel4.TabIndex = 4;
             // 
             // groupBox10
             // 
             this.groupBox10.Controls.Add(this.ptb_Anh);
-            this.groupBox10.Controls.Add(this.vbButton6);
-            this.groupBox10.Controls.Add(this.vbButton4);
+            this.groupBox10.Controls.Add(this.btn_ThemAnh);
             this.groupBox10.Controls.Add(this.vbButton5);
             this.groupBox10.Controls.Add(this.BtnAddImg);
             this.groupBox10.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -232,7 +233,7 @@
             this.groupBox10.Location = new System.Drawing.Point(3, 3);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Padding = new System.Windows.Forms.Padding(10);
-            this.groupBox10.Size = new System.Drawing.Size(548, 776);
+            this.groupBox10.Size = new System.Drawing.Size(548, 769);
             this.groupBox10.TabIndex = 10;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Ảnh";
@@ -242,53 +243,33 @@
             this.ptb_Anh.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ptb_Anh.Location = new System.Drawing.Point(10, 37);
             this.ptb_Anh.Name = "ptb_Anh";
-            this.ptb_Anh.Size = new System.Drawing.Size(528, 729);
+            this.ptb_Anh.Size = new System.Drawing.Size(528, 722);
+            this.ptb_Anh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.ptb_Anh.TabIndex = 17;
             this.ptb_Anh.TabStop = false;
             // 
-            // vbButton6
+            // btn_ThemAnh
             // 
-            this.vbButton6.BackColor = System.Drawing.Color.White;
-            this.vbButton6.BackgroundColor = System.Drawing.Color.White;
-            this.vbButton6.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.vbButton6.BorderRadius = 15;
-            this.vbButton6.BorderSize = 0;
-            this.vbButton6.FlatAppearance.BorderSize = 0;
-            this.vbButton6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.vbButton6.ForeColor = System.Drawing.Color.White;
-            this.vbButton6.IconChar = FontAwesome.Sharp.IconChar.PlusCircle;
-            this.vbButton6.IconColor = System.Drawing.Color.MediumSlateBlue;
-            this.vbButton6.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.vbButton6.IconSize = 29;
-            this.vbButton6.Location = new System.Drawing.Point(439, 0);
-            this.vbButton6.Name = "vbButton6";
-            this.vbButton6.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.vbButton6.Size = new System.Drawing.Size(31, 31);
-            this.vbButton6.TabIndex = 16;
-            this.vbButton6.TextColor = System.Drawing.Color.White;
-            this.vbButton6.UseVisualStyleBackColor = false;
-            // 
-            // vbButton4
-            // 
-            this.vbButton4.BackColor = System.Drawing.Color.White;
-            this.vbButton4.BackgroundColor = System.Drawing.Color.White;
-            this.vbButton4.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.vbButton4.BorderRadius = 15;
-            this.vbButton4.BorderSize = 0;
-            this.vbButton4.FlatAppearance.BorderSize = 0;
-            this.vbButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.vbButton4.ForeColor = System.Drawing.Color.White;
-            this.vbButton4.IconChar = FontAwesome.Sharp.IconChar.Rotate;
-            this.vbButton4.IconColor = System.Drawing.Color.MediumSlateBlue;
-            this.vbButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.vbButton4.IconSize = 29;
-            this.vbButton4.Location = new System.Drawing.Point(375, -3);
-            this.vbButton4.Name = "vbButton4";
-            this.vbButton4.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.vbButton4.Size = new System.Drawing.Size(31, 31);
-            this.vbButton4.TabIndex = 15;
-            this.vbButton4.TextColor = System.Drawing.Color.White;
-            this.vbButton4.UseVisualStyleBackColor = false;
+            this.btn_ThemAnh.BackColor = System.Drawing.Color.White;
+            this.btn_ThemAnh.BackgroundColor = System.Drawing.Color.White;
+            this.btn_ThemAnh.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btn_ThemAnh.BorderRadius = 15;
+            this.btn_ThemAnh.BorderSize = 0;
+            this.btn_ThemAnh.FlatAppearance.BorderSize = 0;
+            this.btn_ThemAnh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_ThemAnh.ForeColor = System.Drawing.Color.White;
+            this.btn_ThemAnh.IconChar = FontAwesome.Sharp.IconChar.PlusCircle;
+            this.btn_ThemAnh.IconColor = System.Drawing.Color.MediumSlateBlue;
+            this.btn_ThemAnh.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btn_ThemAnh.IconSize = 29;
+            this.btn_ThemAnh.Location = new System.Drawing.Point(439, 0);
+            this.btn_ThemAnh.Name = "btn_ThemAnh";
+            this.btn_ThemAnh.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.btn_ThemAnh.Size = new System.Drawing.Size(31, 31);
+            this.btn_ThemAnh.TabIndex = 16;
+            this.btn_ThemAnh.TextColor = System.Drawing.Color.White;
+            this.btn_ThemAnh.UseVisualStyleBackColor = false;
+            this.btn_ThemAnh.Click += new System.EventHandler(this.btn_ThemAnh_Click);
             // 
             // vbButton5
             // 
@@ -356,11 +337,11 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 74F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 87F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 78F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 74F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 236F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(434, 782);
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 241F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(434, 775);
             this.tableLayoutPanel3.TabIndex = 2;
             // 
             // groupBox7
@@ -369,9 +350,9 @@
             this.groupBox7.Controls.Add(this.vbButton7);
             this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox7.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.groupBox7.Location = new System.Drawing.Point(3, 549);
+            this.groupBox7.Location = new System.Drawing.Point(3, 537);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(418, 230);
+            this.groupBox7.Size = new System.Drawing.Size(418, 235);
             this.groupBox7.TabIndex = 8;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Ngày Sinh";
@@ -412,9 +393,9 @@
             this.groupBox4.Controls.Add(this.vbButton3);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.groupBox4.Location = new System.Drawing.Point(3, 474);
+            this.groupBox4.Location = new System.Drawing.Point(3, 467);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(418, 69);
+            this.groupBox4.Size = new System.Drawing.Size(418, 64);
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Địa chỉ";
@@ -456,9 +437,9 @@
             this.groupBox1.Controls.Add(this.vbButton1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.groupBox1.Location = new System.Drawing.Point(3, 396);
+            this.groupBox1.Location = new System.Drawing.Point(3, 392);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(418, 72);
+            this.groupBox1.Size = new System.Drawing.Size(418, 69);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Căn Cước Công Dân";
@@ -636,7 +617,7 @@
             this.groupBox5.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox5.Location = new System.Drawing.Point(3, 318);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(418, 72);
+            this.groupBox5.Size = new System.Drawing.Size(418, 68);
             this.groupBox5.TabIndex = 3;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Email";
@@ -672,13 +653,13 @@
             this.vbButton2.TextColor = System.Drawing.Color.White;
             this.vbButton2.UseVisualStyleBackColor = false;
             // 
-            // ThemNhanVien
+            // ThemNhanV
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1021, 1003);
+            this.ClientSize = new System.Drawing.Size(1021, 996);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "ThemNhanVien";
+            this.Name = "ThemNhanV";
             this.Padding = new System.Windows.Forms.Padding(5, 5, 10, 5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Thêm nhân viên";
@@ -745,8 +726,7 @@
         private GroupBox groupBox10;
         private Models.Controls.VBButton vbButton5;
         private Models.Controls.VBButton BtnAddImg;
-        private Models.Controls.VBButton vbButton4;
-        private Models.Controls.VBButton vbButton6;
+        private Models.Controls.VBButton btn_ThemAnh;
         private PictureBox ptb_Anh;
         private GroupBox groupBox7;
         private DateTimePicker dtp_NgaySinh;
