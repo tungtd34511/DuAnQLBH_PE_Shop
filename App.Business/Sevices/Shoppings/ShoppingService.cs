@@ -1,5 +1,9 @@
-﻿using App.Data.Entities;
+﻿using App.Business.Models.Products;
+using App.Data.Entities;
 using App.Data.Repositories.Carts;
+using App.Data.Repositories.Catalog.Categories;
+using App.Data.Repositories.Catalog.Colors;
+using App.Data.Repositories.Catalog.Sizes;
 using App.Data.Repositories.Customers;
 using App.Data.Repositories.Orders;
 using App.Data.Repositories.Products;
@@ -23,7 +27,10 @@ namespace App.Business.Sevices.Shoppings
         private readonly IProductInCartRepositories _productInCartRepositories;
         private readonly IOrderRepositories _orderRepositories;
         private readonly ICustomerRepositories _customerRepositories;
-        public ShoppingService(IProductRepositories productRepositories, IProductVariationRepositories productVariationRepositories, ICartRepositories cartRepositories, IProductInCartRepositories productInCartRepositories, IOrderRepositories orderRepositories, ICustomerRepositories customerRepositories)
+        private readonly IColorRepositories _colorRepositories;
+        private readonly ISizeRepositories _sizeRepositories;
+        private readonly ICategoryRepositories _categoryRepositories;
+        public ShoppingService(IProductRepositories productRepositories, IProductVariationRepositories productVariationRepositories, ICartRepositories cartRepositories, IProductInCartRepositories productInCartRepositories, IOrderRepositories orderRepositories, ICustomerRepositories customerRepositories, ICategoryRepositories categoryRepositories, ISizeRepositories sizeRepositories, IColorRepositories colorRepositories)
         {
             _productRepositories = productRepositories;
             _productVariationRepositories = productVariationRepositories;
@@ -31,6 +38,9 @@ namespace App.Business.Sevices.Shoppings
             _productInCartRepositories = productInCartRepositories;
             _orderRepositories = orderRepositories;
             _customerRepositories = customerRepositories;
+            _categoryRepositories = categoryRepositories;
+            _sizeRepositories = sizeRepositories;
+            _colorRepositories = colorRepositories;
         }
 
         public async Task<PagedResult<ProductInShoppingVm>> GetProducts(GetPagingShoppingRequest request)
@@ -111,6 +121,15 @@ namespace App.Business.Sevices.Shoppings
         public async Task<IEnumerable<Customer>> GetByPhoneNumber(string phonenumber)
         {
             return await _customerRepositories.GetByPhoneNumber(phonenumber);
+        }
+        public async Task<DataForProductFilter> GetDataForFilter()
+        {
+            return new DataForProductFilter()
+            {
+                Colors = await _colorRepositories.GetAllForCreate(),
+                Sizes = await _sizeRepositories.GetAllForCreate(),
+                Categories = await _categoryRepositories.GetAllForCreate(),
+            };
         }
     }
 }

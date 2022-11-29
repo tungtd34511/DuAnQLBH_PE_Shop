@@ -52,5 +52,15 @@ namespace App.Data.Repositories.Catalog.Categories
             };
             return pagedResult;
         }
+
+        public async Task<string> Validate(string name)
+        {
+            var text = "";
+            if (await Entities.AnyAsync(c => c.Name.ToLower().Contains(name.ToLower())))
+            {
+                text += "Tên danh mục đã tồn tại!";
+            }
+            return text;
+        }
     }
 }

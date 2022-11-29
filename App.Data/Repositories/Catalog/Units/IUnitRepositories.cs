@@ -14,5 +14,6 @@ namespace App.Data.Repositories.Catalog.Units
     {
         Task<List<UnitForCreate>> GetAllForCreate();
         Task<PagedResult<Unit>> GetPaging(GetPagingUnitRequest request);
+        Task<bool> CheckName(string name);
     }
 }

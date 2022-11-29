@@ -40,5 +40,13 @@ namespace App.Data.Repositories.Catalog.Manufacturers
             };
             return pagedResult;
         }
+        public async Task<string> Valiate(string name)
+        {
+            if (await Entities.AnyAsync(c => c.Name.ToLower() == name))
+            {
+                return "Tên nhà sản xuất đã tồn tại !\n";
+            }
+            else return "";
+        }
     }
 }

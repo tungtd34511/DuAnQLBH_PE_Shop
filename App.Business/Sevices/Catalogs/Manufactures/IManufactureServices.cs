@@ -16,5 +16,6 @@ namespace App.Business.Sevices.Catalogs.Manufactures
         Task<bool> ChangeStatus(Manufacturer manufacturer);
         Task<Manufacturer> GetManufacturerById(int id);
         Task<PagedResult<Manufacturer>> GetPaging(GetPagingManufactureRequest request);
+        Task<string> Valiate(string name);
     }
 }

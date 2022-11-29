@@ -14,6 +14,11 @@ namespace App.Data.Repositories.Catalog.Units
         {
         }
 
+        public async Task<bool> CheckName(string name)
+        {
+            return await Entities.AllAsync(u => u.Name.ToLower() == name.ToLower());
+        }
+
         public async Task<List<UnitForCreate>> GetAllForCreate()
         {
             return await (Entities.Where(c => c.IsDeleted == false).Select(c => new UnitForCreate() { Id = c.Id, Name = c.Name }).ToListAsync());

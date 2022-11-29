@@ -68,12 +68,13 @@
             this.lblTitle.Location = new System.Drawing.Point(0, 6);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(511, 60);
+            this.lblTitle.Size = new System.Drawing.Size(294, 60);
             this.lblTitle.TabIndex = 10;
-            this.lblTitle.Text = "Thêm Đơn Vị Sản Phẩm";
+            this.lblTitle.Text = "Thêm Đơn Vị";
             // 
             // groupBox3
             // 
+            this.groupBox3.BackColor = System.Drawing.Color.White;
             this.groupBox3.Controls.Add(this.LblName);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox3.Location = new System.Drawing.Point(3, 76);
@@ -85,11 +86,12 @@
             // 
             // LblName
             // 
-            this.LblName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LblName.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.LblName.Location = new System.Drawing.Point(3, 30);
+            this.LblName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.LblName.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.LblName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.LblName.Location = new System.Drawing.Point(3, 35);
             this.LblName.Name = "LblName";
-            this.LblName.Size = new System.Drawing.Size(768, 30);
+            this.LblName.Size = new System.Drawing.Size(768, 27);
             this.LblName.TabIndex = 3;
             // 
             // panel1

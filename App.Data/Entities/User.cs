@@ -1,4 +1,5 @@
-﻿using App.Data.Ultilities.Enums;
+﻿using App.Data.Ultilities.Catalog.Users;
+using App.Data.Ultilities.Enums;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;

@@ -30,7 +30,6 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.label14 = new System.Windows.Forms.Label();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.btn_Prev = new FontAwesome.Sharp.IconButton();
             this.btn_last = new FontAwesome.Sharp.IconButton();
@@ -51,10 +50,7 @@
             this.TblOrders = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.CheckUnHide = new System.Windows.Forms.CheckBox();
-            this.vbButton6 = new App.Views.Models.Controls.VBButton();
             this.vbButton5 = new App.Views.Models.Controls.VBButton();
-            this.vbButton4 = new App.Views.Models.Controls.VBButton();
-            this.BtnCreate = new App.Views.Models.Controls.VBButton();
             this.lblResult = new System.Windows.Forms.Label();
             this.Comb_OderBy = new System.Windows.Forms.ComboBox();
             this.customPanel1 = new App.Views.Models.Controls.CustomPanel();
@@ -94,7 +90,6 @@
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.16667F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.83334F));
-            this.tableLayoutPanel2.Controls.Add(this.label14, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel5, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel7, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.PanlFilter, 0, 1);
@@ -109,18 +104,6 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(1560, 880);
             this.tableLayoutPanel2.TabIndex = 0;
-            // 
-            // label14
-            // 
-            this.label14.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label14.ForeColor = System.Drawing.Color.Black;
-            this.label14.Location = new System.Drawing.Point(3, 4);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(53, 32);
-            this.label14.TabIndex = 6;
-            this.label14.Text = "Lọc";
             // 
             // tableLayoutPanel5
             // 
@@ -401,10 +384,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.CheckUnHide);
-            this.panel1.Controls.Add(this.vbButton6);
             this.panel1.Controls.Add(this.vbButton5);
-            this.panel1.Controls.Add(this.vbButton4);
-            this.panel1.Controls.Add(this.BtnCreate);
             this.panel1.Controls.Add(this.lblResult);
             this.panel1.Controls.Add(this.Comb_OderBy);
             this.panel1.Controls.Add(this.customPanel1);
@@ -426,31 +406,6 @@
             this.CheckUnHide.TabIndex = 14;
             this.CheckUnHide.Text = "Hiện Ẩn";
             this.CheckUnHide.UseVisualStyleBackColor = true;
-            // 
-            // vbButton6
-            // 
-            this.vbButton6.BackColor = System.Drawing.Color.Transparent;
-            this.vbButton6.BackgroundColor = System.Drawing.Color.Transparent;
-            this.vbButton6.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(76)))), ((int)(((byte)(219)))));
-            this.vbButton6.BorderRadius = 5;
-            this.vbButton6.BorderSize = 2;
-            this.vbButton6.FlatAppearance.BorderSize = 0;
-            this.vbButton6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.vbButton6.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.vbButton6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(76)))), ((int)(((byte)(219)))));
-            this.vbButton6.IconChar = FontAwesome.Sharp.IconChar.CaretDown;
-            this.vbButton6.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(76)))), ((int)(((byte)(219)))));
-            this.vbButton6.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.vbButton6.IconSize = 25;
-            this.vbButton6.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.vbButton6.Location = new System.Drawing.Point(661, 34);
-            this.vbButton6.Name = "vbButton6";
-            this.vbButton6.Size = new System.Drawing.Size(110, 44);
-            this.vbButton6.TabIndex = 13;
-            this.vbButton6.Text = "Khác";
-            this.vbButton6.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(76)))), ((int)(((byte)(219)))));
-            this.vbButton6.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.vbButton6.UseVisualStyleBackColor = false;
             // 
             // vbButton5
             // 
@@ -476,56 +431,6 @@
             this.vbButton5.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(164)))), ((int)(((byte)(78)))));
             this.vbButton5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.vbButton5.UseVisualStyleBackColor = false;
-            // 
-            // vbButton4
-            // 
-            this.vbButton4.BackColor = System.Drawing.Color.Transparent;
-            this.vbButton4.BackgroundColor = System.Drawing.Color.Transparent;
-            this.vbButton4.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.vbButton4.BorderRadius = 5;
-            this.vbButton4.BorderSize = 0;
-            this.vbButton4.FlatAppearance.BorderSize = 0;
-            this.vbButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.vbButton4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.vbButton4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(164)))), ((int)(((byte)(78)))));
-            this.vbButton4.IconChar = FontAwesome.Sharp.IconChar.FileAlt;
-            this.vbButton4.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(164)))), ((int)(((byte)(78)))));
-            this.vbButton4.IconFont = FontAwesome.Sharp.IconFont.Solid;
-            this.vbButton4.IconSize = 40;
-            this.vbButton4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.vbButton4.Location = new System.Drawing.Point(499, 35);
-            this.vbButton4.Name = "vbButton4";
-            this.vbButton4.Size = new System.Drawing.Size(141, 44);
-            this.vbButton4.TabIndex = 11;
-            this.vbButton4.Text = "Xuất File";
-            this.vbButton4.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(164)))), ((int)(((byte)(78)))));
-            this.vbButton4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.vbButton4.UseVisualStyleBackColor = false;
-            // 
-            // BtnCreate
-            // 
-            this.BtnCreate.BackColor = System.Drawing.Color.Transparent;
-            this.BtnCreate.BackgroundColor = System.Drawing.Color.Transparent;
-            this.BtnCreate.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnCreate.BorderRadius = 5;
-            this.BtnCreate.BorderSize = 0;
-            this.BtnCreate.FlatAppearance.BorderSize = 0;
-            this.BtnCreate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnCreate.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.BtnCreate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(164)))), ((int)(((byte)(78)))));
-            this.BtnCreate.IconChar = FontAwesome.Sharp.IconChar.Print;
-            this.BtnCreate.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(164)))), ((int)(((byte)(78)))));
-            this.BtnCreate.IconFont = FontAwesome.Sharp.IconFont.Solid;
-            this.BtnCreate.IconSize = 40;
-            this.BtnCreate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnCreate.Location = new System.Drawing.Point(298, 36);
-            this.BtnCreate.Name = "BtnCreate";
-            this.BtnCreate.Size = new System.Drawing.Size(171, 44);
-            this.BtnCreate.TabIndex = 10;
-            this.BtnCreate.Text = "In Hóa Đơn";
-            this.BtnCreate.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(164)))), ((int)(((byte)(78)))));
-            this.BtnCreate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.BtnCreate.UseVisualStyleBackColor = false;
             // 
             // lblResult
             // 
@@ -675,7 +580,6 @@
             this.Load += new System.EventHandler(this.OrderIndex_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
             this.tableLayoutPanel7.ResumeLayout(false);
@@ -709,7 +613,6 @@
         private Label label1;
         private Label label3;
         private Label label13;
-        private Label label14;
         private Panel panel1;
         private ComboBox Comb_OderBy;
         private Models.Controls.CustomPanel customPanel1;
@@ -718,14 +621,11 @@
         private Label lblResult;
         private TextBox Txt_Search;
         private Models.Controls.VBButton vbButton5;
-        private Models.Controls.VBButton vbButton4;
-        private Models.Controls.VBButton vbButton6;
         private FlowLayoutPanel PanlFilter;
         private CheckBox CheckUnHide;
         private TableLayoutPanel tableLayoutPanel3;
         private Label label4;
         private Label label5;
-        private Models.Controls.VBButton BtnCreate;
         private FlowLayoutPanel TblOrders;
         private Label label8;
     }

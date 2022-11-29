@@ -34,7 +34,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.btn_Prev = new FontAwesome.Sharp.IconButton();
             this.btn_last = new FontAwesome.Sharp.IconButton();
@@ -88,7 +87,6 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.16667F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.83334F));
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel7, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label14, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel5, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.PanlFilter, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.TblView, 1, 1);
@@ -157,18 +155,6 @@
             this.label6.Size = new System.Drawing.Size(150, 23);
             this.label6.TabIndex = 4;
             this.label6.Text = "Tên Nhà Sản Xuất";
-            // 
-            // label14
-            // 
-            this.label14.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label14.ForeColor = System.Drawing.Color.Black;
-            this.label14.Location = new System.Drawing.Point(3, 4);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(53, 32);
-            this.label14.TabIndex = 6;
-            this.label14.Text = "Lọc";
             // 
             // tableLayoutPanel5
             // 
@@ -541,7 +527,6 @@
             this.Load += new System.EventHandler(this.ManufactureIndex_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel7.ResumeLayout(false);
             this.tableLayoutPanel7.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
@@ -567,7 +552,6 @@
         private FontAwesome.Sharp.IconButton btn_firt;
         private Label LblPageLastIndex;
         private TextBox TxtPageIndex;
-        private Label label14;
         private Panel panel1;
         private ComboBox Comb_OderBy;
         private Models.Controls.CustomPanel customPanel1;

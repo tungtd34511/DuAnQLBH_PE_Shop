@@ -1,6 +1,7 @@
 ﻿using App.Data.Entities;
 using App.Data.Repositories.Base;
 using App.Data.Ultilities.Catalog.Products;
+using App.Data.Ultilities.Catalog.Users;
 using App.Data.Ultilities.Common;
 using App.Data.Ultilities.PagingModels;
 using App.Data.Ultilities.ViewModels;
@@ -17,5 +18,6 @@ namespace App.Data.Repositories.Products
         Task<PagedResult<ProductInPaging>> GetAllPaging1(GetPagingProductRequest request);
         Task<ProductVm> GetById(int prodcutId);
         Task<PagedResult<ProductInShoppingVm>> GetPagingForShopping(GetPagingShoppingRequest request);
+        
     }
 }

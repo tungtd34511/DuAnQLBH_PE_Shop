@@ -30,10 +30,38 @@ namespace App.Views.Views.Catalog.Units
 
         private async void BtnSave_Click(object sender, EventArgs e)
         {
-            Unit.Name = LblName.Text;
-            Unit.IsDeleted = false;
-            await _unitServices.Add(Unit);
-            this.Close();
+            var eror = await Validate();
+            if(eror != "") {
+                MessageBox.Show(eror);
+            }
+            else
+            {
+                Unit.Name = LblName.Text;
+                Unit.IsDeleted = false;
+                if(await _unitServices.Add(Unit))
+                {
+                    MessageBox.Show("Thêm mới đơn vị thành công!");
+                    this.Close();
+
+                }
+                else
+                {
+                    MessageBox.Show("Thêm mới đơn vị thất bại!");
+                }
+            }
+        }
+        private async Task<string> Validate ()
+        {
+            var eror = "";
+            if(await _unitServices.CheckName(LblName.Text))
+            {
+                eror += "Đơn vị bị trùng tên!\n";
+            }
+            if(String.IsNullOrEmpty(LblName.Text) || LblName.Text.Length > 15)
+            {
+                eror += "Tên đơn vị phải có độ dài từ 1 đến 15 ký tự!\n";
+            }
+            return eror;
         }
     }
 }

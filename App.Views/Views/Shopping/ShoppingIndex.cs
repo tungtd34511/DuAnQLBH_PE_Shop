@@ -1,10 +1,12 @@
-﻿using App.Business.Sevices.Shoppings;
+﻿using AForge.Video.DirectShow;
+using App.Business.Sevices.Shoppings;
 using App.Data.Entities;
 using App.Data.Ultilities.Catalog.Carts;
 using App.Data.Ultilities.Catalog.Products;
 using App.Data.Ultilities.Common;
 using App.Data.Ultilities.ViewModels;
 using App.Views.Models.Controls;
+using FontAwesome.Sharp;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -29,9 +31,11 @@ namespace App.Views.Views.Shopping
         public delegate void AddToCarts(AddToCartRequest request);
         public PagedResult<ProductInShoppingVm> Result { get; set; } = new();
         public GetPagingShoppingRequest Request { get; set; } = new() { PageSize = 12 };
+        public Data.Entities.User User { get; set; }
         public List<Cart> Carts { get; set; }
         public List<CartItemViewModel> CartItems { get; set; }
         public Cart CartShow { get; set; }
+        public List<CheckBox> CheckBoxes { get; set; } = new();
         public Panel PanlActive { get; set; } = new(); // làm sáng hóa đơn được bật
         #endregion
         #region Constructer
@@ -60,6 +64,8 @@ namespace App.Views.Views.Shopping
         }
         private async Task LoadTblProducts()
         {
+            LblIndex.Text = Result.PageIndex.ToString() + "/" + Result.PageIndex.ToString();
+            TblProducts.Controls.Clear();
             foreach (var item in Result.Items)
             {
                 var LblSale = new Label();
@@ -168,6 +174,17 @@ namespace App.Views.Views.Shopping
             txtPhoneNumber.Text = cart.ShipPhoneNumber;
             txtDescription.Text = cart.Description;
         }
+        public async Task LoadMenuPaging()
+        {
+            try
+            {
+                LblIndex.Text = Result.PageIndex.ToString()+ "/" + Result.PageCount.ToString();
+            }
+            catch
+            {
+
+            }
+        }
         //
         private async Task SetupList()
         {
@@ -184,6 +201,116 @@ namespace App.Views.Views.Shopping
             }
             await LoadCartDetail(CartShow);
         }
+        private async Task AddPanlFilter()
+        {
+            #region Design panel Fillter
+            MenuFillter.Items.Clear();
+
+            var PanlFilter = new FlowLayoutPanel()
+            {
+                BackColor = System.Drawing.Color.White,
+                MinimumSize = new System.Drawing.Size(1090, 400),
+                Size = MinimumSize,
+                AutoScroll= true,
+            };
+            var titles = new List<string>() { "Danh Mục", "Màu Sắc", "Kích Cỡ", "Giá"/*, "Khác" */};
+            var data = await _shoppingService.GetDataForFilter();
+            var categories = data.Categories.Select(c => c.Name).ToList();
+            var colors = data.Colors.Select(c => c.Name).ToList();
+            var sizes = data.Sizes.Select(c => c.Id).ToList();
+            var prices = new List<string>() { "Dưới 199.000 VNĐ", "199.000 VNĐ - 299.000 VNĐ", "299.000 VNĐ - 399.000 VNĐ", "399.000 VNĐ - 499.000 VNĐ", "499.000 VNĐ - 799.000 VNĐ", "799.000 VNĐ - 999.000", "Trên 999.000 VNĐ" };
+            List<List<string>> lstList = new List<List<string>>() { categories, colors, sizes, prices };
+            //
+            int index = 0;
+            foreach (var item in titles)
+            {
+                //
+                var flowLayoutPanel1 = new FlowLayoutPanel();
+                flowLayoutPanel1.AutoSize = false;
+                flowLayoutPanel1.BackColor = System.Drawing.Color.White;
+                flowLayoutPanel1.Dock = DockStyle.Top;
+                flowLayoutPanel1.Margin = new Padding(0);
+                flowLayoutPanel1.Name = "flowLayoutPanel1";
+                flowLayoutPanel1.Padding = new Padding(5);
+                flowLayoutPanel1.Size = new System.Drawing.Size(287, 20);
+                //
+                var vbButton10 = new VBButton();
+                vbButton10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
+                vbButton10.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
+                vbButton10.BorderColor = System.Drawing.Color.PaleVioletRed;
+                vbButton10.BorderRadius = 5;
+                vbButton10.BorderSize = 0;
+                vbButton10.Dock = DockStyle.Fill;
+                vbButton10.FlatAppearance.BorderSize = 0;
+                vbButton10.FlatStyle = FlatStyle.Flat;
+                vbButton10.ForeColor = System.Drawing.Color.White;
+                vbButton10.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+                vbButton10.IconChar = FontAwesome.Sharp.IconChar.None;
+                vbButton10.IconColor = System.Drawing.Color.Black;
+                vbButton10.IconFont = FontAwesome.Sharp.IconFont.Auto;
+                vbButton10.Margin = new Padding(0);
+                vbButton10.Name = "vbButton10";
+                vbButton10.Size = new System.Drawing.Size(260, 48);
+                vbButton10.Text = item;
+                vbButton10.TextColor = System.Drawing.Color.White;
+                vbButton10.UseVisualStyleBackColor = false;
+                //
+                var tableLayoutPanel6 = new TableLayoutPanel();
+                tableLayoutPanel6.AutoSize = false;
+                tableLayoutPanel6.BackColor = SystemColors.Control;
+                tableLayoutPanel6.ColumnCount = 1;
+                tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+                tableLayoutPanel6.Location = new Point(3, 3);
+                tableLayoutPanel6.Name = "tableLayoutPanel6";
+                tableLayoutPanel6.Padding = new Padding(3);
+                tableLayoutPanel6.RowCount = 2;
+                tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
+                tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                tableLayoutPanel6.Size = new System.Drawing.Size(287, 20);
+                //
+
+                foreach (var ctl in lstList[index])
+                {
+                    var check = new CheckBox()
+                    {
+                        AutoSize = true,
+                        Dock = DockStyle.Top,
+                        Name = "checkBox1",
+                        Size = new System.Drawing.Size(101, 24),
+                        Text = ctl,
+                        UseVisualStyleBackColor = true
+                    };
+                    check.Click += async (o, s) =>
+                    {
+                        await Check_Click();
+                    };
+                    flowLayoutPanel1.Controls.Add(check);
+                    CheckBoxes.Add(check);
+                };
+                var heigh = (lstList[index].Count * 30) + 10;
+                flowLayoutPanel1.Height = heigh;
+                //
+                tableLayoutPanel6.Controls.Add(vbButton10, 0, 0);
+                tableLayoutPanel6.Controls.Add(flowLayoutPanel1, 0, 1);
+                tableLayoutPanel6.Height = heigh + 54;
+                //
+                PanlFilter.Controls.Add(tableLayoutPanel6);
+                flowLayoutPanel1.AutoSize = true;
+                tableLayoutPanel6.AutoSize = true;
+                index++;
+            }
+            #endregion
+            var hostTool = new ToolStripControlHost(PanlFilter)
+            {
+                Padding = Padding.Empty,
+                Margin = Padding.Empty,
+                AutoSize= true,
+            };
+            MenuFillter.Items.Add(hostTool);
+        }
+        #region QR code
+
+        #endregion
         private async Task<Panel> AddPanlCart(Cart cart)
         {
             // 
@@ -538,9 +665,16 @@ namespace App.Views.Views.Shopping
                 IsShipping = CombOrderstatus.SelectedIndex == 0 ? false : true,
                 Description = txtDescription.Text,
                 Total = total,
-                ProductInOrders =  CartItems.Select(c=>new ProductInOrder() { Created=DateTime.Now,Price=c.Price,ProductVariationId=c.PvId,Quantity=c.Quantity}).ToList()
+                ProductInOrders = CartItems.Select(c => new ProductInOrder() { Created = DateTime.Now, Price = c.Price, ProductVariationId = c.PvId, Quantity = c.Quantity }).ToList()
             };
             return oder;
+        }
+        private async Task<GetPagingShoppingRequest> GetPagingRequest()
+        {
+            Request.Checks = CheckBoxes.Select(c => c.Checked).ToArray();
+            Request.Keyword = Txt_Search.Text;
+            Request.OderBy = Comb_OderBy.SelectedIndex;
+            return Request;
         }
         #endregion
         #region Events
@@ -595,6 +729,7 @@ namespace App.Views.Views.Shopping
         }
         private async void ShoppingIndex_Load(object sender, EventArgs e)
         {
+            await AddPanlFilter();
             //
             CombOrderstatus.SelectedIndex = 0;
             //
@@ -636,7 +771,13 @@ namespace App.Views.Views.Shopping
             var i = cart.Id;
         }
         #endregion
-
+        private async Task Check_Click()
+        {
+            Request = new();
+            Result = await _shoppingService.GetProducts(await GetPagingRequest());
+            await LoadTblProducts();
+            await LoadMenuPaging();
+        }
         int time = 0;
         private void txtSearchCustomer_TextChanged(object sender, EventArgs e)
         {
@@ -651,7 +792,7 @@ namespace App.Views.Views.Shopping
                 time = 0;
                 Customers = await _shoppingService.GetByPhoneNumber(txtSearchCustomer.Text);
                 MenuCustomers.Items.Clear();
-                foreach(var item in Customers)
+                foreach (var item in Customers)
                 {
                     MenuCustomers.Items.Add(item.Name);
                 }
@@ -662,7 +803,60 @@ namespace App.Views.Views.Shopping
 
         private void CombOrderstatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BtnAddOrder.Text = CombOrderstatus.SelectedIndex == 0 ? "Thanh Toán" : "Đặt Hàng";
+            BtnThanhToan.Text = CombOrderstatus.SelectedIndex == 0 ? "Thanh Toán" : "Đặt Hàng";
+        }
+
+        private void vbButton6_Click(object sender, EventArgs e)
+        {
+            MenuFillter.Show(vbButton6, 0, -400);
+        }
+
+        private async void Btn_Search_Click(object sender, EventArgs e)
+        {
+            await Check_Click();
+        }
+
+        private async void Comb_OderBy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            await Check_Click();
+        }
+
+        private async void BtnNext_Click(object sender, EventArgs e)
+        {
+            if (Result.PageIndex < Result.PageCount)
+            {
+                Request.PageIndex++;
+                await PageIndex_Changed();
+            }
+            else
+            {
+                MessageBox.Show("Đã là trang cuối!");
+            }
+        }
+
+        private async void BtnPrev_Click(object sender, EventArgs e)
+        {
+            if (Result.PageIndex > 1)
+            {
+                Request.PageIndex--;
+                await PageIndex_Changed();
+            }
+            else
+            {
+                MessageBox.Show("Đã là trang đầu tiên!");
+            }
+        }
+        private async Task PageIndex_Changed()
+        {
+            Result = await _shoppingService.GetProducts(await GetPagingRequest());
+            await LoadTblProducts();
+            await LoadMenuPaging();
+        }
+
+        private void BtnQR_Click(object sender, EventArgs e)
+        {
+            var form = _serviceProviders.GetRequiredService<QRcode>();
+            form.Show();
         }
     }
 }

@@ -17,5 +17,6 @@ namespace App.Business.Sevices.Catalogs.Categories
         Task<Category> GetCategoryById(int id);
         Task<PagedResult<Category>> GetPaging(GetPagingCategoryRequest request);
         Task<IEnumerable<Category>> GetAll();
+        Task<string> Validate(string name);
     }
 }

@@ -209,6 +209,14 @@ namespace App.Views.Views.Product
         // Save Product
         private async void vbButton7_Click(object sender, EventArgs e)
         {
+            var txt = await Validatton();
+            if (txt != "")
+            {
+                MessageBox.Show(txt);
+            }
+            else
+            {
+
             if (await SetDataForCreate())
             {
                 var result = await _productservices.Create(_addProductRequest,await Dispose());
@@ -219,6 +227,8 @@ namespace App.Views.Views.Product
                 else { 
                 MessageBox.Show("Thêm mới sản phẩm thất bại !", "Thông báo", MessageBoxButtons.OK);
                 }
+            }
+
             }
         }
         //Tắt Provider của Img
@@ -302,6 +312,20 @@ namespace App.Views.Views.Product
             {
                 ((CheckBox)item).Checked = false;
             }
+        }
+        private async Task<string> Validatton()
+        {
+            var txt = "";
+            if(String.IsNullOrEmpty(TxtNameProduct.Text)|| String.IsNullOrEmpty(TxtOringinalPrice.Text) || String.IsNullOrEmpty(txtPrice.Text))
+            {
+                txt += "Không được để trống tên , giá nhập và giá bán !\n";
+            }
+            else if (Convert.ToDecimal(txtPrice.Text)<Convert.ToDecimal(TxtOringinalPrice.Text))
+            {
+                txt += "Giá bán phải lớn hơn giá nhật";
+            }
+            txt += _productservices.Validate(TxtNameProduct.Text);
+            return txt;
         }
     }
 }

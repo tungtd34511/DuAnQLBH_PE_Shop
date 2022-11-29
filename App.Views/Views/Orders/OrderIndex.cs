@@ -27,11 +27,13 @@ namespace App.Views.Views.Orders
         private readonly IOrderService _orderService;
         public GetPagingOrderRequest Request { get; set; } = new();
         public PagedResult<OderInPagingVm> Result { get; set; }
-        public OrderIndex(IServiceProvider serviceProvide, IOrderService orderService)
+        public Data.Entities.User User { get; set; }
+        public OrderIndex(IServiceProvider serviceProvide, IOrderService orderService, Data.Entities.User user)
         {
             InitializeComponent();
             _serviceProvide = serviceProvide;
             _orderService = orderService;
+            User = user;
         }
 
         #region LoadForm

@@ -165,11 +165,13 @@ namespace App.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("CustomerId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsShipping")
+                        .HasColumnType("bit");
 
                     b.Property<string>("ShipAddress")
                         .HasColumnType("nvarchar(max)");
@@ -189,7 +191,7 @@ namespace App.Data.Migrations
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("UserCreatedId")
+                    b.Property<Guid?>("UserCreatedId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -226,6 +228,9 @@ namespace App.Data.Migrations
                     b.Property<string>("OderName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -610,15 +615,11 @@ namespace App.Data.Migrations
                 {
                     b.HasOne("App.Data.Entities.Customer", "Customer")
                         .WithMany("Orders")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
 
                     b.HasOne("App.Data.Entities.User", "UserCreated")
                         .WithMany("Orders")
-                        .HasForeignKey("UserCreatedId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserCreatedId");
 
                     b.Navigation("Customer");
 

@@ -361,7 +361,7 @@
             this.BtnCreate.IconFont = FontAwesome.Sharp.IconFont.Solid;
             this.BtnCreate.IconSize = 40;
             this.BtnCreate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnCreate.Location = new System.Drawing.Point(628, 37);
+            this.BtnCreate.Location = new System.Drawing.Point(299, 37);
             this.BtnCreate.Name = "BtnCreate";
             this.BtnCreate.Size = new System.Drawing.Size(155, 44);
             this.BtnCreate.TabIndex = 15;
@@ -496,9 +496,9 @@
             this.label15.Location = new System.Drawing.Point(-3, 17);
             this.label15.Margin = new System.Windows.Forms.Padding(0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(453, 60);
+            this.label15.Size = new System.Drawing.Size(300, 60);
             this.label15.TabIndex = 1;
-            this.label15.Text = "Danh Mục Sản Phẩm";
+            this.label15.Text = "Danh Mục SP";
             // 
             // tableLayoutPanel3
             // 

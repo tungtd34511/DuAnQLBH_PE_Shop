@@ -9,5 +9,6 @@ namespace App.Data.Repositories.Catalog.Manufacturers
     {
         Task<List<ManufacturerInCreateProduct>> GetAllForCreate();
         Task<PagedResult<Manufacturer>> GetPaging(GetPagingManufactureRequest request);
+        Task<string> Valiate(string name);
     }
 }

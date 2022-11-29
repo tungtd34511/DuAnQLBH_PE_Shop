@@ -10,6 +10,7 @@ namespace App.Data.Ultilities.Catalog.ProductVariation
 {
     public class GetPagingProductVariationRequest : PagingRequestBase
     {
-        public string? Keyword { get; set; }    
+        public string? Keyword { get; set; }
+        public bool UnHide { get; set; }
     }
 }

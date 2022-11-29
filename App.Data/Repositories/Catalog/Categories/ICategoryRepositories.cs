@@ -9,5 +9,6 @@ namespace App.Data.Repositories.Catalog.Categories
     {
         Task<List<CategoryForCreate>> GetAllForCreate();
         Task<PagedResult<Category>> GetPaging(GetPagingCategoryRequest request);
+        Task<string> Validate(string name);
     }
 }

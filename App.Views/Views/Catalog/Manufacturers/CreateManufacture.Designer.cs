@@ -154,7 +154,7 @@
             this.TxtDetails.BackColor = System.Drawing.Color.White;
             this.TxtDetails.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TxtDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TxtDetails.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TxtDetails.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.TxtDetails.Location = new System.Drawing.Point(10, 37);
             this.TxtDetails.Name = "TxtDetails";
             this.TxtDetails.Size = new System.Drawing.Size(754, 84);
@@ -180,7 +180,7 @@
             this.txtDescription.BackColor = System.Drawing.Color.White;
             this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtDescription.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtDescription.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtDescription.Location = new System.Drawing.Point(10, 37);
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(754, 124);
@@ -189,6 +189,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.BackColor = System.Drawing.Color.White;
             this.groupBox3.Controls.Add(this.txtName);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox3.Location = new System.Drawing.Point(3, 85);
@@ -200,11 +201,12 @@
             // 
             // txtName
             // 
-            this.txtName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtName.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtName.Location = new System.Drawing.Point(3, 30);
+            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtName.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txtName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtName.Location = new System.Drawing.Point(3, 37);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(768, 30);
+            this.txtName.Size = new System.Drawing.Size(768, 27);
             this.txtName.TabIndex = 3;
             // 
             // CreateManufacture

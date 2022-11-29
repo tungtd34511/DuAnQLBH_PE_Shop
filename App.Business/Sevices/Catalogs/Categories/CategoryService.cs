@@ -46,5 +46,9 @@ namespace App.Business.Sevices.Catalogs.Categories
         {
             return await _categoryRepositories.GetAllAsync();
         }
+        public async Task<string> Validate(string name)
+        {
+            return await _categoryRepositories.Validate(name);
+        }
     }
 }

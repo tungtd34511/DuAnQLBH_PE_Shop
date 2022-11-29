@@ -42,5 +42,9 @@ namespace App.Business.Sevices.Catalogs.Manufactures
         {
             return await _manufacturerRepositories.GetPaging(request);
         }
+        public async Task<string> Valiate(string name)
+        {
+            return await _manufacturerRepositories.Valiate(name);
+        }
     }
 }

@@ -1,13 +1,20 @@
 ﻿
 using App.Business.Sevices.Products;
+using App.Business.Sevices.Users;
 using App.Views.Models.Controls;
 using App.Views.Views.Catalog.Categories;
+using App.Views.Views.Catalog.Colors;
 using App.Views.Views.Catalog.Manufacturers;
+using App.Views.Views.Catalog.ProductVariations;
+using App.Views.Views.Catalog.Sizes;
 using App.Views.Views.Catalog.Units;
 using App.Views.Views.Orders;
 using App.Views.Views.Product;
+using App.Views.Views.Promotion;
 using App.Views.Views.Shopping;
 using App.Views.Views.ThongKe;
+using App.Views.Views.User;
+using App.Views.Views.Users;
 using FontAwesome.Sharp;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -25,15 +32,19 @@ namespace App.Views.Views.Layout
     public partial class _Layout : Form
     {
         private readonly IServiceProvider _serviceProvide;
+        private readonly IUserService _userService;
         //Fields
         private Form _currentchildForm = new();
+        public Data.Entities.User User { get; set; }
+        public Data.Entities.UserDetail UserDetail { get; set; }
         public VBButton _btnAcctive { get; set; } = new();
         public List<VBButton> _ListControls { get; set; }=new() ;
-        public _Layout(IServiceProvider serviceProvide)
+        public _Layout(IServiceProvider serviceProvide, IUserService userService, Data.Entities.User user)
         {
             InitializeComponent();
             _serviceProvide = serviceProvide;
-            
+            _userService = userService;
+            User = user;
         }
         private async Task OpenchildForm(Form form)
         {
@@ -60,10 +71,13 @@ namespace App.Views.Views.Layout
             {
                 var btn = (VBButton)tbl_Menu.Controls[i];
                 _ListControls.Add(btn);
-                btn.Click += async (o, s) =>
+                if (btn != vbButton12)
                 {
-                    await AcctiveBtn(btn);
-                };
+                    btn.Click += async (o, s) =>
+                    {
+                        await AcctiveBtn(btn);
+                    };
+                }
             }
         }
         private async Task AcctiveBtn(VBButton btn)
@@ -79,25 +93,63 @@ namespace App.Views.Views.Layout
 
         private async void _Layout_Load(object sender, EventArgs e)
         {
-            await AcctiveBtn(BtnHome);
-            await LoadCustomControl();
-            MenuCatalog.IsMainMenu = true;
-            MenuCatalog.Items[0].Click += async (o, s) =>
+            this.Hide();
+            var login = _serviceProvide.GetRequiredService<UserLogin>();
+            
+            login.FormClosed += async (o, s) =>
             {
-                await AcctiveBtn(vbButton8);
-                await OpenchildForm(_serviceProvide.GetRequiredService<CategoryIndex>());
+                if (login.IsAuthenticate)
+                {
+                    MessageBox.Show(User.Id.ToString());
+                    UserDetail = await _userService.GetDetailById(User.Id);
+                    //
+                    await AcctiveBtn(BtnHome);
+                    var form = _serviceProvide.GetRequiredService<UserDetails>();
+                    User.UserDetail = UserDetail;
+                    form.User = User;
+                    await OpenchildForm(form);
+                    //
+                    await LoadCustomControl();
+                    MenuCatalog.IsMainMenu = true;
+                    MenuCatalog.Items[0].Click += async (o, s) =>
+                    {
+                        await AcctiveBtn(vbButton8);
+                        await OpenchildForm(_serviceProvide.GetRequiredService<CategoryIndex>());
+                    };
+                    MenuCatalog.Items[1].Click += async (o, s) =>
+                    {
+                        await AcctiveBtn(vbButton8);
+                        await OpenchildForm(_serviceProvide.GetRequiredService<ManufactureIndex>());
+                    };
+                    MenuCatalog.Items[2].Click += async (o, s) =>
+                    {
+                        await AcctiveBtn(vbButton8);
+                        await OpenchildForm(_serviceProvide.GetRequiredService<UnitIndex>());
+                    };
+                    MenuCatalog.Items[3].Click += async (o, s) =>
+                    {
+                        await AcctiveBtn(vbButton8);
+                        await OpenchildForm(_serviceProvide.GetRequiredService<ColorIndex>());
+                    };
+                    MenuCatalog.Items[4].Click += async (o, s) =>
+                    {
+                        await AcctiveBtn(vbButton8);
+                        await OpenchildForm(_serviceProvide.GetRequiredService<SizeIndex>());
+                    };
+                    MenuCatalog.Items[5].Click += async (o, s) =>
+                    {
+                        await AcctiveBtn(vbButton8);
+                        await OpenchildForm(_serviceProvide.GetRequiredService<ProductVariationIndex>());
+                    };
+                    this.Show();
+                }
+                else
+                {
+                    this.Close();
+                }
             };
-            MenuCatalog.Items[1].Click += async (o, s) =>
-            {
-                await AcctiveBtn(vbButton8);
-                await OpenchildForm(_serviceProvide.GetRequiredService<ManufactureIndex>());
-            };
-            MenuCatalog.Items[2].Click += async (o, s) =>
-            {
-                await AcctiveBtn(vbButton8);
-                await OpenchildForm(_serviceProvide.GetRequiredService<UnitIndex>());
-            };
-
+            login.ShowDialog();
+            
         }
 
         private async void vbButton5_Click(object sender, EventArgs e)
@@ -134,6 +186,62 @@ namespace App.Views.Views.Layout
         private void vbButton8_Click(object sender, EventArgs e)
         {
             MenuCatalog.Show(vbButton8, vbButton8.Width, 0);
+        }
+
+        private async void vbButton10_Click(object sender, EventArgs e)
+        {
+            if (_btnAcctive != vbButton10)
+            {
+                await OpenchildForm(_serviceProvide.GetRequiredService<UserIndex>());
+            }
+        }
+
+        private async void BtnHome_Click(object sender, EventArgs e)
+        {
+            if (_btnAcctive != BtnHome)
+            {
+                var form = _serviceProvide.GetRequiredService<UserDetails>();
+                User.UserDetail = UserDetail;
+                form.User= User;
+                await OpenchildForm(form);
+            }
+        }
+
+        private void vbButton12_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var login = _serviceProvide.GetRequiredService<UserLogin>();
+
+            login.FormClosed += async (o, s) =>
+            {
+                if (login.IsAuthenticate)
+                {
+                    UserDetail = await _userService.GetDetailById(User.Id);
+                    //
+                    
+                    var form = _serviceProvide.GetRequiredService<UserDetails>();
+                    User.UserDetail = UserDetail;
+                    form.User = User;
+                    await OpenchildForm(form);
+                    //
+                    this.Show();
+                    await AcctiveBtn(BtnHome);
+                }
+                else
+                {
+                    this.Close();
+                }
+            };
+            login.ShowDialog();
+        }
+
+        private async void vbButton7_Click(object sender, EventArgs e)
+        {
+            if (_btnAcctive != vbButton7)
+            {
+                var form = _serviceProvide.GetRequiredService<PromotionIndex>();
+                await OpenchildForm(form);
+            }
         }
     }
 }

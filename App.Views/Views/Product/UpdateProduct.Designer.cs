@@ -154,7 +154,7 @@
             this.BtnBack.Name = "BtnBack";
             this.BtnBack.Size = new System.Drawing.Size(153, 50);
             this.BtnBack.TabIndex = 0;
-            this.BtnBack.Text = "Quay Lại";
+            this.BtnBack.Text = "Thoát";
             this.BtnBack.TextColor = System.Drawing.Color.White;
             this.BtnBack.UseVisualStyleBackColor = false;
             this.BtnBack.Click += new System.EventHandler(this.BtnBack_Click);
@@ -231,12 +231,12 @@
             this.TxtDetails.BackColor = System.Drawing.Color.White;
             this.TxtDetails.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TxtDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TxtDetails.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TxtDetails.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.TxtDetails.Location = new System.Drawing.Point(10, 37);
             this.TxtDetails.Name = "TxtDetails";
             this.TxtDetails.Size = new System.Drawing.Size(600, 376);
             this.TxtDetails.TabIndex = 0;
-            this.TxtDetails.Text = "label";
+            this.TxtDetails.Text = "";
             // 
             // groupBox8
             // 
@@ -252,11 +252,12 @@
             // 
             // txtPrice
             // 
-            this.txtPrice.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPrice.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtPrice.Location = new System.Drawing.Point(3, 30);
+            this.txtPrice.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtPrice.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txtPrice.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtPrice.Location = new System.Drawing.Point(3, 34);
             this.txtPrice.Name = "txtPrice";
-            this.txtPrice.Size = new System.Drawing.Size(614, 30);
+            this.txtPrice.Size = new System.Drawing.Size(614, 27);
             this.txtPrice.TabIndex = 4;
             // 
             // panel4
@@ -285,11 +286,12 @@
             // 
             // TxtOringinalPrice
             // 
-            this.TxtOringinalPrice.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TxtOringinalPrice.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TxtOringinalPrice.Location = new System.Drawing.Point(3, 30);
+            this.TxtOringinalPrice.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TxtOringinalPrice.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.TxtOringinalPrice.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TxtOringinalPrice.Location = new System.Drawing.Point(3, 34);
             this.TxtOringinalPrice.Name = "TxtOringinalPrice";
-            this.TxtOringinalPrice.Size = new System.Drawing.Size(407, 30);
+            this.TxtOringinalPrice.Size = new System.Drawing.Size(407, 27);
             this.TxtOringinalPrice.TabIndex = 3;
             // 
             // groupBox4
@@ -330,11 +332,11 @@
             // 
             // CombUnits
             // 
-            this.CombUnits.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CombUnits.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.CombUnits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CombUnits.DropDownWidth = 350;
             this.CombUnits.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.CombUnits.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.CombUnits.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CombUnits.FormattingEnabled = true;
             this.CombUnits.Items.AddRange(new object[] {
             "Không",
@@ -348,10 +350,10 @@
             "Theo giá nhập (Giảm)",
             "Theo tổng số lượng (Tăng)",
             "Theo tổng số lượng (Giảm)"});
-            this.CombUnits.Location = new System.Drawing.Point(3, 30);
+            this.CombUnits.Location = new System.Drawing.Point(3, 25);
             this.CombUnits.Margin = new System.Windows.Forms.Padding(0);
             this.CombUnits.Name = "CombUnits";
-            this.CombUnits.Size = new System.Drawing.Size(201, 31);
+            this.CombUnits.Size = new System.Drawing.Size(201, 36);
             this.CombUnits.TabIndex = 9;
             // 
             // panel3
@@ -379,11 +381,12 @@
             // 
             // TxtNameProduct
             // 
-            this.TxtNameProduct.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TxtNameProduct.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TxtNameProduct.Location = new System.Drawing.Point(3, 30);
+            this.TxtNameProduct.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TxtNameProduct.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.TxtNameProduct.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TxtNameProduct.Location = new System.Drawing.Point(3, 34);
             this.TxtNameProduct.Name = "TxtNameProduct";
-            this.TxtNameProduct.Size = new System.Drawing.Size(614, 30);
+            this.TxtNameProduct.Size = new System.Drawing.Size(614, 27);
             this.TxtNameProduct.TabIndex = 4;
             // 
             // panel5
@@ -400,7 +403,7 @@
             // 
             this.groupBox13.Controls.Add(this.CboxStatus);
             this.groupBox13.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox13.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.groupBox13.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.groupBox13.Location = new System.Drawing.Point(308, 0);
             this.groupBox13.Name = "groupBox13";
             this.groupBox13.Size = new System.Drawing.Size(312, 64);
@@ -410,7 +413,7 @@
             // 
             // CboxStatus
             // 
-            this.CboxStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CboxStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.CboxStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CboxStatus.DropDownWidth = 350;
             this.CboxStatus.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -428,31 +431,30 @@
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.CboxGender);
-            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox6.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox6.Location = new System.Drawing.Point(0, 0);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(620, 64);
+            this.groupBox6.Size = new System.Drawing.Size(308, 64);
             this.groupBox6.TabIndex = 1;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Giới Tính";
             // 
             // CboxGender
             // 
-            this.CboxGender.Dock = System.Windows.Forms.DockStyle.Left;
+            this.CboxGender.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.CboxGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CboxGender.DropDownWidth = 350;
             this.CboxGender.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.CboxGender.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.CboxGender.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CboxGender.FormattingEnabled = true;
             this.CboxGender.Items.AddRange(new object[] {
             "Nam",
             "Nữ",
             "Cả nam và nữ"});
-            this.CboxGender.Location = new System.Drawing.Point(3, 30);
+            this.CboxGender.Location = new System.Drawing.Point(3, 25);
             this.CboxGender.Margin = new System.Windows.Forms.Padding(0);
             this.CboxGender.Name = "CboxGender";
-            this.CboxGender.Size = new System.Drawing.Size(303, 31);
+            this.CboxGender.Size = new System.Drawing.Size(302, 36);
             this.CboxGender.TabIndex = 13;
             // 
             // groupBox5
@@ -493,16 +495,16 @@
             // 
             // CboxNsx
             // 
-            this.CboxNsx.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CboxNsx.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.CboxNsx.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CboxNsx.DropDownWidth = 350;
             this.CboxNsx.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.CboxNsx.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.CboxNsx.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CboxNsx.FormattingEnabled = true;
-            this.CboxNsx.Location = new System.Drawing.Point(3, 30);
+            this.CboxNsx.Location = new System.Drawing.Point(3, 25);
             this.CboxNsx.Margin = new System.Windows.Forms.Padding(0);
             this.CboxNsx.Name = "CboxNsx";
-            this.CboxNsx.Size = new System.Drawing.Size(614, 31);
+            this.CboxNsx.Size = new System.Drawing.Size(614, 36);
             this.CboxNsx.TabIndex = 12;
             // 
             // tableLayoutPanel4
@@ -611,12 +613,12 @@
             this.TxtDescripton.BackColor = System.Drawing.Color.White;
             this.TxtDescripton.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TxtDescripton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TxtDescripton.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TxtDescripton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.TxtDescripton.Location = new System.Drawing.Point(10, 37);
             this.TxtDescripton.Name = "TxtDescripton";
             this.TxtDescripton.Size = new System.Drawing.Size(881, 108);
             this.TxtDescripton.TabIndex = 0;
-            this.TxtDescripton.Text = "label";
+            this.TxtDescripton.Text = "";
             // 
             // groupBox7
             // 

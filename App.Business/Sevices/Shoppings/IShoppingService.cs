@@ -1,4 +1,5 @@
-﻿using App.Data.Entities;
+﻿using App.Business.Models.Products;
+using App.Data.Entities;
 using App.Data.Ultilities.Catalog.Carts;
 using App.Data.Ultilities.Catalog.Products;
 using App.Data.Ultilities.Common;
@@ -23,5 +24,6 @@ namespace App.Business.Sevices.Shoppings
         Task<bool> RemoveCart(Cart cart);
         Task<List<ProductInCart>> GetProductInCarts(int cartid);
         Task<IEnumerable<Customer>> GetByPhoneNumber(string phonenumber);
+        Task<DataForProductFilter> GetDataForFilter();
     }
 }

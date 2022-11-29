@@ -7,10 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\ViewModels\" />
-    <Folder Include="Models\Ultilities\" />
+    <Compile Remove="Models\Ultilities\**" />
+    <Compile Remove="Models\ViewModels\**" />
+    <EmbeddedResource Remove="Models\Ultilities\**" />
+    <EmbeddedResource Remove="Models\ViewModels\**" />
+    <None Remove="Models\Ultilities\**" />
+    <None Remove="Models\ViewModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Images\" />
-    <Folder Include="Ultilities\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Spire.Email" Version="5.8.0" />
   </ItemGroup>
 
   <ItemGroup>

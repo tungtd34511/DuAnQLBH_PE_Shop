@@ -111,9 +111,9 @@ namespace App.Views.Views.Orders
             this.label15.Location = new System.Drawing.Point(0, 17);
             this.label15.Margin = new System.Windows.Forms.Padding(0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(430, 60);
+            this.label15.Size = new System.Drawing.Size(299, 60);
             this.label15.TabIndex = 2;
-            this.label15.Text = "Chỉnh Sửa Hóa Đơn";
+            this.label15.Text = "Sửa Hóa Đơn";
             // 
             // tableLayoutPanel2
             // 
@@ -170,8 +170,9 @@ namespace App.Views.Views.Orders
             // txtEmail
             // 
             this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtEmail.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtEmail.Location = new System.Drawing.Point(3, 30);
+            this.txtEmail.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txtEmail.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtEmail.Location = new System.Drawing.Point(3, 34);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(594, 27);
             this.txtEmail.TabIndex = 16;
@@ -191,8 +192,9 @@ namespace App.Views.Views.Orders
             // txtCustomerName
             // 
             this.txtCustomerName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtCustomerName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtCustomerName.Location = new System.Drawing.Point(3, 30);
+            this.txtCustomerName.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txtCustomerName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtCustomerName.Location = new System.Drawing.Point(3, 34);
             this.txtCustomerName.Name = "txtCustomerName";
             this.txtCustomerName.Size = new System.Drawing.Size(594, 27);
             this.txtCustomerName.TabIndex = 15;
@@ -233,8 +235,9 @@ namespace App.Views.Views.Orders
             // txtPhoneNumber
             // 
             this.txtPhoneNumber.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtPhoneNumber.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPhoneNumber.Location = new System.Drawing.Point(3, 30);
+            this.txtPhoneNumber.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txtPhoneNumber.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtPhoneNumber.Location = new System.Drawing.Point(3, 34);
             this.txtPhoneNumber.Name = "txtPhoneNumber";
             this.txtPhoneNumber.Size = new System.Drawing.Size(594, 27);
             this.txtPhoneNumber.TabIndex = 16;
@@ -253,8 +256,9 @@ namespace App.Views.Views.Orders
             // txtAddress
             // 
             this.txtAddress.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtAddress.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtAddress.Location = new System.Drawing.Point(3, 30);
+            this.txtAddress.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txtAddress.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtAddress.Location = new System.Drawing.Point(3, 34);
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(594, 27);
             this.txtAddress.TabIndex = 16;
@@ -276,7 +280,7 @@ namespace App.Views.Views.Orders
             this.txtNote.BackColor = System.Drawing.Color.White;
             this.txtNote.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtNote.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtNote.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtNote.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtNote.Location = new System.Drawing.Point(10, 37);
             this.txtNote.Name = "txtNote";
             this.txtNote.Size = new System.Drawing.Size(580, 342);
@@ -331,12 +335,12 @@ namespace App.Views.Views.Orders
             this.txtOrderHistoriesDetails.BackColor = System.Drawing.Color.White;
             this.txtOrderHistoriesDetails.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtOrderHistoriesDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtOrderHistoriesDetails.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtOrderHistoriesDetails.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtOrderHistoriesDetails.Location = new System.Drawing.Point(10, 37);
             this.txtOrderHistoriesDetails.Name = "txtOrderHistoriesDetails";
             this.txtOrderHistoriesDetails.Size = new System.Drawing.Size(901, 153);
             this.txtOrderHistoriesDetails.TabIndex = 0;
-            this.txtOrderHistoriesDetails.Text = "label";
+            this.txtOrderHistoriesDetails.Text = "";
             // 
             // groupBox1
             // 
@@ -351,10 +355,11 @@ namespace App.Views.Views.Orders
             // 
             // CombStatus
             // 
-            this.CombStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CombStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.CombStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CombStatus.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CombStatus.FormattingEnabled = true;
-            this.CombStatus.Location = new System.Drawing.Point(3, 30);
+            this.CombStatus.Location = new System.Drawing.Point(3, 29);
             this.CombStatus.Name = "CombStatus";
             this.CombStatus.Size = new System.Drawing.Size(301, 36);
             this.CombStatus.TabIndex = 0;
@@ -366,9 +371,8 @@ namespace App.Views.Views.Orders
             this.tableLayoutPanel7.Controls.Add(this.LblName, 0, 0);
             this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
-            this.tableLayoutPanel7.RowCount = 2;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 91.83673F));
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.163265F));
+            this.tableLayoutPanel7.RowCount = 1;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80.61224F));
             this.tableLayoutPanel7.Size = new System.Drawing.Size(616, 98);
             this.tableLayoutPanel7.TabIndex = 4;
             // 
@@ -377,7 +381,7 @@ namespace App.Views.Views.Orders
             this.LblName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.LblName.AutoSize = true;
             this.LblName.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.LblName.Location = new System.Drawing.Point(3, 22);
+            this.LblName.Location = new System.Drawing.Point(3, 26);
             this.LblName.Name = "LblName";
             this.LblName.Size = new System.Drawing.Size(227, 46);
             this.LblName.TabIndex = 1;
@@ -410,7 +414,7 @@ namespace App.Views.Views.Orders
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(153, 50);
             this.BtnSave.TabIndex = 1;
-            this.BtnSave.Text = "Lưu Thay Đổi";
+            this.BtnSave.Text = "Lưu";
             this.BtnSave.TextColor = System.Drawing.Color.White;
             this.BtnSave.UseVisualStyleBackColor = false;
             this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
@@ -432,7 +436,7 @@ namespace App.Views.Views.Orders
             this.BtnBack.Name = "BtnBack";
             this.BtnBack.Size = new System.Drawing.Size(153, 50);
             this.BtnBack.TabIndex = 0;
-            this.BtnBack.Text = "Quay Lại";
+            this.BtnBack.Text = "Thoát";
             this.BtnBack.TextColor = System.Drawing.Color.White;
             this.BtnBack.UseVisualStyleBackColor = false;
             this.BtnBack.Click += new System.EventHandler(this.BtnBack_Click);

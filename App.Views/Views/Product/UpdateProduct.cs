@@ -159,7 +159,7 @@ namespace App.Views.Views.Product
             Request.UnitId = Data.Units[CombUnits.SelectedIndex].Id;
             Request.Gender = genders[CboxGender.SelectedIndex];
             Request.OriginalPrice = Convert.ToDecimal(TxtOringinalPrice.Text);
-            Request.Price = Convert.ToDecimal(TxtOringinalPrice.Text);
+            Request.Price = Convert.ToDecimal(txtPrice.Text);
             Request.Name = TxtNameProduct.Text;
             Request.DeletedCategories = Product.Categories.Where(c => !categoriesSelected.Contains(c)).ToList();
             Request.NewCategories = categoriesSelected.Where(c => !Product.Categories.Contains(c)).ToList();
@@ -231,21 +231,23 @@ namespace App.Views.Views.Product
                 }
             }
         }
-
-
         private async void BtnSave_Click(object sender, EventArgs e)
         {
-            if (await SetDataForUpdate())
-            {
-                var result = await _services.Update(Request, await Dispose());
-                if (result)
+            var txt = await Validatton();
+            if (txt != "") { MessageBox.Show(txt); }
+            else {
+                if (await SetDataForUpdate())
                 {
-                    MessageBox.Show("Cập nhật sản phẩm thành công !", "Thông báo", MessageBoxButtons.OK);
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Cập nhật sản phẩm thất bại !", "Thông báo", MessageBoxButtons.OK);
+                    var result = await _services.Update(Request, await Dispose());
+                    if (result)
+                    {
+                        MessageBox.Show("Cập nhật sản phẩm thành công !", "Thông báo", MessageBoxButtons.OK);
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cập nhật sản phẩm thất bại !", "Thông báo", MessageBoxButtons.OK);
+                    }
                 }
             }
         }
@@ -254,7 +256,6 @@ namespace App.Views.Views.Product
             TblImgs.Controls.Clear();
             return true;
         }
-
         private async void btnResetImg_Click(object sender, EventArgs e)
         {
             TblImgs.Controls.Clear();
@@ -316,6 +317,20 @@ namespace App.Views.Views.Product
             {
                 ((CheckBox)item).Checked = false;
             }
+        }
+        private async Task<string> Validatton()
+        {
+            var txt = "";
+            if (String.IsNullOrEmpty(TxtNameProduct.Text) || String.IsNullOrEmpty(TxtOringinalPrice.Text) || String.IsNullOrEmpty(txtPrice.Text))
+            {
+                txt += "Không được để trống tên , giá nhập và giá bán !\n";
+            }
+            else if (Convert.ToDecimal(txtPrice.Text) < Convert.ToDecimal(TxtOringinalPrice.Text))
+            {
+                txt += "Giá bán phải lớn hơn giá nhật";
+            }
+            txt += _services.Validate(TxtNameProduct.Text);
+            return txt;
         }
     }
 }

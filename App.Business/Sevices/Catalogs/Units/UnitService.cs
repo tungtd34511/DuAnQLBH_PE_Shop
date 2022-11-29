@@ -44,5 +44,9 @@ namespace App.Business.Sevices.Catalogs.Units
         {
             return await _unitRepositories.UpdateOneAsync(unit);
         }
+        public async Task<bool> CheckName(string name)
+        {
+            return await _unitRepositories.CheckName(name);
+        }
     }
 }

@@ -54,6 +54,9 @@ namespace App.Views.Views.Layout
             this.danhMụcSảnPhẩmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nhàSảnXuấtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.đơnVịSảnPhẩmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.màuSắcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kíchCỡToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.biếnThểSảnPhẩmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Tbl_HomeView.SuspendLayout();
             this.tbl_Menu.SuspendLayout();
             this.tbl_Logo.SuspendLayout();
@@ -257,6 +260,7 @@ namespace App.Views.Views.Layout
             this.vbButton12.TextColor = System.Drawing.Color.White;
             this.vbButton12.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.vbButton12.UseVisualStyleBackColor = false;
+            this.vbButton12.Click += new System.EventHandler(this.vbButton12_Click);
             // 
             // vbButton8
             // 
@@ -312,6 +316,7 @@ namespace App.Views.Views.Layout
             this.vbButton7.TextColor = System.Drawing.Color.White;
             this.vbButton7.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.vbButton7.UseVisualStyleBackColor = false;
+            this.vbButton7.Click += new System.EventHandler(this.vbButton7_Click);
             // 
             // vbButton6
             // 
@@ -423,6 +428,7 @@ namespace App.Views.Views.Layout
             this.BtnHome.TextColor = System.Drawing.Color.White;
             this.BtnHome.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.BtnHome.UseVisualStyleBackColor = false;
+            this.BtnHome.Click += new System.EventHandler(this.BtnHome_Click);
             // 
             // vbButton9
             // 
@@ -478,6 +484,7 @@ namespace App.Views.Views.Layout
             this.vbButton10.TextColor = System.Drawing.Color.White;
             this.vbButton10.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.vbButton10.UseVisualStyleBackColor = false;
+            this.vbButton10.Click += new System.EventHandler(this.vbButton10_Click);
             // 
             // PanlDesktop
             // 
@@ -496,12 +503,15 @@ namespace App.Views.Views.Layout
             this.MenuCatalog.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.danhMụcSảnPhẩmToolStripMenuItem,
             this.nhàSảnXuấtToolStripMenuItem,
-            this.đơnVịSảnPhẩmToolStripMenuItem});
+            this.đơnVịSảnPhẩmToolStripMenuItem,
+            this.màuSắcToolStripMenuItem,
+            this.kíchCỡToolStripMenuItem,
+            this.biếnThểSảnPhẩmToolStripMenuItem});
             this.MenuCatalog.MenuItemHeight = 25;
             this.MenuCatalog.MenuItemTextColor = System.Drawing.Color.Empty;
             this.MenuCatalog.Name = "MenuCatalog";
             this.MenuCatalog.PrimaryColor = System.Drawing.Color.Empty;
-            this.MenuCatalog.Size = new System.Drawing.Size(275, 100);
+            this.MenuCatalog.Size = new System.Drawing.Size(275, 196);
             // 
             // danhMụcSảnPhẩmToolStripMenuItem
             // 
@@ -520,6 +530,24 @@ namespace App.Views.Views.Layout
             this.đơnVịSảnPhẩmToolStripMenuItem.Name = "đơnVịSảnPhẩmToolStripMenuItem";
             this.đơnVịSảnPhẩmToolStripMenuItem.Size = new System.Drawing.Size(274, 32);
             this.đơnVịSảnPhẩmToolStripMenuItem.Text = "Đơn Vị Sản Phẩm";
+            // 
+            // màuSắcToolStripMenuItem
+            // 
+            this.màuSắcToolStripMenuItem.Name = "màuSắcToolStripMenuItem";
+            this.màuSắcToolStripMenuItem.Size = new System.Drawing.Size(274, 32);
+            this.màuSắcToolStripMenuItem.Text = "Màu Sắc";
+            // 
+            // kíchCỡToolStripMenuItem
+            // 
+            this.kíchCỡToolStripMenuItem.Name = "kíchCỡToolStripMenuItem";
+            this.kíchCỡToolStripMenuItem.Size = new System.Drawing.Size(274, 32);
+            this.kíchCỡToolStripMenuItem.Text = "Kích Cỡ";
+            // 
+            // biếnThểSảnPhẩmToolStripMenuItem
+            // 
+            this.biếnThểSảnPhẩmToolStripMenuItem.Name = "biếnThểSảnPhẩmToolStripMenuItem";
+            this.biếnThểSảnPhẩmToolStripMenuItem.Size = new System.Drawing.Size(274, 32);
+            this.biếnThểSảnPhẩmToolStripMenuItem.Text = "Biến Thể Sản Phẩm";
             // 
             // _Layout
             // 
@@ -567,5 +595,8 @@ namespace App.Views.Views.Layout
         private ToolStripMenuItem danhMụcSảnPhẩmToolStripMenuItem;
         private ToolStripMenuItem nhàSảnXuấtToolStripMenuItem;
         private ToolStripMenuItem đơnVịSảnPhẩmToolStripMenuItem;
+        private ToolStripMenuItem màuSắcToolStripMenuItem;
+        private ToolStripMenuItem kíchCỡToolStripMenuItem;
+        private ToolStripMenuItem biếnThểSảnPhẩmToolStripMenuItem;
     }
 }

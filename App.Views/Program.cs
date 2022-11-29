@@ -1,10 +1,15 @@
 using App.Business.Sevices.Catalogs.Categories;
+using App.Business.Sevices.Catalogs.Colors;
 using App.Business.Sevices.Catalogs.Manufactures;
+using App.Business.Sevices.Catalogs.Sizes;
 using App.Business.Sevices.Catalogs.Units;
 using App.Business.Sevices.Orders;
 using App.Business.Sevices.Products;
+using App.Business.Sevices.ProductVariations;
+using App.Business.Sevices.Promotions;
 using App.Business.Sevices.Shoppings;
 using App.Business.Sevices.ThongKes;
+using App.Business.Sevices.Users;
 using App.Business.Ultilities.Common;
 using App.Data.Context;
 using App.Data.Entities;
@@ -19,17 +24,27 @@ using App.Data.Repositories.Catalog.Units;
 using App.Data.Repositories.Customers;
 using App.Data.Repositories.Orders;
 using App.Data.Repositories.Products;
+using App.Data.Repositories.Promotions;
+using App.Data.Repositories.Users;
+using App.Data.Ultilities.Catalog.Users;
 using App.Views.Views.Catalog.Categories;
+using App.Views.Views.Catalog.Colors;
 using App.Views.Views.Catalog.Manufacturers;
+using App.Views.Views.Catalog.ProductVariations;
+using App.Views.Views.Catalog.Sizes;
 using App.Views.Views.Catalog.Units;
 using App.Views.Views.Layout;
 using App.Views.Views.Orders;
 using App.Views.Views.Product;
+using App.Views.Views.Promotion;
 using App.Views.Views.Shopping;
 using App.Views.Views.ThongKe;
+using App.Views.Views.User;
+using App.Views.Views.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Windows.Forms.Design;
 
 namespace App.Views
 {
@@ -79,6 +94,11 @@ namespace App.Views
                     services.AddTransient<IOrderRepositories,OrderRepositories>();
                     services.AddTransient<IOrderHistoryRepositories,OrderHistoryRepositories>();
                     services.AddTransient<ICustomerRepositories, CustomerRepositories>();
+                    services.AddTransient<IUserRepositories,UserRepositories>();
+                    services.AddTransient<IUserDetailRepositories, UserDetailRepositories>();
+                    services.AddTransient<IPromotionRepositories, PromotionRepositories>();
+                    services.AddTransient<IColorRepositories, ColorRepositories>();
+                    services.AddTransient<ISizeRepositories,SizeRepositories>();
                     //
                     services.AddTransient<IShoppingService,ShoppingService>();
                     services.AddTransient<IOrderService, OrderService>();
@@ -87,6 +107,11 @@ namespace App.Views
                     services.AddTransient<ICategoryService, CategoryService>();
                     services.AddTransient<IManufactureServices, ManufactureService>();
                     services.AddTransient<IUnitServices, UnitService>();
+                    services.AddTransient<IUserService, UserService>();
+                    services.AddTransient<IPromotionService, PromotionService>();
+                    services.AddTransient<IColorService,ColorService>();
+                    services.AddTransient<ISizeService,SizeService>();
+                    services.AddTransient<IProductVariationServices,ProductVariationServices>();
                     //
                     services.AddTransient<_Layout>();
                     services.AddTransient<ProductIndex>();
@@ -105,6 +130,26 @@ namespace App.Views
                     services.AddTransient<CreateManufacture>();
                     services.AddTransient<UnitIndex>();
                     services.AddTransient<AddUnit>();
+                    services.AddTransient<QRcode>();
+                    services.AddTransient<UserIndex>();
+                    services.AddTransient<UserLogin>();
+                    services.AddTransient<UserDetails>();
+                    services.AddTransient<UpdateUser>();
+                    services.AddTransient<ChangePassword>();
+                    services.AddTransient<PromotionIndex>();
+                    services.AddTransient<CreatePromotion>();
+                    services.AddTransient<Updatepromotion>();
+                    services.AddTransient<ColorIndex>();
+                    services.AddTransient<CreateColor>();
+                    services.AddTransient<UpdateColor>();
+                    services.AddTransient<SizeIndex>();
+                    services.AddTransient<CreateSize>();
+                    services.AddTransient<UpdateSize>();
+                    services.AddTransient<ProductVariationIndex>();
+                    services.AddTransient<CreateProductVariaton>();
+                    services.AddTransient<UpdateProductVariation>();
+                    services.AddTransient<AddUser>();
+                    //
                 });
         }
     }

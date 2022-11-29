@@ -27,7 +27,6 @@ namespace App.Views.Views.Orders
             LblNguoiTao.Text = Order.UserName;
             LblPhoneNumber.Text = Order.ShipPhoneNumber;
             LblTongTien.Text = Order.Total.ToString() +" vnđ";
-            lblThuKhac.Text = (Order.Total * 10 / 110).ToString() + "vnđ";
             txtNote.Text = Order.Description;
             btnCreated.Text = Order.Created.ToString();
             Btn_Status.Text = Order.Status.ToString();

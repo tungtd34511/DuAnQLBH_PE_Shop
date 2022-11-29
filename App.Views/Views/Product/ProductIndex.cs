@@ -116,6 +116,8 @@ namespace App.Views.Views.Product
                 tableLayoutPanel6.Height = heigh + 54;
                 //
                 PanlFilter.Controls.Add(tableLayoutPanel6);
+                flowLayoutPanel1.AutoSize= true;
+                tableLayoutPanel6.AutoSize= true;
                 index++;
             }
         }

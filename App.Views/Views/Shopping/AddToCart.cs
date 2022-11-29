@@ -123,6 +123,7 @@ namespace App.Views.Views.Shopping
                 //
                 BtnAdd.Click += (o, s) =>
                 {
+                    if (numericUpDown1.Value > 0) { 
                     Request.ColorName = item.ColorName;
                     Request.ColorId = item.ColorId;
                     Request.PvId = item.Id;
@@ -132,14 +133,12 @@ namespace App.Views.Views.Shopping
                     Request.SizeName = item.SizeName;
                     Request.productName = item.ProductName;
                     addToCart(Request);//Call Delegate
+                    }
+                    else { MessageBox.Show("Số lượng phải lớn hơn 0!"); }
                 };
             }
         }
 
-        private async void AddToCart_Load(object sender, EventArgs e)
-        {
-            
-        }
 
         private void BtnBack_Click(object sender, EventArgs e)
         {

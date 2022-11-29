@@ -16,5 +16,6 @@ namespace App.Business.Sevices.Catalogs.Units
         Task<bool> ChangeStatus(Unit unit);
         Task<Unit> GetById(int id);
         Task<PagedResult<Unit>> GetPaging(GetPagingUnitRequest request);
+        Task<bool> CheckName(string name);
     }
 }

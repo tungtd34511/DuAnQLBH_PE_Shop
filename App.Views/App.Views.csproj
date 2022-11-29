@@ -9,20 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Catalog\" />
-    <Folder Include="Services\Common\" />
-    <Folder Include="Services\Product\" />
-    <Folder Include="Views\Customer\" />
-    <Folder Include="Views\Promotion\" />
-    <Folder Include="Views\User\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="AForge" Version="2.2.5" />
+    <PackageReference Include="AForge.Video" Version="2.2.5" />
+    <PackageReference Include="AForge.Video.DirectShow" Version="2.2.5" />
     <PackageReference Include="FontAwesome.Sharp" Version="6.1.1" />
     <PackageReference Include="LiveCharts.WinForms" Version="0.9.7.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
+    <PackageReference Include="ZXing.Net" Version="0.10.0" />
   </ItemGroup>
 
   <ItemGroup>

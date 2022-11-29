@@ -260,7 +260,7 @@ namespace App.Views.Views.Product
             this.TxtCategories.ReadOnly = true;
             this.TxtCategories.Size = new System.Drawing.Size(434, 87);
             this.TxtCategories.TabIndex = 0;
-            this.TxtCategories.Text = "label";
+            this.TxtCategories.Text = "";
             // 
             // groupBox12
             // 
@@ -286,7 +286,7 @@ namespace App.Views.Views.Product
             this.TxtDescription.ReadOnly = true;
             this.TxtDescription.Size = new System.Drawing.Size(434, 158);
             this.TxtDescription.TabIndex = 0;
-            this.TxtDescription.Text = "label";
+            this.TxtDescription.Text = "";
             // 
             // groupBox11
             // 
@@ -424,14 +424,14 @@ namespace App.Views.Views.Product
             // 
             this.TxtDetail.BackColor = System.Drawing.Color.White;
             this.TxtDetail.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtDetail.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TxtDetail.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.TxtDetail.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.TxtDetail.Location = new System.Drawing.Point(10, 37);
             this.TxtDetail.Name = "TxtDetail";
             this.TxtDetail.ReadOnly = true;
             this.TxtDetail.Size = new System.Drawing.Size(420, 224);
             this.TxtDetail.TabIndex = 0;
-            this.TxtDetail.Text = "label";
+            this.TxtDetail.Text = "";
             // 
             // groupBox5
             // 
@@ -448,14 +448,13 @@ namespace App.Views.Views.Product
             // LblNsx
             // 
             this.LblNsx.AutoSize = true;
-            this.LblNsx.Dock = System.Windows.Forms.DockStyle.Left;
+            this.LblNsx.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.LblNsx.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.LblNsx.Location = new System.Drawing.Point(3, 30);
+            this.LblNsx.Location = new System.Drawing.Point(3, 28);
             this.LblNsx.Name = "LblNsx";
             this.LblNsx.Padding = new System.Windows.Forms.Padding(5);
-            this.LblNsx.Size = new System.Drawing.Size(65, 33);
+            this.LblNsx.Size = new System.Drawing.Size(10, 33);
             this.LblNsx.TabIndex = 0;
-            this.LblNsx.Text = "label6";
             // 
             // panel4
             // 
@@ -484,14 +483,13 @@ namespace App.Views.Views.Product
             // LblOriginPrice
             // 
             this.LblOriginPrice.AutoSize = true;
-            this.LblOriginPrice.Dock = System.Windows.Forms.DockStyle.Left;
+            this.LblOriginPrice.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.LblOriginPrice.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.LblOriginPrice.Location = new System.Drawing.Point(3, 30);
+            this.LblOriginPrice.Location = new System.Drawing.Point(3, 28);
             this.LblOriginPrice.Name = "LblOriginPrice";
             this.LblOriginPrice.Padding = new System.Windows.Forms.Padding(5);
-            this.LblOriginPrice.Size = new System.Drawing.Size(65, 33);
+            this.LblOriginPrice.Size = new System.Drawing.Size(10, 33);
             this.LblOriginPrice.TabIndex = 0;
-            this.LblOriginPrice.Text = "label4";
             // 
             // groupBox4
             // 
@@ -508,14 +506,13 @@ namespace App.Views.Views.Product
             // LblUnit
             // 
             this.LblUnit.AutoSize = true;
-            this.LblUnit.Dock = System.Windows.Forms.DockStyle.Left;
+            this.LblUnit.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.LblUnit.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.LblUnit.Location = new System.Drawing.Point(3, 30);
+            this.LblUnit.Location = new System.Drawing.Point(3, 28);
             this.LblUnit.Name = "LblUnit";
             this.LblUnit.Padding = new System.Windows.Forms.Padding(5);
-            this.LblUnit.Size = new System.Drawing.Size(65, 33);
+            this.LblUnit.Size = new System.Drawing.Size(10, 33);
             this.LblUnit.TabIndex = 0;
-            this.LblUnit.Text = "label5";
             // 
             // panel3
             // 
@@ -544,14 +541,13 @@ namespace App.Views.Views.Product
             // LblPrice
             // 
             this.LblPrice.AutoSize = true;
-            this.LblPrice.Dock = System.Windows.Forms.DockStyle.Left;
+            this.LblPrice.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.LblPrice.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.LblPrice.Location = new System.Drawing.Point(3, 30);
+            this.LblPrice.Location = new System.Drawing.Point(3, 28);
             this.LblPrice.Name = "LblPrice";
             this.LblPrice.Padding = new System.Windows.Forms.Padding(5);
-            this.LblPrice.Size = new System.Drawing.Size(65, 33);
+            this.LblPrice.Size = new System.Drawing.Size(10, 33);
             this.LblPrice.TabIndex = 0;
-            this.LblPrice.Text = "label3";
             // 
             // groupBox1
             // 
@@ -568,14 +564,13 @@ namespace App.Views.Views.Product
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(3, 30);
+            this.label2.Location = new System.Drawing.Point(3, 28);
             this.label2.Name = "label2";
             this.label2.Padding = new System.Windows.Forms.Padding(5);
-            this.label2.Size = new System.Drawing.Size(65, 33);
+            this.label2.Size = new System.Drawing.Size(10, 33);
             this.label2.TabIndex = 0;
-            this.label2.Text = "label2";
             // 
             // panel5
             // 
@@ -601,14 +596,13 @@ namespace App.Views.Views.Product
             // LblGender
             // 
             this.LblGender.AutoSize = true;
-            this.LblGender.Dock = System.Windows.Forms.DockStyle.Left;
+            this.LblGender.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.LblGender.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.LblGender.Location = new System.Drawing.Point(3, 30);
+            this.LblGender.Location = new System.Drawing.Point(3, 28);
             this.LblGender.Name = "LblGender";
             this.LblGender.Padding = new System.Windows.Forms.Padding(5);
-            this.LblGender.Size = new System.Drawing.Size(65, 33);
+            this.LblGender.Size = new System.Drawing.Size(10, 33);
             this.LblGender.TabIndex = 0;
-            this.LblGender.Text = "label7";
             // 
             // groupBox8
             // 
@@ -625,14 +619,13 @@ namespace App.Views.Views.Product
             // LblCreated
             // 
             this.LblCreated.AutoSize = true;
-            this.LblCreated.Dock = System.Windows.Forms.DockStyle.Left;
+            this.LblCreated.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.LblCreated.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.LblCreated.Location = new System.Drawing.Point(3, 30);
+            this.LblCreated.Location = new System.Drawing.Point(3, 28);
             this.LblCreated.Name = "LblCreated";
             this.LblCreated.Padding = new System.Windows.Forms.Padding(5);
-            this.LblCreated.Size = new System.Drawing.Size(65, 33);
+            this.LblCreated.Size = new System.Drawing.Size(10, 33);
             this.LblCreated.TabIndex = 0;
-            this.LblCreated.Text = "label9";
             // 
             // tableLayoutPanel7
             // 
@@ -664,7 +657,7 @@ namespace App.Views.Views.Product
             // 
             this.panel7.Controls.Add(this.Btn_Sale);
             this.panel7.Controls.Add(this.Btn_Status);
-            this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel7.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel7.Location = new System.Drawing.Point(3, 93);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(910, 50);
@@ -678,14 +671,14 @@ namespace App.Views.Views.Product
             this.Btn_Sale.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.Btn_Sale.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.Btn_Sale.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Btn_Sale.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Btn_Sale.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Btn_Sale.IconChar = FontAwesome.Sharp.IconChar.Check;
             this.Btn_Sale.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(164)))), ((int)(((byte)(78)))));
             this.Btn_Sale.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.Btn_Sale.IconSize = 35;
-            this.Btn_Sale.Location = new System.Drawing.Point(165, 0);
+            this.Btn_Sale.Location = new System.Drawing.Point(179, 0);
             this.Btn_Sale.Name = "Btn_Sale";
-            this.Btn_Sale.Size = new System.Drawing.Size(117, 50);
+            this.Btn_Sale.Size = new System.Drawing.Size(128, 50);
             this.Btn_Sale.TabIndex = 5;
             this.Btn_Sale.Text = "btn_sale";
             this.Btn_Sale.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -700,14 +693,14 @@ namespace App.Views.Views.Product
             this.Btn_Status.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.Btn_Status.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.Btn_Status.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Btn_Status.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Btn_Status.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Btn_Status.IconChar = FontAwesome.Sharp.IconChar.Check;
             this.Btn_Status.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(164)))), ((int)(((byte)(78)))));
             this.Btn_Status.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.Btn_Status.IconSize = 35;
             this.Btn_Status.Location = new System.Drawing.Point(0, 0);
             this.Btn_Status.Name = "Btn_Status";
-            this.Btn_Status.Size = new System.Drawing.Size(165, 50);
+            this.Btn_Status.Size = new System.Drawing.Size(179, 50);
             this.Btn_Status.TabIndex = 4;
             this.Btn_Status.Text = "btn_TrangThai";
             this.Btn_Status.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -749,7 +742,7 @@ namespace App.Views.Views.Product
             this.BtnBack.Name = "BtnBack";
             this.BtnBack.Size = new System.Drawing.Size(153, 50);
             this.BtnBack.TabIndex = 0;
-            this.BtnBack.Text = "Quay Lại";
+            this.BtnBack.Text = "Thoát";
             this.BtnBack.TextColor = System.Drawing.Color.White;
             this.BtnBack.UseVisualStyleBackColor = false;
             this.BtnBack.Click += new System.EventHandler(this.BtnBack_Click);
@@ -762,7 +755,7 @@ namespace App.Views.Views.Product
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ProductDetails";
             this.Padding = new System.Windows.Forms.Padding(5, 5, 10, 5);
-            this.Text = "CreateProduct";
+            this.Text = "d";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);

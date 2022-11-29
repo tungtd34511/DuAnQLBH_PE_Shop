@@ -1,4 +1,5 @@
 ﻿
+using App.Data.Entities;
 using App.Data.Ultilities.Catalog.ProductVariation;
 using App.Data.Ultilities.Common;
 using App.Data.Ultilities.ViewModels;
@@ -12,11 +13,13 @@ namespace App.Business.Sevices.ProductVariations
 {
     public interface IProductVariationServices
     {
-        Task<List<ProductVariationVm>> GetByProductId(int id);
+        Task<bool> Create(ProductVariation request);
         Task<PagedResult<ProductVariationVm>> GetAllPaging(GetPagingProductVariationRequest request);
-        Task<ProductVariationVm> GetById(int id);
-        Task<bool> Create(AddProductVariationRequest request);
-        Task<bool> UpdateStok(UpdateStockProductVariationRequest request);
-        Task<bool> ChangeStatus(ChangeStatusProductVariationRequest request);
+        Task<ProductVariation> GetById(int id);
+        Task<bool> Update(ProductVariation request);
+        Task<IEnumerable<Color>> GetAllColor();
+        Task<IEnumerable<ProductDetail>> GetAllProductDetail();
+        Task<IEnumerable<Size>> GetAllSize();
+        Task<bool> Contain(ProductVariation request);
     }
 }

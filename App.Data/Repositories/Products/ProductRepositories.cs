@@ -75,20 +75,34 @@ namespace App.Data.Repositories.Products
                         break;
                 }
             }
-
+            //
 
             list = await query.Select(c => new ProductInQuery() { Product = c.p, ProductDetail = c.pd }).ToListAsync();
-            totalRow = list.Count;
-            //
+            var data = new List<ProductInPaging>();
             if (request.Checks != null && request.Checks.Any(c => c == true))
             {
                 listCBox = request.Checks;
                 list = list.Where(c => GetResultFilter(c.Product.Id)).ToList();
                 totalRow = list.Count;
+                data = list.Skip((request.PageIndex - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .Select(x => new ProductInPaging()
+                {
+                    Id = x.Product.Id,
+                    Name = x.ProductDetail.Name,
+                    Status = x.Product.Status,
+                    Description = x.ProductDetail.Description,
+                    Price = x.Product.Price
+                }).ToList();
+            }
+            else
+            {
+                totalRow = await query.CountAsync();
+                
             }
             //3.Paging
 
-            var data = list.Skip((request.PageIndex - 1) * request.PageSize)
+            data = list.Skip((request.PageIndex - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .Select(x => new ProductInPaging()
                 {
@@ -244,7 +258,58 @@ namespace App.Data.Repositories.Products
                         join pd in _context.ProductDetails on p.Id equals pd.ProductId
                         where _context.ProductVariations.Where(c => c.IsDeleted == false && c.Stock > 0).Select(c => c.ProductId).Contains(p.Id)
                         select new { p, pd, img=_context.ProductImages.FirstOrDefault(c=>c.ProductId==p.Id)};
-            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+            //2. filter
+            if (!string.IsNullOrEmpty(request.Keyword))
+                query = query.Where(x => x.pd.Name.ToLower().Contains(request.Keyword.ToLower())||x.p.Id.ToString()==request.Keyword);
+            if (request.OderBy != 0) // oder by dropdowlisst in Form ProductIndex
+            {
+                switch (request.OderBy)
+                {
+                    case 1:
+                        query = query.OrderBy(c => c.pd.Name);
+                        break;
+                    case 2:
+                        query = query.OrderByDescending(c => c.pd.Name);
+                        break;
+                    case 3:
+                        query = query.OrderBy(c => c.p.Price);
+                        break;
+                    case 4:
+                        query = query.OrderByDescending(c => c.p.Price);
+                        break;
+                    case 5:
+                        query = query.OrderByDescending(c => c.p.Id);
+                        break;
+                    case 6:
+                        query = query.OrderBy(c => c.p.Id);
+                        break;
+                }
+            }
+            //
+            var list = new List<ProductInShoppingVm>();
+            int totalrecords =0;
+            //
+            if (request.Checks != null && request.Checks.Any(c => c == true))
+            {
+                listCBox = request.Checks;
+                
+                var data = query.ToList().Where(c => GetResultFilter(c.p.Id));
+                totalrecords =data.Count();
+                list = data.Skip((request.PageIndex - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .Select(x => new ProductInShoppingVm()
+                {
+                    Id = x.p.Id,
+                    Name = x.pd.Name,
+                    Price = x.p.Price,
+                    ThumbailImage = x.img.ImagePath
+                }).ToList();
+            }
+            else
+            {
+                totalrecords = await query.CountAsync();
+
+                list = await query.Skip((request.PageIndex - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .Select(x => new ProductInShoppingVm()
                 {
@@ -253,13 +318,16 @@ namespace App.Data.Repositories.Products
                     Price = x.p.Price,
                     ThumbailImage = x.img.ImagePath
                 }).ToListAsync();
+            }
+            
             //4. Select 
 
             var pagedResult = new PagedResult<ProductInShoppingVm>()
             {
+                TotalRecords= totalrecords,
                 PageSize = request.PageSize,
                 PageIndex = request.PageIndex,
-                Items = data
+                Items = list
             };
             return pagedResult;
         }

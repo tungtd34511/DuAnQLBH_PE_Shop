@@ -215,5 +215,9 @@ namespace App.Business.Sevices.Products
         {
             return await _productVariationRepositories.GetByProductId(productid);
         }
+        public async Task<string> Validate(string Name)
+        {
+            return await _detailRepositories.Validate(Name);
+        }
     }
 }

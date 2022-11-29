@@ -28,6 +28,6 @@ namespace App.Business.Sevices.Products
         Task<CreateProductView> GetDataForCreate();
         Task<bool> ContainsName(string name);
         Task<DataForProductFilter> GetDataForFilter();
-
+        Task<string> Validate(string Name);
     }
 }

@@ -58,10 +58,10 @@
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.17518F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 51.82482F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 87F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 67F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 84F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 71F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(780, 292);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(780, 278);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // lblTitle
@@ -70,10 +70,10 @@
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 26F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(76)))), ((int)(((byte)(219)))));
-            this.lblTitle.Location = new System.Drawing.Point(0, 3);
+            this.lblTitle.Location = new System.Drawing.Point(0, 0);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(581, 60);
+            this.lblTitle.Size = new System.Drawing.Size(581, 59);
             this.lblTitle.TabIndex = 10;
             this.lblTitle.Text = "Thêm Danh Mục Sản Phẩm";
             // 
@@ -83,41 +83,44 @@
             this.groupBox9.Controls.Add(this.CombParent);
             this.groupBox9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox9.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.groupBox9.Location = new System.Drawing.Point(3, 140);
+            this.groupBox9.Location = new System.Drawing.Point(3, 125);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Padding = new System.Windows.Forms.Padding(10);
-            this.groupBox9.Size = new System.Drawing.Size(774, 81);
+            this.groupBox9.Padding = new System.Windows.Forms.Padding(0);
+            this.groupBox9.Size = new System.Drawing.Size(774, 78);
             this.groupBox9.TabIndex = 7;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Danh Mục Cha";
             // 
             // CombParent
             // 
-            this.CombParent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CombParent.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.CombParent.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CombParent.FormattingEnabled = true;
-            this.CombParent.Location = new System.Drawing.Point(10, 37);
+            this.CombParent.Location = new System.Drawing.Point(0, 42);
             this.CombParent.Name = "CombParent";
-            this.CombParent.Size = new System.Drawing.Size(754, 36);
+            this.CombParent.Size = new System.Drawing.Size(774, 36);
             this.CombParent.TabIndex = 0;
             // 
             // groupBox3
             // 
+            this.groupBox3.BackColor = System.Drawing.Color.White;
             this.groupBox3.Controls.Add(this.LblName);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.groupBox3.Location = new System.Drawing.Point(3, 69);
+            this.groupBox3.Location = new System.Drawing.Point(3, 62);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(774, 65);
+            this.groupBox3.Size = new System.Drawing.Size(774, 57);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Tên";
             // 
             // LblName
             // 
+            this.LblName.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.LblName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LblName.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.LblName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.LblName.Location = new System.Drawing.Point(3, 30);
             this.LblName.Name = "LblName";
-            this.LblName.Size = new System.Drawing.Size(768, 30);
+            this.LblName.Size = new System.Drawing.Size(768, 27);
             this.LblName.TabIndex = 3;
             // 
             // panel1
@@ -125,9 +128,9 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.BtnSave);
             this.panel1.Controls.Add(this.BtnBack);
-            this.panel1.Location = new System.Drawing.Point(86, 227);
+            this.panel1.Location = new System.Drawing.Point(86, 209);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(691, 62);
+            this.panel1.Size = new System.Drawing.Size(691, 66);
             this.panel1.TabIndex = 9;
             // 
             // BtnSave
@@ -178,7 +181,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 312);
+            this.ClientSize = new System.Drawing.Size(800, 298);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "CreateCategory";
             this.Padding = new System.Windows.Forms.Padding(10);
