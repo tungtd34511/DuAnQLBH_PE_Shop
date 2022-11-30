@@ -161,7 +161,7 @@ namespace App.Views.Views.Promotion
                 txt += "Tên khuyến mãi phải từ 1 đến 50 kí tự!\n";
             }
             else {
-                txt += _promotionService.Validation(TxtName.Text);
+                txt += await _promotionService.Validation(TxtName.Text);
             }
             if(dateStarted.Value>dateEnded.Value)
             {

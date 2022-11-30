@@ -21,27 +21,35 @@ namespace App.Data.Repositories.Promotions
         }
         public async Task<PagedResult<Promotion>> GetPaging(GetPromotionPagingRequest request)
         {
-            var query = Entities.Select(c=>c);
-            if(!String.IsNullOrEmpty(request.Keyword))
+            try
             {
-                query = query.Where(c=>c.Id.ToString()==request.Keyword||c.Title.ToLower().Contains(request.Keyword.ToLower()));
+                var query = Entities.Select(c => c);
+                if (!String.IsNullOrEmpty(request.Keyword))
+                {
+                    query = query.Where(c => c.Id.ToString() == request.Keyword || c.Title.ToLower().Contains(request.Keyword.ToLower()));
+                }
+                if (!request.Unhide)
+                {
+                    query = query.Where(c => c.Status == Ultilities.Enums.PromotionStatus.Active);
+                }
+                var totalrecord = await query.CountAsync();
+                var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+                    .Take(request.PageSize)
+                    .Select(c => c).ToListAsync();
+                var result = new PagedResult<Promotion>()
+                {
+                    TotalRecords = totalrecord,
+                    PageSize = request.PageSize,
+                    Items = data,
+                    PageIndex = request.PageIndex
+                };
+                return result;
             }
-            if (!request.Unhide)
+            catch
             {
-                query= query.Where(c => c.Status == Ultilities.Enums.PromotionStatus.Active);
+                return new PagedResult<Promotion> { TotalRecords = 0, PageSize = 20, Items = new(), PageIndex = 1 };
             }
-            var totalrecord = await query.CountAsync();
-            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
-                .Take(request.PageSize)
-                .Select(c => c).ToListAsync();
-            var result = new PagedResult<Promotion>()
-            {
-                TotalRecords = totalrecord,
-                PageSize = request.PageSize,
-                Items = data,
-                PageIndex = request.PageIndex
-            };
-            return result;
+            
         }
         public async Task<string> Validation(string Name)
         {
@@ -50,6 +58,10 @@ namespace App.Data.Repositories.Promotions
                 return "Tên khuyến mãi đã tồn tại !\n";
             }
             return "";
+        }
+        public async Task<List<Promotion>> GetPromotionActive()
+        {
+            return await Entities.Where(c=>c.FromDate<DateTime.Now&&c.ToDate>DateTime.Now&&c.Status==Ultilities.Enums.PromotionStatus.Active).ToListAsync();
         }
     }
 }

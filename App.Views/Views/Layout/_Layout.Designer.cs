@@ -32,14 +32,15 @@ namespace App.Views.Views.Layout
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(_Layout));
             this.Tbl_HomeView = new System.Windows.Forms.TableLayoutPanel();
             this.tbl_Menu = new System.Windows.Forms.TableLayoutPanel();
             this.tbl_Logo = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.vbButton1 = new App.Views.Models.Controls.VBButton();
             this.customPanel1 = new App.Views.Models.Controls.CustomPanel();
-            this.button2 = new FontAwesome.Sharp.IconButton();
-            this.vbButton2 = new App.Views.Models.Controls.VBButton();
+            this.txtName = new FontAwesome.Sharp.IconButton();
+            this.panlImG = new App.Views.Models.Controls.VBButton();
             this.vbButton12 = new App.Views.Models.Controls.VBButton();
             this.vbButton8 = new App.Views.Models.Controls.VBButton();
             this.vbButton7 = new App.Views.Models.Controls.VBButton();
@@ -143,14 +144,16 @@ namespace App.Views.Views.Layout
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(103, 23);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(236, 54);
+            this.label1.Size = new System.Drawing.Size(184, 54);
             this.label1.TabIndex = 4;
-            this.label1.Text = "PE-SHOP";
+            this.label1.Text = "EGALE";
             // 
             // vbButton1
             // 
             this.vbButton1.BackColor = System.Drawing.Color.MediumSlateBlue;
             this.vbButton1.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.vbButton1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("vbButton1.BackgroundImage")));
+            this.vbButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.vbButton1.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.vbButton1.BorderRadius = 47;
             this.vbButton1.BorderSize = 0;
@@ -165,7 +168,6 @@ namespace App.Views.Views.Layout
             this.vbButton1.Name = "vbButton1";
             this.vbButton1.Size = new System.Drawing.Size(94, 94);
             this.vbButton1.TabIndex = 1;
-            this.vbButton1.Text = "vbButton1";
             this.vbButton1.TextColor = System.Drawing.Color.White;
             this.vbButton1.UseVisualStyleBackColor = false;
             // 
@@ -176,8 +178,8 @@ namespace App.Views.Views.Layout
             this.customPanel1.BorderFocusColor = System.Drawing.Color.HotPink;
             this.customPanel1.BorderRadius = 30;
             this.customPanel1.BorderSize = 1;
-            this.customPanel1.Controls.Add(this.button2);
-            this.customPanel1.Controls.Add(this.vbButton2);
+            this.customPanel1.Controls.Add(this.txtName);
+            this.customPanel1.Controls.Add(this.panlImG);
             this.customPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.customPanel1.Location = new System.Drawing.Point(19, 105);
             this.customPanel1.Margin = new System.Windows.Forms.Padding(19, 5, 21, 5);
@@ -187,52 +189,51 @@ namespace App.Views.Views.Layout
             this.customPanel1.TabIndex = 2;
             this.customPanel1.UnderlinedStyle = false;
             // 
-            // button2
+            // txtName
             // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Segoe UI Semilight", 14.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button2.ForeColor = System.Drawing.Color.Black;
-            this.button2.IconChar = FontAwesome.Sharp.IconChar.CaretDown;
-            this.button2.IconColor = System.Drawing.Color.Black;
-            this.button2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.button2.IconSize = 20;
-            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button2.Location = new System.Drawing.Point(62, 3);
-            this.button2.Margin = new System.Windows.Forms.Padding(0);
-            this.button2.Name = "button2";
-            this.button2.Padding = new System.Windows.Forms.Padding(0, 7, 0, 0);
-            this.button2.Size = new System.Drawing.Size(239, 54);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Duy Tùng";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.button2.UseVisualStyleBackColor = false;
+            this.txtName.BackColor = System.Drawing.Color.Transparent;
+            this.txtName.Dock = System.Windows.Forms.DockStyle.Right;
+            this.txtName.FlatAppearance.BorderSize = 0;
+            this.txtName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.txtName.Font = new System.Drawing.Font("Segoe UI Semilight", 14.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtName.ForeColor = System.Drawing.Color.Black;
+            this.txtName.IconChar = FontAwesome.Sharp.IconChar.CaretDown;
+            this.txtName.IconColor = System.Drawing.Color.Black;
+            this.txtName.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.txtName.IconSize = 20;
+            this.txtName.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.txtName.Location = new System.Drawing.Point(62, 3);
+            this.txtName.Margin = new System.Windows.Forms.Padding(0);
+            this.txtName.Name = "txtName";
+            this.txtName.Padding = new System.Windows.Forms.Padding(0, 7, 0, 0);
+            this.txtName.Size = new System.Drawing.Size(239, 54);
+            this.txtName.TabIndex = 4;
+            this.txtName.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.txtName.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.txtName.UseVisualStyleBackColor = false;
             // 
-            // vbButton2
+            // panlImG
             // 
-            this.vbButton2.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.vbButton2.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.vbButton2.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.vbButton2.BorderRadius = 25;
-            this.vbButton2.BorderSize = 0;
-            this.vbButton2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.vbButton2.FlatAppearance.BorderSize = 0;
-            this.vbButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.vbButton2.ForeColor = System.Drawing.Color.White;
-            this.vbButton2.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.vbButton2.IconColor = System.Drawing.Color.Black;
-            this.vbButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.vbButton2.Location = new System.Drawing.Point(3, 3);
-            this.vbButton2.Margin = new System.Windows.Forms.Padding(5);
-            this.vbButton2.Name = "vbButton2";
-            this.vbButton2.Size = new System.Drawing.Size(54, 54);
-            this.vbButton2.TabIndex = 5;
-            this.vbButton2.Text = "vbButton2";
-            this.vbButton2.TextColor = System.Drawing.Color.White;
-            this.vbButton2.UseVisualStyleBackColor = false;
+            this.panlImG.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.panlImG.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.panlImG.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panlImG.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.panlImG.BorderRadius = 25;
+            this.panlImG.BorderSize = 0;
+            this.panlImG.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panlImG.FlatAppearance.BorderSize = 0;
+            this.panlImG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.panlImG.ForeColor = System.Drawing.Color.White;
+            this.panlImG.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.panlImG.IconColor = System.Drawing.Color.Black;
+            this.panlImG.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.panlImG.Location = new System.Drawing.Point(3, 3);
+            this.panlImG.Margin = new System.Windows.Forms.Padding(5);
+            this.panlImG.Name = "panlImG";
+            this.panlImG.Size = new System.Drawing.Size(54, 54);
+            this.panlImG.TabIndex = 5;
+            this.panlImG.TextColor = System.Drawing.Color.White;
+            this.panlImG.UseVisualStyleBackColor = false;
             // 
             // vbButton12
             // 
@@ -579,8 +580,8 @@ namespace App.Views.Views.Layout
         private Label label1;
         private VBButton vbButton1;
         private CustomPanel customPanel1;
-        private VBButton vbButton2;
-        private IconButton button2;
+        private VBButton panlImG;
+        private IconButton txtName;
         private VBButton vbButton8;
         private VBButton vbButton7;
         private VBButton vbButton6;

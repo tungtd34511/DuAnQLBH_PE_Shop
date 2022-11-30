@@ -54,8 +54,11 @@ namespace App.Views.Views.Shopping
             {
                 combCam.Items.Add(Device.Name);
             }
-            combCam.SelectedIndex = 0;
-            timer1.Start();
+            if(combCam.Items.Count > 0)
+            {
+                combCam.SelectedIndex = 0;
+                timer1.Start();
+            }
         }
 
         private void BtnStart_Click(object sender, EventArgs e)

@@ -25,5 +25,7 @@ namespace App.Business.Sevices.Shoppings
         Task<List<ProductInCart>> GetProductInCarts(int cartid);
         Task<IEnumerable<Customer>> GetByPhoneNumber(string phonenumber);
         Task<DataForProductFilter> GetDataForFilter();
+        Task<string> Validate(string phonenumber);
+        Task<bool> AddCustomer(Customer customer);
     }
 }

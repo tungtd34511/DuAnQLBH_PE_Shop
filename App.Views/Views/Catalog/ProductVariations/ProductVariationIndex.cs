@@ -47,6 +47,7 @@ namespace App.Views.Views.Catalog.ProductVariations
         }
         public async Task LoadViewTable()
         {
+            lblResult.Text = Result.TotalRecords.ToString() + " kết quả";
             TblView.Controls.Clear();
             int index = 0;
             foreach (var item in Result.Items)
@@ -217,6 +218,10 @@ namespace App.Views.Views.Catalog.ProductVariations
                 tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
                 tableLayoutPanel4.Size = new System.Drawing.Size(1261, 40);
                 tableLayoutPanel4.TabIndex = 12;
+                if (index % 2 == 0)
+                {
+                    tableLayoutPanel4.BackColor = SystemColors.Control;
+                }
                 //
                 TblView.Controls.Add(tableLayoutPanel4);
                 //
@@ -302,6 +307,7 @@ namespace App.Views.Views.Catalog.ProductVariations
         {
             Request.Keyword = Txt_Search.Text;
             Request.UnHide = CheckUnHide.Checked;
+            Request.OrderBy = Comb_OderBy.SelectedIndex;
             return Request;
         }
         private async Task Check_Click()
@@ -323,7 +329,7 @@ namespace App.Views.Views.Catalog.ProductVariations
             try
             {
                 var index = Convert.ToInt32(TxtPageIndex.Text);
-                if (index > 0 && index < Result.PageCount)
+                if (index > 0 && index <= Result.PageCount)
                 {
                     Result.PageIndex = index;
                     await PageIndex_Changed();
@@ -354,6 +360,7 @@ namespace App.Views.Views.Catalog.ProductVariations
         {
             if (Result.PageIndex != 1)
             {
+                Request.PageIndex = 1;
                 await PageIndex_Changed();
             }
             else
@@ -366,6 +373,7 @@ namespace App.Views.Views.Catalog.ProductVariations
         {
             if (Result.PageIndex > 1)
             {
+                Request.PageIndex--;
                 await PageIndex_Changed();
             }
             else
@@ -378,6 +386,7 @@ namespace App.Views.Views.Catalog.ProductVariations
         {
             if (Result.PageIndex < Result.PageCount)
             {
+                Request.PageIndex++;
                 await PageIndex_Changed();
             }
             else
@@ -390,6 +399,7 @@ namespace App.Views.Views.Catalog.ProductVariations
         {
             if (Result.PageIndex < Result.PageCount)
             {
+                Request.PageIndex = Result.PageCount;
                 await PageIndex_Changed();
             }
             else
@@ -418,6 +428,30 @@ namespace App.Views.Views.Catalog.ProductVariations
                 await LoadMenuPaging();
             };
             frmDetail.ShowDialog();
+        }
+
+        private async void vbButton5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Txt_Search.Text = "";
+                Comb_OderBy.SelectedIndex = 0;
+                CheckUnHide.Checked = false;
+            }
+            finally
+            {
+                Request = new();
+                Result = await _productVariationServices.GetAllPaging(await GetPagingRequest());
+                await LoadViewTable();
+                await LoadMenuPaging();
+            }
+        }
+
+        private async void Comb_OderBy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Result = await _productVariationServices.GetAllPaging(await GetPagingRequest());
+            await LoadViewTable();
+            await LoadMenuPaging();
         }
     }
 }

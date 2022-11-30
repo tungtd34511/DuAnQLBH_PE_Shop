@@ -71,13 +71,15 @@ namespace App.Business.Sevices.Products
                 Name = request.Name,
                 UnitId = request.UnitId
             };
+            var productIncategorys = request.categoryIds.Select(c=>new ProductInCategory() { CategoryId=c}).ToList();
             var product = new Product()
             {
                 Price = request.Price,
                 OriginalPrice = request.OriginalPrice,
                 Status = request.Status,
                 DateCreated = DateTime.Now,
-                ProductDetail = productdetail
+                ProductDetail = productdetail,
+                ProductInCategories = productIncategorys
             };
             //Save image
             if (request.Images != null)
@@ -97,13 +99,9 @@ namespace App.Business.Sevices.Products
                     product.ProductImages.AddRange(lstimg);
                 }
             }
-            await _productRepositories.AddOneAsync(product);
+            
 
-            return await _productInCategoryRepositories.AddManyAsync(request.categoryIds.Select(c => new ProductInCategory()
-            {
-                CategoryId = c,
-                Product = product
-            }));
+            return await _productRepositories.AddOneAsync(product);
         }
 
         public async Task<PagedResult<ProductInPaging>> GetAllPaging(GetPagingProductRequest request) // sẽ lấy query trong repo cho nhanh :)))

@@ -9,8 +9,7 @@ namespace App.Data.Ultilities.Catalog.Orders
 {
     public class GetPagingOrderRequest : PagingRequestBase
     {
-        public string? Keyword { get; set; }  
-        public bool[]? Checks { get; set; }
+        public string Keyword { get; set; } = "";
         public int Orderby { get; set; }
         public bool Unhide { get; set; } = false;
     }

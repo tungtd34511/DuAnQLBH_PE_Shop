@@ -39,7 +39,8 @@ namespace App.Data.Repositories.Carts
                                   PvId = b.Id,
                                   Quantity = a.Quantity,
                                   ProductName = pd.Name,
-                                  ThumbailImage = _context.ProductImages.FirstOrDefault(c => c.ProductId == p.Id).ImagePath
+                                  ThumbailImage = _context.ProductImages.FirstOrDefault(c => c.ProductId == p.Id).ImagePath,
+                                  DiscountPercent = a.Discount,
                               }).ToListAsync();
             return data;
         }

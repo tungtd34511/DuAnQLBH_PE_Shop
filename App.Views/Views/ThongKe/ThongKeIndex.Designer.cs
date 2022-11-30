@@ -150,6 +150,7 @@
             this.gadientPanel4.Size = new System.Drawing.Size(364, 198);
             this.gadientPanel4.TabIndex = 6;
             this.gadientPanel4.TopLeftColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(76)))), ((int)(((byte)(219)))));
+            this.gadientPanel4.Visible = false;
             // 
             // label4
             // 
@@ -307,6 +308,7 @@
             this.gadientPanel3.Size = new System.Drawing.Size(364, 198);
             this.gadientPanel3.TabIndex = 2;
             this.gadientPanel3.TopLeftColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(76)))), ((int)(((byte)(219)))));
+            this.gadientPanel3.Visible = false;
             // 
             // label3
             // 

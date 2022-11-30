@@ -35,7 +35,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.btn_Prev = new FontAwesome.Sharp.IconButton();
             this.btn_last = new FontAwesome.Sharp.IconButton();
@@ -89,7 +88,6 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.16667F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.83334F));
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel7, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label14, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel5, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.PanlFilter, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.TblView, 1, 1);
@@ -173,18 +171,6 @@
             this.label6.TabIndex = 4;
             this.label6.Text = "Danh Mục Cha";
             // 
-            // label14
-            // 
-            this.label14.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label14.ForeColor = System.Drawing.Color.Black;
-            this.label14.Location = new System.Drawing.Point(3, 4);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(53, 32);
-            this.label14.TabIndex = 6;
-            this.label14.Text = "Lọc";
-            // 
             // tableLayoutPanel5
             // 
             this.tableLayoutPanel5.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -227,6 +213,7 @@
             this.btn_Prev.Size = new System.Drawing.Size(40, 40);
             this.btn_Prev.TabIndex = 0;
             this.btn_Prev.UseVisualStyleBackColor = true;
+            this.btn_Prev.Click += new System.EventHandler(this.btn_Prev_Click);
             // 
             // btn_last
             // 
@@ -246,6 +233,7 @@
             this.btn_last.Size = new System.Drawing.Size(40, 40);
             this.btn_last.TabIndex = 3;
             this.btn_last.UseVisualStyleBackColor = true;
+            this.btn_last.Click += new System.EventHandler(this.btn_last_Click);
             // 
             // btn_next
             // 
@@ -265,6 +253,7 @@
             this.btn_next.Size = new System.Drawing.Size(40, 40);
             this.btn_next.TabIndex = 2;
             this.btn_next.UseVisualStyleBackColor = true;
+            this.btn_next.Click += new System.EventHandler(this.btn_next_Click);
             // 
             // btn_firt
             // 
@@ -284,6 +273,7 @@
             this.btn_firt.Size = new System.Drawing.Size(40, 40);
             this.btn_firt.TabIndex = 1;
             this.btn_firt.UseVisualStyleBackColor = true;
+            this.btn_firt.Click += new System.EventHandler(this.btn_firt_Click);
             // 
             // LblPageLastIndex
             // 
@@ -310,6 +300,8 @@
             this.TxtPageIndex.TabIndex = 6;
             this.TxtPageIndex.Text = "1";
             this.TxtPageIndex.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TxtPageIndex.TextChanged += new System.EventHandler(this.TxtPageIndex_TextChanged);
+            this.TxtPageIndex.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtPageIndex_KeyPress);
             // 
             // PanlFilter
             // 
@@ -382,6 +374,7 @@
             this.CheckUnHide.TabIndex = 14;
             this.CheckUnHide.Text = "Hiện Ẩn";
             this.CheckUnHide.UseVisualStyleBackColor = true;
+            this.CheckUnHide.CheckedChanged += new System.EventHandler(this.CheckUnHide_CheckedChanged);
             // 
             // vbButton5
             // 
@@ -407,6 +400,7 @@
             this.vbButton5.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(164)))), ((int)(((byte)(78)))));
             this.vbButton5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.vbButton5.UseVisualStyleBackColor = false;
+            this.vbButton5.Click += new System.EventHandler(this.vbButton5_Click);
             // 
             // lblResult
             // 
@@ -429,21 +423,20 @@
             this.Comb_OderBy.FormattingEnabled = true;
             this.Comb_OderBy.Items.AddRange(new object[] {
             "Không sắp xếp",
-            "Theo mã sản phẩm (Tăng)",
-            "Theo mã sản phẩm (Giảm)",
+            "Theo mã  (Tăng)",
+            "Theo mã (Giảm)",
             "Theo tên (A-Z)",
             "Theo tên (Z-A)",
-            "Theo giá bán (Tăng)",
-            "Theo giá bán (Giảm)",
+            "Theo danh mục cha (A-Z)",
+            "Theo danh mục cha(Z-A)",
             "Theo trạng thái (Inactive - Active)",
-            "Theo trạng thái (Active - Inactive)",
-            "Ngày tạo (Tăng dần)",
-            "Ngày tạo (Giảm dần)"});
+            "Theo trạng thái (Active - Inactive)"});
             this.Comb_OderBy.Location = new System.Drawing.Point(1019, 37);
             this.Comb_OderBy.Margin = new System.Windows.Forms.Padding(0);
             this.Comb_OderBy.Name = "Comb_OderBy";
             this.Comb_OderBy.Size = new System.Drawing.Size(133, 39);
             this.Comb_OderBy.TabIndex = 8;
+            this.Comb_OderBy.SelectedIndexChanged += new System.EventHandler(this.Comb_OderBy_SelectedIndexChanged);
             // 
             // customPanel1
             // 
@@ -487,6 +480,7 @@
             this.Btn_Search.Size = new System.Drawing.Size(44, 44);
             this.Btn_Search.TabIndex = 1;
             this.Btn_Search.UseVisualStyleBackColor = false;
+            this.Btn_Search.Click += new System.EventHandler(this.Btn_Search_Click);
             // 
             // label15
             // 
@@ -556,7 +550,6 @@
             this.Load += new System.EventHandler(this.CategoryIndex_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel7.ResumeLayout(false);
             this.tableLayoutPanel7.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
@@ -582,7 +575,6 @@
         private FontAwesome.Sharp.IconButton btn_firt;
         private Label LblPageLastIndex;
         private TextBox TxtPageIndex;
-        private Label label14;
         private Panel panel1;
         private ComboBox Comb_OderBy;
         private Models.Controls.CustomPanel customPanel1;

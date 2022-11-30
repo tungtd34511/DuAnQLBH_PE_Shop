@@ -25,95 +25,100 @@ namespace App.Data.Repositories.Orders
         }
         public async Task<PagedResult<OderInPagingVm>> GetPagingOrder(GetPagingOrderRequest request)
         {
-            int totalRow = 0;
-            //1. Select join
-            var query = from o in _context.Orders
-                        join u in _context.UserDetails on o.UserCreatedId equals u.UserId into urs
-                        from us in urs.DefaultIfEmpty()
-                        orderby o.Id descending
-                        select new { o, us };
-            //2. filter
-            if (!string.IsNullOrEmpty(request.Keyword))
-                query = query.Where(x => x.us.Name.ToLower().Contains(request.Keyword.ToLower()) || x.o.ShipName.ToLower().Contains(request.Keyword.ToLower()));
-
-            if (!request.Unhide) // Nếu không bỏ ẩn
+            //            Không sắp xếp
+            //Theo tên khách hàng(A - Z)
+            //Theo tên khách hàng(A-Z)
+            //Theo người tạo(A - Z)
+            //Theo người tạo(A - Z)
+            //Theo Trạng Thái(Confirm - Canceled)
+            //Theo Trạng Thái(Canceled - Confirm)
+            //Theo ngày tạo(cũ - mới)
+            //Theo ngày tạo(mới - cũ)
+            //Tổng tiền(Tăng dần)
+            //Tổng tiền(Giảm dần)
+            try
             {
-                query = query.Where(c => c.o.Status != OrderStatus.Canceled);
-            }
-            //if (request.OderBy != 0) // oder by dropdowlisst in Form ProductIndex
-            //{
-            //    switch (request.OderBy)
-            //    {
-            //        case 1:
-            //            break;
-            //        case 2:
-            //            query = query.OrderByDescending(c => c.p.Id);
-            //            break;
-            //        case 3:
-            //            query = query.OrderBy(c => c.pd.Name);
-            //            break;
-            //        case 4:
-            //            query = query.OrderByDescending(c => c.pd.Name);
-            //            break;
-            //        case 5:
-            //            query = query.OrderBy(c => c.p.Price);
-            //            break;
-            //        case 6:
-            //            query = query.OrderByDescending(c => c.p.Price);
-            //            break;
-            //        case 7:
-            //            query = query.OrderByDescending(c => c.p.Status);
-            //            break;
-            //        case 8:
-            //            query = query.OrderBy(c => c.p.Status);
-            //            break;
-            //        case 9:
-            //            query = query.OrderBy(c => c.p.DateCreated);
-            //            break;
-            //        case 10:
-            //            query = query.OrderByDescending(c => c.p.DateCreated);
-            //            break;
-            //    }
-            //}
-
-
-
-            //
-            //if (request.Checks != null && request.Checks.Any(c => c == true))
-            //{
-            //    listCBox = request.Checks;
-            //    //list = list.Where(c => GetResultFilter(c.Product.Id)).ToList();
-            //    totalRow = list.Count;
-            //}
-            //else
-            //{
-            //    list = await query.Select(c => new ProductInQuery() { Product = c.p, ProductDetail = c.pd }).ToListAsync();
-            //    totalRow = list.Count;
-            //}
-            //3.Paging
-            totalRow = await query.CountAsync();
-            var data = query.Skip((request.PageIndex - 1) * request.PageSize)
-                .Take(request.PageSize)
-                .Select(x => new OderInPagingVm()
+                int totalRow = 0;
+                //1. Select join
+                var query = from o in _context.Orders
+                            join u in _context.UserDetails on o.UserCreatedId equals u.UserId into urs
+                            from us in urs.DefaultIfEmpty()
+                            orderby o.Id descending
+                            select new { o, us };
+                //2. filter
+                if (!String.IsNullOrEmpty(request.Keyword))
                 {
-                    Created = x.o.Created,
-                    CustomerName = x.o.ShipName,
-                    Id = x.o.Id,
-                    Status = x.o.Status,
-                    IsShipping = x.o.IsShipping,
-                    Total = x.o.Total,
-                    UserName = x.us.Name
-                }).ToList();
-            //4. Select 
+                    query = query.Where(c => c.o.Id.ToString() == request.Keyword || c.o.ShipName.ToLower().Contains(request.Keyword.ToLower()) || c.us.Name.ToLower().Contains(request.Keyword.ToLower()));
+                }
+                if (!request.Unhide)
+                {
+                    query = query.Where(c => c.o.Status != OrderStatus.Canceled);
+                }
+                //
+                switch (request.Orderby)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        query = query.OrderBy(c => c.o.ShipName);
+                        break;
+                    case 2:
+                        query = query.OrderByDescending(c => c.o.ShipName);
+                        break;
+                    case 3:
+                        query = query.OrderBy(c => c.us.Name);
+                        break;
+                    case 4:
+                        query = query.OrderByDescending(c => c.us.Name);
+                        break;
+                    case 5:
+                        query = query.OrderBy(c => c.o.Status);
+                        break;
+                    case 6:
+                        query = query.OrderByDescending(c => c.o.Status);
+                        break;
+                    case 7:
+                        query = query.OrderBy(c => c.o.Created);
+                        break;
+                    case 8:
+                        query = query.OrderByDescending(c => c.o.Created);
+                        break;
+                    case 9:
+                        query = query.OrderBy(c => c.o.Total);
+                        break;
+                    case 10:
+                        query = query.OrderByDescending(c => c.o.Total);
+                        break;
+                }
+                //3.Paging
+                totalRow = await query.CountAsync();
+                var data = query.Skip((request.PageIndex - 1) * request.PageSize)
+                    .Take(request.PageSize)
+                    .Select(x => new OderInPagingVm()
+                    {
+                        Created = x.o.Created,
+                        CustomerName = x.o.ShipName,
+                        Id = x.o.Id,
+                        Status = x.o.Status,
+                        IsShipping = x.o.IsShipping,
+                        Total = x.o.Total,
+                        UserName = x.us.Name
+                    }).ToList();
+                //4. Select 
 
-            var pagedResult = new PagedResult<OderInPagingVm>()
+                var pagedResult = new PagedResult<OderInPagingVm>()
+                {
+                    TotalRecords = totalRow,
+                    PageSize = request.PageSize,
+                    PageIndex = request.PageIndex,
+                    Items = data
+                };
+                return pagedResult;
+            }
+            catch
             {
-                TotalRecords = totalRow,
-                PageSize = request.PageSize,
-                PageIndex = request.PageIndex,
-                Items = data
-            };
-            return pagedResult;
+                return new() { PageSize = 20, Items = new(), PageIndex = 1, TotalRecords = 0 };
+            }
         }
         public async Task<OrderVm> GetOrderVmById(int id)
         {

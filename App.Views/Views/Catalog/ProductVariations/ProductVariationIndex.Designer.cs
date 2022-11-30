@@ -459,6 +459,7 @@
             this.vbButton5.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(164)))), ((int)(((byte)(78)))));
             this.vbButton5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.vbButton5.UseVisualStyleBackColor = false;
+            this.vbButton5.Click += new System.EventHandler(this.vbButton5_Click);
             // 
             // lblResult
             // 
@@ -481,21 +482,24 @@
             this.Comb_OderBy.FormattingEnabled = true;
             this.Comb_OderBy.Items.AddRange(new object[] {
             "Không sắp xếp",
-            "Theo mã sản phẩm (Tăng)",
-            "Theo mã sản phẩm (Giảm)",
-            "Theo tên (A-Z)",
-            "Theo tên (Z-A)",
-            "Theo giá bán (Tăng)",
-            "Theo giá bán (Giảm)",
-            "Theo trạng thái (Inactive - Active)",
-            "Theo trạng thái (Active - Inactive)",
-            "Ngày tạo (Tăng dần)",
-            "Ngày tạo (Giảm dần)"});
+            "Theo mã (Tăng)",
+            "Theo mã (Giảm)",
+            "Theo tên sản phẩm (A-Z)",
+            "Theo tên sản phẩm (Z-A)",
+            "Theo màu (A - Z)",
+            "Theo màu (Z-A)",
+            "Theo kích cỡ (A - Z)",
+            "Theo kích cỡ (Z-A)",
+            "Theo số lượng (Tăng)",
+            "Theo số lượng (Giảm)",
+            "Theo trạng thái (Hiện - Ẩn)",
+            "Theo trạng thái (Ẩn - Hiện)"});
             this.Comb_OderBy.Location = new System.Drawing.Point(1019, 37);
             this.Comb_OderBy.Margin = new System.Windows.Forms.Padding(0);
             this.Comb_OderBy.Name = "Comb_OderBy";
             this.Comb_OderBy.Size = new System.Drawing.Size(133, 39);
             this.Comb_OderBy.TabIndex = 8;
+            this.Comb_OderBy.SelectedIndexChanged += new System.EventHandler(this.Comb_OderBy_SelectedIndexChanged);
             // 
             // customPanel1
             // 

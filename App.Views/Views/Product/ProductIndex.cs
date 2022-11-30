@@ -12,6 +12,7 @@ namespace App.Views.Views.Product
 {
     public partial class ProductIndex : Form
     {
+        //#.###,##
         private readonly IServiceProvider _serviceProvide;
         private readonly IProductServices _productServices;
         public GetPagingProductRequest Request { get; set; } = new();
@@ -124,6 +125,7 @@ namespace App.Views.Views.Product
         // Load data to viewtable
         public async Task LoadViewTable()
         {
+            try {
             TblProducts.Controls.Clear();
             int index = 0;
             foreach (var item in Result.Items)
@@ -221,7 +223,7 @@ namespace App.Views.Views.Product
                 label10.ForeColor = Color.Black;
                 label10.Name = "label10";
                 label10.Size = new Size(111, 20);
-                label10.Text = item.Price.ToString();
+                label10.Text = item.Price.ToString("#,### vnđ");
                 //
                 var label11 = new Label();
                 label11.Anchor = ((AnchorStyles)((AnchorStyles.Left | AnchorStyles.Right)));
@@ -270,7 +272,7 @@ namespace App.Views.Views.Product
                 tableLayoutPanel4.ColumnCount = 9;
                 if (index % 2 == 0)
                 {
-                    tableLayoutPanel4.BackColor = Color.Gainsboro;
+                    tableLayoutPanel4.BackColor = SystemColors.Control;
                 }
                 tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 56F));
                 tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 71F));
@@ -302,6 +304,10 @@ namespace App.Views.Views.Product
                 index++;
             }
             lblResult.Text = Result.TotalRecords.ToString() + " Kết quả";
+            }
+            catch
+            {
+            }
         }
         public async Task LoadMenuPaging()
         {
@@ -438,6 +444,7 @@ namespace App.Views.Views.Product
         {
             if (Result.PageIndex != 1)
             {
+                Request.PageIndex = 1;
                 await PageIndex_Changed();
             }
             else
@@ -450,6 +457,7 @@ namespace App.Views.Views.Product
         {
             if (Result.PageIndex > 1)
             {
+                Request.PageIndex--;
                 await PageIndex_Changed();
             }
             else
@@ -463,9 +471,9 @@ namespace App.Views.Views.Product
             try
             {
                 var index = Convert.ToInt32(TxtPageIndex.Text);
-                if (index > 0 && index < Result.PageCount)
+                if (index > 0 && index <= Result.PageCount)
                 {
-                    Result.PageIndex = index;
+                    Request.PageIndex = index;
                     await PageIndex_Changed();
                 }
                 else
@@ -484,6 +492,7 @@ namespace App.Views.Views.Product
         {
             if (Result.PageIndex < Result.PageCount)
             {
+                Request.PageIndex++;
                 await PageIndex_Changed();
             }
             else
@@ -496,6 +505,7 @@ namespace App.Views.Views.Product
         {
             if (Result.PageIndex < Result.PageCount)
             {
+                Request.PageIndex = Result.PageCount;
                 await PageIndex_Changed();
             }
             else
@@ -519,6 +529,24 @@ namespace App.Views.Views.Product
         {
             Result = await _productServices.GetAllPaging(Request);
             await LoadForm();
+        }
+
+        private async void vbButton5_Click(object sender, EventArgs e)
+        {
+            // reload
+            try {
+            CheckUnHide.Checked = false;
+            Comb_OderBy.SelectedIndex= 0;
+            foreach(var item in CheckBoxes)
+            {
+                item.Checked = false;
+            }
+            Txt_Search.Text = "";
+            }
+            finally 
+            {
+                await Check_Click();
+            }
         }
     }
 }

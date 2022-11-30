@@ -1,10 +1,12 @@
 ﻿using App.Business.Sevices.Catalogs.Manufactures;
 using App.Business.Sevices.Catalogs.Units;
 using App.Data.Entities;
+using App.Data.Ultilities.Catalog.Colors;
 using App.Data.Ultilities.Catalog.Manufacturers;
 using App.Data.Ultilities.Catalog.Units;
 using App.Data.Ultilities.Common;
 using App.Views.Models.Controls;
+using App.Views.Views.Catalog.Colors;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -32,11 +34,12 @@ namespace App.Views.Views.Catalog.Units
         }
         private async Task LoadViewTable()
         {
+            lblResult.Text = Result.TotalRecords.ToString() + " kết quả";
             TblView.Controls.Clear();
             int index = 0;
             foreach (var item in Result.Items)
             {
-                // 
+                // `asdf`
                 // BtnHide
                 // 
                 var BtnHide = new VBButton();
@@ -51,6 +54,9 @@ namespace App.Views.Views.Catalog.Units
                 BtnHide.IconChar = FontAwesome.Sharp.IconChar.EyeSlash;
                 BtnHide.IconColor = System.Drawing.Color.Black;
                 BtnHide.IconFont = FontAwesome.Sharp.IconFont.Solid;
+                if(item.IsDeleted) {
+                    BtnHide.IconChar = FontAwesome.Sharp.IconChar.Eye;
+                }
                 BtnHide.IconSize = 25;
                 BtnHide.Location = new System.Drawing.Point(1224, 3);
                 BtnHide.Name = "BtnHide";
@@ -139,12 +145,76 @@ namespace App.Views.Views.Catalog.Units
                 tableLayoutPanel4.TabIndex = 3;
                 //
                 TblView.Controls.Add(tableLayoutPanel4);
+                BtnEdit.Click += async (o, s) =>
+                {
+                    await BtnEdit_Click(item.Id);
+                };
+                BtnHide.Click += async (o, s) =>
+                {
+                    await BtnHide_Click(item.Id, item.IsDeleted);
+                };
+            }
+        }
+        private async Task BtnEdit_Click(int Id)
+        {
+            var frmDetail = _serviceProvider.GetRequiredService<UpdateUnit>();
+            frmDetail.Unit = await _unitServices.GetById(Id);
+            frmDetail.FormClosed += async (o, s) =>
+            {
+                Result = await _unitServices.GetPaging(Request);
+                await LoadViewTable();
+                await LoadMenuPaging();
+            };
+            frmDetail.ShowDialog();
+        }
+        private async Task BtnHide_Click(int Id, bool status)
+        {
+            if (status)
+            {
+                if (MessageBox.Show("Bạn có muốn hiển thị đơn vị?", "PE-SHOP", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    var color = await _unitServices.GetById(Id);
+                    color.IsDeleted = false;
+                    var result = await _unitServices.Update(color);
+                    if (result)
+                    {
+                        MessageBox.Show("Hiển thị đơn vị thành công !");
+                        Result = await _unitServices.GetPaging(Request);
+                        await LoadViewTable();
+                        await LoadMenuPaging();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Hiển thị đơn vị thất bại !");
+                    }
+                }
+            }
+            else
+            {
+                if (MessageBox.Show("Bạn có muốn ẩn đơn vị?", "PE-SHOP", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    var color = await _unitServices.GetById(Id);
+                    color.IsDeleted = true;
+                    var result = await _unitServices.Update(color);
+                    if (result)
+                    {
+                        MessageBox.Show("Ẩn đơn vị thành công !");
+                        Result = await _unitServices.GetPaging(Request);
+                        await LoadViewTable();
+                        await LoadMenuPaging();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ẩn đơn vị thất bại !");
+                    }
+                }
             }
         }
         private async void UnitIndex_Load(object sender, EventArgs e)
         {
             Result = await _unitServices.GetPaging(Request);
             await LoadViewTable();
+            await LoadMenuPaging();
         }
 
         private void BtnCreate_Click(object sender, EventArgs e)
@@ -156,6 +226,156 @@ namespace App.Views.Views.Catalog.Units
                 await LoadViewTable();
             };
             form.ShowDialog();
+        }
+
+        private async void btn_Prev_Click(object sender, EventArgs e)
+        {
+            if (Result.PageIndex != 1)
+            {
+                Request.PageIndex --;
+                await PageIndex_Changed();
+            }
+            else
+            {
+                MessageBox.Show("Đã là trang đầu tiên!");
+            }
+        }
+
+        private async void btn_firt_Click(object sender, EventArgs e)
+        {
+            if (Result.PageIndex > 1)
+            {
+                Request.PageIndex =1;
+                await PageIndex_Changed();
+            }
+            else
+            {
+                MessageBox.Show("Đã là trang đầu tiên!");
+            }
+        }
+
+        private async void btn_next_Click(object sender, EventArgs e)
+        {
+            if (Result.PageIndex < Result.PageCount)
+            {
+                Request.PageIndex++;
+                await PageIndex_Changed();
+            }
+            else
+            {
+                MessageBox.Show("Đã là trang cuối!");
+            }
+        }
+
+        private async void btn_last_Click(object sender, EventArgs e)
+        {
+            if (Result.PageIndex < Result.PageCount)
+            {
+                Request.PageIndex = Result.PageCount;
+                await PageIndex_Changed();
+            }
+            else
+            {
+                MessageBox.Show("Đã là trang cuối!");
+            }
+        }
+
+        private async void TxtPageIndex_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                var index = Convert.ToInt32(TxtPageIndex.Text);
+                if (index > 0 && index <= Result.PageCount)
+                {
+                    Result.PageIndex = index;
+                    await PageIndex_Changed();
+                }
+                else
+                {
+                    TxtPageIndex.Text = Result.PageIndex.ToString();
+                    MessageBox.Show("Số trang phải lớn hơn 0 và nhỏ hơn hoặc bằng tổng số lượng trang!");
+                }
+            }
+            catch
+            {
+                TxtPageIndex.Text = Result.PageIndex.ToString();
+            }
+        }
+
+        private void TxtPageIndex_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+            (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+                MessageBox.Show("Chỉ được phép nhập số !");
+            }
+        }
+        private async Task PageIndex_Changed()
+        {
+            Result = await _unitServices.GetPaging(await GetPagingRequest());
+            await LoadViewTable();
+            await LoadMenuPaging();
+        }
+        private async Task<GetPagingUnitRequest> GetPagingRequest()
+        {
+            Request.Keyword = Txt_Search.Text;
+            Request.UnHide = CheckUnHide.Checked;
+            Request.OrderBy = Comb_OderBy.SelectedIndex;
+            return Request;
+        }
+        public async Task LoadMenuPaging()
+        {
+            try
+            {
+
+                TxtPageIndex.Text = Result.PageIndex.ToString();
+                LblPageLastIndex.Text = "/" + Result.PageCount.ToString();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private async void vbButton5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Txt_Search.Text = "";
+                Comb_OderBy.SelectedIndex = 0;
+                CheckUnHide.Checked = false;
+            }
+            finally
+            {
+                Request = new();
+                Result = await _unitServices.GetPaging(await GetPagingRequest());
+                await LoadViewTable();
+                await LoadMenuPaging();
+            }
+        }
+
+        private async void CheckUnHide_CheckedChanged(object sender, EventArgs e)
+        {
+            await Check_Click();
+        }
+        private async Task Check_Click()
+        {
+            Request = new();
+            Result = await _unitServices.GetPaging(await GetPagingRequest());
+            await LoadViewTable();
+            await LoadMenuPaging();
+        }
+
+        private async void Comb_OderBy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Result = await _unitServices.GetPaging(await GetPagingRequest());
+            await Check_Click();
+        }
+
+        private async void Btn_Search_Click(object sender, EventArgs e)
+        {
+            await Check_Click();
         }
     }
 }

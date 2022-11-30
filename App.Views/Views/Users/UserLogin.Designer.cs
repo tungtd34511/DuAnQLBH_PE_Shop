@@ -49,8 +49,8 @@ namespace App.Views.Views.Users
             this.txt_Pass = new System.Windows.Forms.TextBox();
             this.iconButton2 = new FontAwesome.Sharp.IconButton();
             this.btn_Login = new App.Views.Models.Controls.VBButton();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panelDesktopLogin.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -149,6 +149,7 @@ namespace App.Views.Views.Users
             this.label3.Size = new System.Drawing.Size(150, 23);
             this.label3.TabIndex = 5;
             this.label3.Text = "Quên mật khẩu ?";
+            this.label3.Visible = false;
             // 
             // customPanel2
             // 

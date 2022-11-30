@@ -55,7 +55,10 @@ namespace App.Views.Views.Catalog.Sizes
         private async Task<string> Validate()
         {
             var eror = "";
-            eror += await _sizeService.Validate("", LblName.Text);
+            if (LblName.Text != Size.Name)
+            {
+                eror += await _sizeService.Validate("", LblName.Text);
+            }
             if (String.IsNullOrEmpty(LblName.Text) || LblName.Text.Length > 25)
             {
                 eror += "Tên kích cỡ phải từ 1 đến 25 kí tự !\n";

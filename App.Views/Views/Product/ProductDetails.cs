@@ -32,8 +32,8 @@ namespace App.Views.Views.Product
             LblCreated.Text = Product.DateCreated.ToString();
             LblGender.Text = Product.Gender.ToString();
             LblNsx.Text = Product.ManufacturerName;
-            LblOriginPrice.Text = Product.OriginalPrice.ToString();
-            LblPrice.Text = Product.Price.ToString();
+            LblOriginPrice.Text = Product.OriginalPrice.ToString("#,### vnđ");
+            LblPrice.Text = Product.Price.ToString("#,### vnđ");
             LblUnit.Text = Product.UnitName;
             //var text = "";
             
@@ -42,12 +42,14 @@ namespace App.Views.Views.Product
             TxtDetail.Text = Product.Details;
             Btn_Status.Text = Product.Status.ToString();
             //
+            await LoadPV();
             await LoadMiniImgs();
         }
         public async Task LoadPV()
         {
             TblPV.Controls.Clear();
             var list = await _services.GetPvbyId(Product.Id);
+            int index = 0;
             foreach(var item in list)
             {
 
@@ -61,7 +63,7 @@ namespace App.Views.Views.Product
                 label14.ForeColor = System.Drawing.Color.Black;
                 label14.Name = "label14";
                 label14.Size = new System.Drawing.Size(40, 23);
-                label14.Text = "Size";
+                label14.Text = item.SizeId;
 
                 var label16 = new Label();
 
@@ -72,7 +74,7 @@ namespace App.Views.Views.Product
                 label16.Margin = new System.Windows.Forms.Padding(3, 0, 7, 0);
                 label16.Name = "label16";
                 label16.Size = new System.Drawing.Size(37, 23);
-                label16.Text = "123";
+                label16.Text = item.Stock.ToString();
 
                 var label17 = new Label();
 
@@ -82,7 +84,7 @@ namespace App.Views.Views.Product
                 label17.ForeColor = System.Drawing.Color.Black;
                 label17.Name = "label17";
                 label17.Size = new System.Drawing.Size(45, 23);
-                label17.Text = "1";
+                label17.Text = (++index).ToString();
 
                 var label18 = new Label();
 
@@ -92,7 +94,7 @@ namespace App.Views.Views.Product
                 label18.ForeColor = System.Drawing.Color.Black;
                 label18.Name = "label18";
                 label18.Size = new System.Drawing.Size(51, 23);
-                label18.Text = "Color";
+                label18.Text = item.ColorId;
 
 
                 var PVitem = new TableLayoutPanel();

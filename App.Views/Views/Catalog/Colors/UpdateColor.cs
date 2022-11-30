@@ -56,8 +56,10 @@ namespace App.Views.Views.Catalog.Colors
         private async Task<string> Validate()
         {
             var txt = "";
-            txt += await _colorService.Validate("", LblName.Text);
-            
+            if (Color.Name != LblName.Text)
+            {
+                txt += await _colorService.Validate("", LblName.Text);
+            }
             if (String.IsNullOrEmpty(LblName.Text) || LblName.Text.Length > 25)
             {
                 txt += "Tên màu từ 1 đến 25 kí tự và không chứa khoảng trắng \n";

@@ -11,6 +11,7 @@ namespace App.Data.Entities
         public int CartId { set; get; }
         public int ProductVariationId { set; get; }
         public int Quantity { set; get; }
+        public int Discount { get; set; }
         public virtual Cart Cart { get; set; }
         public virtual ProductVariation ProductVariation { get; set; } // sẽ không lưu giá
     }

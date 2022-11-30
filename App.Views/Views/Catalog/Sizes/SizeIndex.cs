@@ -47,6 +47,7 @@ namespace App.Views.Views.Catalog.Sizes
         
         public async Task LoadViewTable()
         {
+            lblResult.Text = Result.TotalRecords.ToString();
             TblView.Controls.Clear();
             int index = 0;
             foreach (var item in Result.Items)
@@ -175,6 +176,10 @@ namespace App.Views.Views.Catalog.Sizes
                 tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
                 tableLayoutPanel4.Size = new System.Drawing.Size(1261, 40);
                 tableLayoutPanel4.TabIndex = 12;
+                if (index % 2==0)
+                {
+                    tableLayoutPanel4.BackColor = SystemColors.Control;
+                }
                 //
                 TblView.Controls.Add(tableLayoutPanel4);
                 //
@@ -256,19 +261,11 @@ namespace App.Views.Views.Catalog.Sizes
             await LoadViewTable();
             await LoadMenuPaging();
         }
-        private async void CheckUnHide_CheckedChanged(object sender, EventArgs e)
-        {
-            await Check_Click();
-        }
-
-        private async void Btn_Search_Click(object sender, EventArgs e)
-        {
-            await Check_Click();
-        }
         private async Task<GetSizePagingRequest> GetPagingRequest()
         {
             Request.Keyword = Txt_Search.Text;
             Request.UnHide = CheckUnHide.Checked;
+            Request.Orderby = Comb_OderBy.SelectedIndex;
             return Request;
         }
         private async Task Check_Click()
@@ -300,7 +297,7 @@ namespace App.Views.Views.Catalog.Sizes
             try
             {
                 var index = Convert.ToInt32(TxtPageIndex.Text);
-                if (index > 0 && index < Result.PageCount)
+                if (index > 0 && index <= Result.PageCount)
                 {
                     Result.PageIndex = index;
                     await PageIndex_Changed();
@@ -322,6 +319,7 @@ namespace App.Views.Views.Catalog.Sizes
             if (Result.PageIndex != 1)
             {
                 await PageIndex_Changed();
+                Request.PageIndex = 1;
             }
             else
             {
@@ -334,6 +332,7 @@ namespace App.Views.Views.Catalog.Sizes
             if (Result.PageIndex > 1)
             {
                 await PageIndex_Changed();
+                Request.PageIndex--;
             }
             else
             {
@@ -346,6 +345,7 @@ namespace App.Views.Views.Catalog.Sizes
             if (Result.PageIndex < Result.PageCount)
             {
                 await PageIndex_Changed();
+                Request.PageIndex++;
             }
             else
             {
@@ -358,6 +358,7 @@ namespace App.Views.Views.Catalog.Sizes
             if (Result.PageIndex < Result.PageCount)
             {
                 await PageIndex_Changed();
+                Request.PageIndex = Result.PageCount;
             }
             else
             {
@@ -375,6 +376,38 @@ namespace App.Views.Views.Catalog.Sizes
                 await LoadMenuPaging();
             };
             frmDetail.ShowDialog();
+        }
+
+        private async void vbButton5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Txt_Search.Text = "";
+                Comb_OderBy.SelectedIndex = 0;
+                CheckUnHide.Checked = false;
+            }
+            finally
+            {
+                Request = new();
+                Result = await _sizeService.GetPaging(await GetPagingRequest());
+                await LoadViewTable();
+                await LoadMenuPaging();
+            }
+        }
+
+        private async void CheckUnHide_CheckedChanged_1(object sender, EventArgs e)
+        {
+            await Check_Click();
+        }
+
+        private async void Btn_Search_Click(object sender, EventArgs e)
+        {
+            await Check_Click();
+        }
+
+        private async void Comb_OderBy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            await Check_Click();
         }
     }
 }

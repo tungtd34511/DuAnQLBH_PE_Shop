@@ -14,5 +14,6 @@ namespace App.Data.Repositories.Promotions
     {
         Task<PagedResult<Promotion>> GetPaging(GetPromotionPagingRequest request);
         Task<string> Validation(string Name);
+        Task<List<Promotion>> GetPromotionActive();
     }
 }

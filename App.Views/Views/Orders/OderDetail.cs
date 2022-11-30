@@ -26,7 +26,7 @@ namespace App.Views.Views.Orders
             LblAddress.Text = Order.ShipAddress;
             LblNguoiTao.Text = Order.UserName;
             LblPhoneNumber.Text = Order.ShipPhoneNumber;
-            LblTongTien.Text = Order.Total.ToString() +" vnđ";
+            LblTongTien.Text = Order.Total.ToString("#,### vnđ");
             txtNote.Text = Order.Description;
             btnCreated.Text = Order.Created.ToString();
             Btn_Status.Text = Order.Status.ToString();
@@ -62,7 +62,7 @@ namespace App.Views.Views.Orders
                 label19.Name = "label19";
                 label19.Size = new System.Drawing.Size(78, 20);
                 label19.TabIndex = 5;
-                label19.Text = (item.Quantity * item.Price).ToString() + " vnđ";
+                label19.Text = (item.Quantity * item.Price).ToString("#,### vnđ");
 
                 var label20 = new Label();
 
@@ -75,7 +75,7 @@ namespace App.Views.Views.Orders
                 label20.Name = "label20";
                 label20.Size = new System.Drawing.Size(62, 20);
                 label20.TabIndex = 4;
-                label20.Text = item.Price + " vnđ";
+                label20.Text = item.Price.ToString("#,### vnđ");
 
                 var label21 = new Label();
 

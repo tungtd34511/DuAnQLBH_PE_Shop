@@ -18,6 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using App.Business.Sevices.Orders;
+using App.Data.Ultilities.Catalog.Colors;
 
 namespace App.Views.Views.Orders
 {
@@ -28,12 +29,11 @@ namespace App.Views.Views.Orders
         public GetPagingOrderRequest Request { get; set; } = new();
         public PagedResult<OderInPagingVm> Result { get; set; }
         public Data.Entities.User User { get; set; }
-        public OrderIndex(IServiceProvider serviceProvide, IOrderService orderService, Data.Entities.User user)
+        public OrderIndex(IServiceProvider serviceProvide, IOrderService orderService)
         {
             InitializeComponent();
             _serviceProvide = serviceProvide;
             _orderService = orderService;
-            User = user;
         }
 
         #region LoadForm
@@ -42,12 +42,12 @@ namespace App.Views.Views.Orders
             await LoadViewTable();
             await LoadMenuPaging();
         }
-        //Load Filter
-        public List<CheckBox> CheckBoxes { get; set; } = new(); // List check box trong View
+        
 
         // Load data to viewtable
         public async Task LoadViewTable()
         {
+            lblResult.Text = Result.TotalRecords.ToString() + " kết quả";
             TblOrders.Controls.Clear();
             int index = 0;
             foreach (var item in Result.Items)
@@ -77,7 +77,7 @@ namespace App.Views.Views.Orders
                 BtnCancel.TabIndex = 13;
                 BtnCancel.TextColor = System.Drawing.Color.White;
                 BtnCancel.UseVisualStyleBackColor = false;
-
+                
                 var BtnEdit = new VBButton();
 
                 BtnEdit.BackColor = System.Drawing.Color.MediumSlateBlue;
@@ -263,9 +263,31 @@ namespace App.Views.Views.Orders
                 {
                     await BtnEdit_Click(item.Id);
                 };
+                BtnCancel.Click += async (o, s) =>
+                {
+                    await BtnCanceled_Click(item.Id);
+                };
                 TblOrders.Controls.Add(tblOrder);
+                if (item.Status == OrderStatus.Canceled)
+                {
+                    BtnCancel.Visible= false;
+                    BtnEdit.Visible= false;
+                };
             }
             lblResult.Text = Result.TotalRecords.ToString() + " Kết quả";
+        }
+        private async Task BtnCanceled_Click(int Id)
+        {
+            var frmDetail = _serviceProvide.GetRequiredService<CanceledOrder>();
+            frmDetail.OrderId = Id;
+            frmDetail.User = User;
+            frmDetail.FormClosed += async (o, s) =>
+            {
+                Result = await _orderService.GetPagingOrder(Request);
+                await LoadViewTable();
+                await LoadMenuPaging();
+            };
+            frmDetail.Show();
         }
         public async Task LoadMenuPaging()
         {
@@ -287,9 +309,10 @@ namespace App.Views.Views.Orders
             try
             {
                 var index = Convert.ToInt32(TxtPageIndex.Text);
-                if (index > 0 && index < Result.PageSize)
+                if (index > 0 && index <= Result.PageSize)
                 {
                     Result.PageIndex = index;
+                    await PageIndex_Changed();
                 }
                 else
                 {
@@ -305,8 +328,10 @@ namespace App.Views.Views.Orders
 
         private async void btn_next_Click(object sender, EventArgs e)
         {
-            if (Result.PageIndex < Result.PageSize)
+            if (Result.PageIndex < Result.PageCount)
             {
+                Request.PageIndex++;
+                await PageIndex_Changed();
             }
             else
             {
@@ -316,15 +341,29 @@ namespace App.Views.Views.Orders
 
         private async void btn_last_Click(object sender, EventArgs e)
         {
-            if (Result.PageIndex < Result.PageSize)
+            if (Result.PageIndex < Result.PageCount)
             {
+                Request.PageIndex = Result.PageCount;
+                await PageIndex_Changed();
             }
             else
             {
                 MessageBox.Show("Đã là trang cuối!");
             }
         }
-
+        private async Task PageIndex_Changed()
+        {
+            Result = await _orderService.GetPagingOrder(await GetPagingRequest());
+            await LoadViewTable();
+            await LoadMenuPaging();
+        }
+        private async Task<GetPagingOrderRequest> GetPagingRequest()
+        {
+            Request.Keyword = Txt_Search.Text;
+            Request.Unhide = CheckUnHide.Checked;
+            Request.Orderby = Comb_OderBy.SelectedIndex;
+            return Request;
+        }
         private void TxtPageIndex_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
@@ -355,12 +394,14 @@ namespace App.Views.Views.Orders
             var frmDetail = _serviceProvide.GetRequiredService<EditOrder>();
             frmDetail.TopLevel = false;
             frmDetail.Order = await _orderService.GetOrderById(Id);
+            frmDetail.User = this.User;
             this.Controls.Add(frmDetail);
             frmDetail.FormClosed +=async (o, s) =>
             {
                 this.Controls[0].Visible = true;
                 Result = await _orderService.GetPagingOrder(Request);
                 await LoadViewTable();
+                await LoadMenuPaging();
             };
             this.Controls[0].Visible = false;
             
@@ -371,6 +412,73 @@ namespace App.Views.Views.Orders
         {
             Result = await _orderService.GetPagingOrder(Request);
             await LoadViewTable();
+            await LoadMenuPaging();
+        }
+
+        private async void btn_Prev_Click(object sender, EventArgs e)
+        {
+            if (Result.PageIndex != 1)
+            {
+                Request.PageIndex--;
+                await PageIndex_Changed();
+            }
+            else
+            {
+                MessageBox.Show("Đã là trang đầu tiên!");
+            }
+        }
+
+        private async void btn_firt_Click(object sender, EventArgs e)
+        {
+            if (Result.PageIndex != 1)
+            {
+                Request.PageIndex = 1;
+                await PageIndex_Changed();
+            }
+            else
+            {
+                MessageBox.Show("Đã là trang đầu tiên!");
+            }
+        }
+
+        private async void vbButton5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Txt_Search.Text = "";
+                Comb_OderBy.SelectedIndex = 0;
+                CheckUnHide.Checked = false;
+            }
+            finally
+            {
+                Request = new();
+                Result = await _orderService.GetPagingOrder(await GetPagingRequest());
+                await LoadViewTable();
+                await LoadMenuPaging();
+            }
+        }
+
+        private async void CheckUnHide_CheckedChanged(object sender, EventArgs e)
+        {
+            await Check_Click();
+        }
+        private async Task Check_Click()
+        {
+            Request = new();
+            Result = await _orderService.GetPagingOrder(await GetPagingRequest());
+            await LoadViewTable();
+            await LoadMenuPaging();
+        }
+
+        private async void Comb_OderBy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Result = await _orderService.GetPagingOrder(await GetPagingRequest());
+            await LoadViewTable();
+        }
+
+        private async void Btn_Search_Click(object sender, EventArgs e)
+        {
+            await Check_Click();
         }
     }
 }

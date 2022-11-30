@@ -217,6 +217,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "UpdateManufacture";
             this.Padding = new System.Windows.Forms.Padding(10);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UpdateManufacture";
             this.Load += new System.EventHandler(this.UpdateManufacture_Load);
             this.tableLayoutPanel1.ResumeLayout(false);

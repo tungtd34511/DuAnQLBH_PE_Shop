@@ -44,5 +44,16 @@ namespace App.Data.Repositories.Customers
             };
             return pagedResult;
         }
+        public async Task<string> Validate(string phonenumber)
+        {
+            if(await Entities.AnyAsync(c => c.PhoneNumber == phonenumber))
+            {
+                return "Số điện thoại đã tồn tại";
+            }
+            else
+            {
+                return "";
+            }
+        }
     }
 }

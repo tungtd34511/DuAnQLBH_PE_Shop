@@ -30,7 +30,7 @@ namespace App.Data.Repositories.Users
         }
         public async Task<User> Authencate(string acc, string pass)
         {
-            var result =  Entities.Where(c=>c.Status!=Ultilities.Enums.UserStatus.InActive).FirstOrDefault(c=>c.PasswordHash==GetMD5(pass));
+            var result =  Entities.Where(c=>c.Status!=Ultilities.Enums.UserStatus.InActive).FirstOrDefault(c=>c.UserName==acc&&c.PasswordHash==GetMD5(pass));
             return result;
         }
 

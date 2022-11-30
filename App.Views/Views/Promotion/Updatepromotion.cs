@@ -119,8 +119,6 @@ namespace App.Views.Views.Promotion
             var txt = await Validation();
             if(txt != "") { MessageBox.Show(txt); }
             {
-
-
                 Promotion.Status = Data.Ultilities.Enums.PromotionStatus.Active;
                 Promotion.DiscountPercent = Convert.ToInt32(numSalePercent.Value);
                 Promotion.Name = TxtName.Text;
@@ -175,9 +173,9 @@ namespace App.Views.Views.Promotion
             {
                 txt += "Tên khuyến mãi phải từ 1 đến 50 kí tự!\n";
             }
-            else
+            else if(TxtName.Text==Promotion.Title)
             {
-                txt += _promotionService.Validation(TxtName.Text);
+                txt += await _promotionService.Validation(TxtName.Text);
             }
             if (dateStarted.Value > dateEnded.Value)
             {

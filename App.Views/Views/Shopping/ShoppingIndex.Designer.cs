@@ -300,6 +300,7 @@ namespace App.Views.Views.Shopping
             this.vbButton4.TabIndex = 3;
             this.vbButton4.TextColor = System.Drawing.Color.White;
             this.vbButton4.UseVisualStyleBackColor = false;
+            this.vbButton4.Click += new System.EventHandler(this.vbButton4_Click);
             // 
             // tabPage2
             // 
@@ -470,6 +471,8 @@ namespace App.Views.Views.Shopping
             this.txtCustomerMoney.TabIndex = 8;
             this.txtCustomerMoney.Text = "0";
             this.txtCustomerMoney.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtCustomerMoney.TextChanged += new System.EventHandler(this.txtCustomerMoney_TextChanged);
+            this.txtCustomerMoney.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCustomerMoney_KeyPress);
             // 
             // label12
             // 

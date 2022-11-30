@@ -16,5 +16,7 @@ namespace App.Business.Sevices.Orders
         Task<OrderVm> GetOrderVmById(int id);
         Task<Order> GetOrderById(int id);
         Task<bool> UpdateOrder(Order order, OrderHistory orderHistory);
+        Task<bool> CanceledOrder(Order order, OrderHistory orderHistory);
+        Task<UserDetail> GetDetailByuserID(Guid Id);
     }
 }

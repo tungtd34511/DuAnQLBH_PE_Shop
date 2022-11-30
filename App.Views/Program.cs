@@ -149,6 +149,11 @@ namespace App.Views
                     services.AddTransient<CreateProductVariaton>();
                     services.AddTransient<UpdateProductVariation>();
                     services.AddTransient<AddUser>();
+                    services.AddTransient<UpdateCategory>();
+                    services.AddTransient<UpdateColor>();
+                    services.AddTransient<UpdateManufacture>();
+                    services.AddTransient<UpdateUnit>();
+                    services.AddTransient<CanceledOrder>();
                     //
                 });
         }

@@ -143,6 +143,7 @@
             this.btn_Prev.Size = new System.Drawing.Size(40, 40);
             this.btn_Prev.TabIndex = 0;
             this.btn_Prev.UseVisualStyleBackColor = true;
+            this.btn_Prev.Click += new System.EventHandler(this.btn_Prev_Click);
             // 
             // btn_last
             // 
@@ -162,6 +163,7 @@
             this.btn_last.Size = new System.Drawing.Size(40, 40);
             this.btn_last.TabIndex = 3;
             this.btn_last.UseVisualStyleBackColor = true;
+            this.btn_last.Click += new System.EventHandler(this.btn_last_Click);
             // 
             // btn_next
             // 
@@ -181,6 +183,7 @@
             this.btn_next.Size = new System.Drawing.Size(40, 40);
             this.btn_next.TabIndex = 2;
             this.btn_next.UseVisualStyleBackColor = true;
+            this.btn_next.Click += new System.EventHandler(this.btn_next_Click);
             // 
             // btn_firt
             // 
@@ -200,6 +203,7 @@
             this.btn_firt.Size = new System.Drawing.Size(40, 40);
             this.btn_firt.TabIndex = 1;
             this.btn_firt.UseVisualStyleBackColor = true;
+            this.btn_firt.Click += new System.EventHandler(this.btn_firt_Click);
             // 
             // LblPageLastIndex
             // 
@@ -226,6 +230,8 @@
             this.TxtPageIndex.TabIndex = 6;
             this.TxtPageIndex.Text = "1";
             this.TxtPageIndex.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TxtPageIndex.TextChanged += new System.EventHandler(this.TxtPageIndex_TextChanged);
+            this.TxtPageIndex.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtPageIndex_KeyPress);
             // 
             // tableLayoutPanel7
             // 
@@ -353,6 +359,7 @@
             this.CheckUnHide.TabIndex = 14;
             this.CheckUnHide.Text = "Hiện Ẩn";
             this.CheckUnHide.UseVisualStyleBackColor = true;
+            this.CheckUnHide.CheckedChanged += new System.EventHandler(this.CheckUnHide_CheckedChanged);
             // 
             // vbButton5
             // 
@@ -378,6 +385,7 @@
             this.vbButton5.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(164)))), ((int)(((byte)(78)))));
             this.vbButton5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.vbButton5.UseVisualStyleBackColor = false;
+            this.vbButton5.Click += new System.EventHandler(this.vbButton5_Click);
             // 
             // lblResult
             // 
@@ -415,6 +423,7 @@
             this.Comb_OderBy.Name = "Comb_OderBy";
             this.Comb_OderBy.Size = new System.Drawing.Size(133, 39);
             this.Comb_OderBy.TabIndex = 8;
+            this.Comb_OderBy.SelectedIndexChanged += new System.EventHandler(this.Comb_OderBy_SelectedIndexChanged);
             // 
             // customPanel1
             // 
@@ -458,6 +467,7 @@
             this.Btn_Search.Size = new System.Drawing.Size(44, 44);
             this.Btn_Search.TabIndex = 1;
             this.Btn_Search.UseVisualStyleBackColor = false;
+            this.Btn_Search.Click += new System.EventHandler(this.Btn_Search_Click);
             // 
             // label15
             // 

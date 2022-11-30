@@ -18,6 +18,7 @@ namespace App.Views.Views.Orders
     {
         private readonly IOrderService _orderService;
         public Order Order { get; set; }
+        public Data.Entities.User User { get; set; }
         public EditOrder(IOrderService orderService)
         {
             InitializeComponent();
@@ -59,9 +60,11 @@ namespace App.Views.Views.Orders
             Order.ShipName = txtCustomerName.Text;
             Order.ShipPhoneNumber = txtPhoneNumber.Text;
             Order.ShipEmail = txtEmail.Text;
+            Order.UserCreatedId = User.Id;
+            var userdetail = await _orderService.GetDetailByuserID(User.Id);
             if (MessageBox.Show("Bạn có muốn lưu thay đổi?", "Thông báo", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (await _orderService.UpdateOrder(Order, new OrderHistory() { Edited = DateTime.Now, Status = Order.Status, Details = txtOrderHistoriesDetails.Text, OderId = Order.Id ,EditorName = "Tùng",OderName="Tùng" }))
+                if (await _orderService.UpdateOrder(Order, new OrderHistory() { Edited = DateTime.Now, Status = Order.Status, Details = txtOrderHistoriesDetails.Text, OderId = Order.Id ,EditorName = userdetail.Name, OderName= userdetail.Name }))
                 {
                     MessageBox.Show("Cập nhật hóa đơn thành công!");
                     Close();

@@ -16,5 +16,6 @@ namespace App.Data.Ultilities.Catalog.Carts
         public string SizeId { get; set; }
         public string SizeName { get; set; }
         public int Quantity { get; set; }
+        public int DiscountPercent { get; set; }    
     }
 }

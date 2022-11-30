@@ -24,7 +24,10 @@ namespace App.Views.Views.Catalog.Categories
         private async Task<string> Validate()
         {
             var eror = "";
-            eror += await _categoryService.Validate(LblName.Text);
+            if (Category.Name != LblName.Text)
+            {
+                eror += await _categoryService.Validate(LblName.Text);
+            }
             if (String.IsNullOrEmpty(LblName.Text) || LblName.Text.Length > 25)
             {
                 eror += "Tên danh mục phải từ 1 đến 25 ký tự!\n";

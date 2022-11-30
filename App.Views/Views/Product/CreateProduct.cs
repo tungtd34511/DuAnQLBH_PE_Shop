@@ -182,23 +182,9 @@ namespace App.Views.Views.Product
             {
                 ErorTxt += "Không được bỏ trống giá nhập!\n";
             }
-            else
-            {
-                if (await _productservices.ContainsName(TxtOringinalPrice.Text))
-                {
-                    ErorTxt += "Không được bỏ trống tên sản phẩm!\n";
-                }
-            }
             if (String.IsNullOrEmpty(TxtOringinalPrice.Text))
             {
                 ErorTxt += "Không được bỏ trống tên sản phẩm!\n";
-            }
-            else
-            {
-                if (await _productservices.ContainsName(TxtOringinalPrice.Text))
-                {
-                    ErorTxt += "Không được bỏ trống tên sản phẩm!\n";
-                }
             }
             if (ErorTxt != "")
             {
@@ -214,10 +200,7 @@ namespace App.Views.Views.Product
             {
                 MessageBox.Show(txt);
             }
-            else
-            {
-
-            if (await SetDataForCreate())
+            else if (await SetDataForCreate())
             {
                 var result = await _productservices.Create(_addProductRequest,await Dispose());
                 if (result) {
@@ -225,10 +208,8 @@ namespace App.Views.Views.Product
                     this.Close();
                 }
                 else { 
-                MessageBox.Show("Thêm mới sản phẩm thất bại !", "Thông báo", MessageBoxButtons.OK);
+                    MessageBox.Show("Thêm mới sản phẩm thất bại !", "Thông báo", MessageBoxButtons.OK);
                 }
-            }
-
             }
         }
         //Tắt Provider của Img
@@ -280,7 +261,7 @@ namespace App.Views.Views.Product
                 {
                     CboxNsx.Items.Add(form.Manufacturer.Name);
                     _data.Manufacturers.Add(new ManufacturerInCreateProduct { Id = form.Manufacturer.Id, Name = form.Manufacturer.Name });
-                    CboxNsx.SelectedIndex = CombUnits.Items.Count - 1;
+                    CboxNsx.SelectedIndex = CboxNsx.Items.Count - 1;
                 }
             };
             form.ShowDialog();
@@ -324,7 +305,7 @@ namespace App.Views.Views.Product
             {
                 txt += "Giá bán phải lớn hơn giá nhật";
             }
-            txt += _productservices.Validate(TxtNameProduct.Text);
+            txt += await _productservices.Validate(TxtNameProduct.Text);
             return txt;
         }
     }

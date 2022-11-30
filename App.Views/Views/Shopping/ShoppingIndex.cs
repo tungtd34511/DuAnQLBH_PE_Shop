@@ -32,6 +32,7 @@ namespace App.Views.Views.Shopping
         public PagedResult<ProductInShoppingVm> Result { get; set; } = new();
         public GetPagingShoppingRequest Request { get; set; } = new() { PageSize = 12 };
         public Data.Entities.User User { get; set; }
+        public Data.Entities.Customer Customer { get; set; } = new();
         public List<Cart> Carts { get; set; }
         public List<CartItemViewModel> CartItems { get; set; }
         public Cart CartShow { get; set; }
@@ -54,16 +55,22 @@ namespace App.Views.Views.Shopping
             {
                 LblTotalprice.Text = "0";
                 txtTotalBill.Text = "0";
+                txtCustomerMoney.ReadOnly = true;
+                txtCustomerMoney.Text = "0";
+                lblmoneyover.Text = "0";
             }
             else
             {
-                var total = CartItems.Select(d => d.Price * d.Quantity).Sum();
-                LblTotalprice.Text = total.ToString();
-                txtTotalBill.Text = (total * 100 / 100).ToString();
+                txtCustomerMoney.ReadOnly = false;
+                var total = CartItems.Select(d => (d.Price * (100 - d.DiscountPercent) / 100) * d.Quantity).Sum();
+                LblTotalprice.Text = total.ToString("#,###");
+                txtTotalBill.Text = (total * 100 / 100).ToString("#,###");
+                lblmoneyover.Text = (Convert.ToDecimal(txtCustomerMoney.Text) - total).ToString("#,###");
             }
         }
         private async Task LoadTblProducts()
         {
+            
             LblIndex.Text = Result.PageIndex.ToString() + "/" + Result.PageIndex.ToString();
             TblProducts.Controls.Clear();
             foreach (var item in Result.Items)
@@ -77,8 +84,11 @@ namespace App.Views.Views.Shopping
                 LblSale.Margin = new System.Windows.Forms.Padding(0);
                 LblSale.Name = "LblSale";
                 LblSale.Size = new System.Drawing.Size(54, 23);
-                LblSale.Text = "- 30%";
-
+                LblSale.Text = "-"+item.DiscountPercent.ToString()+"%";
+                if (item.DiscountPercent == 0)
+                {
+                    LblSale.Visible = false;
+                }
                 var LblPrice = new Label();
 
                 LblPrice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -89,7 +99,7 @@ namespace App.Views.Views.Shopping
                 LblPrice.Name = "LblPrice";
                 LblPrice.Margin = new Padding(0);
                 LblPrice.Size = new System.Drawing.Size(99, 20);
-                LblPrice.Text = item.Price.ToString() + " vnđ";
+                LblPrice.Text = (item.Price*(100-item.DiscountPercent)/100).ToString("#,### vnđ");
 
                 var BtnName = new Button();
 
@@ -135,7 +145,7 @@ namespace App.Views.Views.Shopping
                 TblProduct.Size = new System.Drawing.Size(184, 204);
                 TblProduct.Click += async (o, s) =>
                 {
-                    await ShowAddToCart(item.Id);
+                    await ShowAddToCart(item.Id,item.DiscountPercent);
                 };
                 TblProducts.Controls.Add(TblProduct);
 
@@ -143,6 +153,7 @@ namespace App.Views.Views.Shopping
         }
         private async Task LoadCartDetail(Cart cart)
         {
+            Customer = new Customer();
             TblItems.Controls.Clear();
             if (CartItems.Any())
             {
@@ -157,7 +168,8 @@ namespace App.Views.Views.Shopping
                         productId = item.ProductId,
                         productName = item.ProductName,
                         PvId = item.PvId,
-                        Quantity = item.Quantity
+                        Quantity = item.Quantity,
+                        DiscountPercent = item.DiscountPercent,
                     });
                 }
             }
@@ -178,7 +190,7 @@ namespace App.Views.Views.Shopping
         {
             try
             {
-                LblIndex.Text = Result.PageIndex.ToString()+ "/" + Result.PageCount.ToString();
+                LblIndex.Text = Result.PageIndex.ToString() + "/" + Result.PageCount.ToString();
             }
             catch
             {
@@ -211,7 +223,7 @@ namespace App.Views.Views.Shopping
                 BackColor = System.Drawing.Color.White,
                 MinimumSize = new System.Drawing.Size(1090, 400),
                 Size = MinimumSize,
-                AutoScroll= true,
+                AutoScroll = true,
             };
             var titles = new List<string>() { "Danh Mục", "Màu Sắc", "Kích Cỡ", "Giá"/*, "Khác" */};
             var data = await _shoppingService.GetDataForFilter();
@@ -304,7 +316,7 @@ namespace App.Views.Views.Shopping
             {
                 Padding = Padding.Empty,
                 Margin = Padding.Empty,
-                AutoSize= true,
+                AutoSize = true,
             };
             MenuFillter.Items.Add(hostTool);
         }
@@ -364,11 +376,11 @@ namespace App.Views.Views.Shopping
             BtnCart.ForeColor = System.Drawing.Color.White;
             BtnCart.Text = "Giỏ Hàng " + cart.CartIndex;
             BtnCart.UseVisualStyleBackColor = false;
-
             var pnlCart = new Panel();
             pnlCart.BackColor = System.Drawing.Color.FromArgb(90, 76, 219);
             pnlCart.Controls.Add(BtnCart);
             pnlCart.Controls.Add(BtnDeleteCart);
+
             pnlCart.Controls.Add(BtnSpan);
             pnlCart.Margin = new System.Windows.Forms.Padding(0);
             pnlCart.Name = "pnlCart";
@@ -406,8 +418,8 @@ namespace App.Views.Views.Shopping
                             }
                             else
                             {
-                                await AcctiveTitleOder((Panel)TblCartTittles.Controls[i - 1]);
-                                CartShow = Carts[i - 1];
+                                await AcctiveTitleOder((Panel)TblCartTittles.Controls[i]);
+                                CartShow = Carts[i];
                                 await SetupList();
                             }
                         }
@@ -425,9 +437,12 @@ namespace App.Views.Views.Shopping
             BtnAddOrder.SendToBack();//Đẩy button ra sau;
             return pnlCart;
         }
-        private async Task ShowAddToCart(int productId)
+        private async Task ShowAddToCart(int productId,int Discount)
         {
             var form = _serviceProviders.GetRequiredService<AddToCart>();
+            var product = Result.Items.FirstOrDefault(c => c.Id == productId);
+            form.product = product;
+            form.Request.DiscountPercent = Discount;
             form.Pvs = await _shoppingService.GetPvVMByProductId(productId);
             await form.LoadDetail(AddProductToCart);
             form.ShowDialog();
@@ -446,7 +461,7 @@ namespace App.Views.Views.Shopping
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(545, 25);
             label4.TabIndex = 3;
-            label4.Text = request.productName;
+            label4.Text = request.productName+" " + request.ColorName+" (Size:"+request.SizeId+")";
             label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 
             var vbButton1 = new VBButton();
@@ -519,7 +534,7 @@ namespace App.Views.Views.Shopping
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(122, 23);
             label5.TabIndex = 4;
-            label5.Text = product.Price.ToString() + " vnđ";
+            label5.Text = (product.Price * (100 - product.DiscountPercent) / 100).ToString("#,### vnđ");
 
             var numericUpDown1 = new NumericUpDown();
 
@@ -541,7 +556,7 @@ namespace App.Views.Views.Shopping
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(122, 23);
             label6.TabIndex = 6;
-            label6.Text = (request.Quantity * product.Price).ToString() + " vnđ";
+            label6.Text = (request.Quantity * (product.Price * (100 - product.DiscountPercent) / 100)).ToString("#,### vnđ");
 
             var button2 = new Button();
 
@@ -600,7 +615,7 @@ namespace App.Views.Views.Shopping
             {
                 CartItems[i / 2].Quantity = Convert.ToInt32(numericUpDown1.Value);
                 CartShow.ProductInCarts[i / 2].Quantity = Convert.ToInt32(numericUpDown1.Value);
-                label6.Text = (CartItems[i / 2].Quantity * product.Price).ToString() + " vnđ";
+                label6.Text = (CartItems[i / 2].Quantity * product.Price*(100-product.DiscountPercent)/100).ToString("#,### vnđ");
                 await LoadBill();
             };
         }
@@ -620,9 +635,10 @@ namespace App.Views.Views.Shopping
                 {
                     CartId = CartShow.Id,
                     ProductVariationId = request.PvId,
-                    Quantity = request.Quantity
+                    Quantity = request.Quantity,
+                    Discount = request.DiscountPercent
                 });
-                CartItems.Add(new CartItemViewModel() { CartId = CartShow.Id, ColorId = request.ColorId, SizeId = request.SizeId, ColorName = request.ColorName, Sizename = request.SizeName, ProductId = request.productId, Quantity = request.Quantity, ProductName = request.productName, PvId = request.PvId, Price = product.Price, ThumbailImage = product.ThumbailImage });
+                CartItems.Add(new CartItemViewModel() { CartId = CartShow.Id, ColorId = request.ColorId, SizeId = request.SizeId, ColorName = request.ColorName, Sizename = request.SizeName, ProductId = request.productId, Quantity = request.Quantity, ProductName = request.productName, PvId = request.PvId, Price = product.Price, ThumbailImage = product.ThumbailImage, DiscountPercent=product.DiscountPercent });
                 await LoadCartDetail(CartShow);
             }
         }
@@ -656,6 +672,8 @@ namespace App.Views.Views.Shopping
             var total = CartItems.Select(d => d.Price * d.Quantity).Sum();
             var oder = new Order()
             {
+                UserCreatedId = User.Id,
+                CustomerId = Customer.Id,
                 ShipAddress = txtAddress.Text,
                 ShipEmail = txtEmail.Text,
                 ShipName = txtCustomerName.Text,
@@ -665,7 +683,7 @@ namespace App.Views.Views.Shopping
                 IsShipping = CombOrderstatus.SelectedIndex == 0 ? false : true,
                 Description = txtDescription.Text,
                 Total = total,
-                ProductInOrders = CartItems.Select(c => new ProductInOrder() { Created = DateTime.Now, Price = c.Price, ProductVariationId = c.PvId, Quantity = c.Quantity }).ToList()
+                ProductInOrders = CartItems.Select(c => new ProductInOrder() { Created = DateTime.Now, Price = (c.Price*(100-c.DiscountPercent)/100), ProductVariationId = c.PvId, Quantity = c.Quantity }).ToList()
             };
             return oder;
         }
@@ -681,48 +699,123 @@ namespace App.Views.Views.Shopping
         //Thanh Toán hoặc đặt hàng
         private async void vbButton12_Click(object sender, EventArgs e)
         {
-            if (CartItems.Any())
+            if (CombOrderstatus.SelectedIndex == 0)
             {
-                if (MessageBox.Show("Bạn có muốn thanh toán!", "Thông báo", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (CartItems.Any())
                 {
-                    var result = await _shoppingService.AddOrder(await SetOder());
-                    if (result)
+                    if (MessageBox.Show("Bạn có muốn thanh toán!", "Thông báo", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        MessageBox.Show("Thanh toán thành công!");
-                        var i = TblCartTittles.Controls.IndexOf(PanlActive); // Vị trí của cart trong ds
-                        if (await _shoppingService.RemoveCart(CartShow))
+                        var result = await _shoppingService.AddOrder(await SetOder());
+                        if (result)
                         {
-                            TblCartTittles.Controls.Remove(PanlActive);
-                            Carts.Remove(CartShow);
-                            if (Carts.Count == 0)
+                            MessageBox.Show("Thanh toán thành công!");
+                            var i = TblCartTittles.Controls.IndexOf(PanlActive); // Vị trí của cart trong ds
+                            if (await _shoppingService.RemoveCart(CartShow))
                             {
-                                var cart1 = new Cart() { CartIndex = 1, CustomerMoney = 0 };
-                                Carts.Add(cart1);
-                                await _shoppingService.AddCart(cart1);
-                                await AcctiveTitleOder(await AddPanlCart(cart1));
-                                CartShow = cart1;
-                                await SetupList();
-                            }
-                            else
-                            {
-                                if (i < Carts.Count - 1)
+                                TblCartTittles.Controls.Remove(PanlActive);
+                                Carts.Remove(CartShow);
+                                if (Carts.Count == 0)
                                 {
-                                    await AcctiveTitleOder((Panel)TblCartTittles.Controls[i]);
-                                    CartShow = Carts[i];
+                                    var cart1 = new Cart() { CartIndex = 1, CustomerMoney = 0 };
+                                    Carts.Add(cart1);
+                                    await _shoppingService.AddCart(cart1);
+                                    await AcctiveTitleOder(await AddPanlCart(cart1));
+                                    CartShow = cart1;
                                     await SetupList();
                                 }
                                 else
                                 {
-                                    await AcctiveTitleOder((Panel)TblCartTittles.Controls[i - 1]);
-                                    CartShow = Carts[i - 1];
-                                    await SetupList();
+                                    if (i < Carts.Count - 1)
+                                    {
+                                        await AcctiveTitleOder((Panel)TblCartTittles.Controls[i]);
+                                        CartShow = Carts[i];
+                                        await SetupList();
+                                    }
+                                    else
+                                    {
+                                        await AcctiveTitleOder((Panel)TblCartTittles.Controls[i]);
+                                        CartShow = Carts[i];
+                                        await SetupList();
+                                    }
                                 }
                             }
                         }
+                        else
+                        {
+                            MessageBox.Show("Thanh toán thất bại!");
+                        }
                     }
-                    else
+                }
+            }
+            else
+            {
+                var txt = "";
+                if (String.IsNullOrEmpty(txtAddress.Text) || String.IsNullOrWhiteSpace(txtAddress.Text))
+                {
+                    txt += "Vui lòng nhập địa chỉ";
+                }
+                if (String.IsNullOrEmpty(txtPhoneNumber.Text) || String.IsNullOrWhiteSpace(txtPhoneNumber.Text))
+                {
+                    txt += "Số điện thoại phải đúng định dạng !";
+                }
+                if (String.IsNullOrEmpty(txtCustomerName.Text) || String.IsNullOrWhiteSpace(txtCustomerName.Text))
+                {
+                    txt += "Vui lòng nhập tên khách hàng";
+                }
+                if (txt != "")
+                {
+                    MessageBox.Show(txt);
+                }
+                else
+                {
+                    if (CartItems.Any())
                     {
-                        MessageBox.Show("Thanh toán thất bại!");
+                        if (MessageBox.Show("Bạn có muốn đặt hàng!", "Thông báo", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            var result = await _shoppingService.AddOrder(await SetOder());
+                            if (result)
+                            {
+                                MessageBox.Show("Đặt hàng thành công!");
+                            }
+                            else
+                            {
+                                var i = TblCartTittles.Controls.IndexOf(PanlActive); // Vị trí của cart trong ds
+                                if (await _shoppingService.RemoveCart(CartShow))
+                                {
+                                    TblCartTittles.Controls.Remove(PanlActive);
+                                    Carts.Remove(CartShow);
+                                    if (Carts.Count == 0)
+                                    {
+                                        var cart1 = new Cart() { CartIndex = 1, CustomerMoney = 0 };
+                                        Carts.Add(cart1);
+                                        await _shoppingService.AddCart(cart1);
+                                        await AcctiveTitleOder(await AddPanlCart(cart1));
+                                        CartShow = cart1;
+                                        await SetupList();
+                                    }
+                                    else
+                                    {
+                                        if (i < Carts.Count - 1)
+                                        {
+                                            await AcctiveTitleOder((Panel)TblCartTittles.Controls[i]);
+                                            CartShow = Carts[i];
+                                            await SetupList();
+                                        }
+                                        else
+                                        {
+                                            await AcctiveTitleOder((Panel)TblCartTittles.Controls[i]);
+                                            CartShow = Carts[i];
+                                            await SetupList();
+                                        }
+                                    }
+                                }
+
+                                else
+                                {
+                                    MessageBox.Show("Đặt hàng thất bại!");
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -783,7 +876,13 @@ namespace App.Views.Views.Shopping
         {
             timer1.Start();
         }
-
+        private async Task LoadCustomer()
+        {
+            txtCustomerName.Text = Customer.Name;
+            txtEmail.Text = Customer.Email;
+            txtPhoneNumber.Text = Customer.PhoneNumber;
+            txtAddress.Text = Customer.Address;
+        }
         private async void timer1_Tick(object sender, EventArgs e)
         {
             time++;
@@ -792,9 +891,17 @@ namespace App.Views.Views.Shopping
                 time = 0;
                 Customers = await _shoppingService.GetByPhoneNumber(txtSearchCustomer.Text);
                 MenuCustomers.Items.Clear();
+                int index = 0;
                 foreach (var item in Customers)
                 {
-                    MenuCustomers.Items.Add(item.Name);
+                    var i = index;
+                    MenuCustomers.Items.Add(item.Name+item.PhoneNumber);
+                    MenuCustomers.Items[i].Click += async (o, s) =>
+                    {
+                        Customer = Customers.ToList()[i];
+                        await LoadCustomer();
+                        index++;
+                    };
                 }
                 MenuCustomers.Show(txtSearchCustomer, 0, Txt_Search.Height + 5);
                 timer1.Stop();
@@ -857,6 +964,70 @@ namespace App.Views.Views.Shopping
         {
             var form = _serviceProviders.GetRequiredService<QRcode>();
             form.Show();
+        }
+        // thêm khách hàng
+        private async void vbButton4_Click(object sender, EventArgs e)
+        {
+            var txt = await Validate();
+            if (txt != "")
+            {
+                MessageBox.Show(txt);
+            }
+            else
+            {
+                Customer = new()
+                {
+                    Address = txtAddress.Text,
+                    Email = txtEmail.Text,
+                    Name = txtCustomerName.Text,
+                    PhoneNumber = txtPhoneNumber.Text,
+                    Created = DateTime.Now
+                };
+                if (await _shoppingService.AddCustomer(Customer))
+                {
+                    MessageBox.Show("Thêm mới khách hàng thành công !");
+                }
+                else
+                {
+                    MessageBox.Show("Thêm mới khách hàng thất !");
+                }
+            }
+        }
+        private async Task<string> Validate()
+        {
+            var txt = "";
+            if (String.IsNullOrEmpty(txtAddress.Text) || String.IsNullOrWhiteSpace(txtAddress.Text))
+            {
+                txt += "Vui lòng nhập địa chỉ";
+            }
+            if (String.IsNullOrEmpty(txtPhoneNumber.Text) || String.IsNullOrWhiteSpace(txtPhoneNumber.Text))
+            {
+                txt += "Số điện thoại phải đúng định dạng !";
+            }
+            else
+            {
+                txt += await _shoppingService.Validate(txtPhoneNumber.Text);
+            }
+            if (String.IsNullOrEmpty(txtCustomerName.Text) || String.IsNullOrWhiteSpace(txtCustomerName.Text))
+            {
+                txt += "Vui lòng nhập tên khách hàng";
+            }
+            return txt;
+        }
+
+        private void txtCustomerMoney_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+            (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+                MessageBox.Show("Chỉ được phép nhập số !");
+            }
+        }
+
+        private async void txtCustomerMoney_TextChanged(object sender, EventArgs e)
+        {
+            await LoadBill();
         }
     }
 }

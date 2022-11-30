@@ -16,7 +16,7 @@ namespace App.Views.Views.Users
     {
         private readonly IUserService _userService;
         private readonly IServiceProvider _serviceProvider;
-        private Data.Entities.User User { get; set; } = new();
+        public Data.Entities.User User { get; set; } = new();
         public bool IsAuthenticate { get; set; } = false;
         public UserLogin(IUserService userService, IServiceProvider serviceProvider)
         {

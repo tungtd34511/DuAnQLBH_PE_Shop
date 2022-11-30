@@ -17,6 +17,7 @@ namespace App.Views.Views.Shopping
     {
         public List<ProductVariationVm> Pvs { get; set; } = new();
         public AddToCartRequest Request { get; set; } = new();
+        public ProductInShoppingVm product { get; set; }
         public AddToCart()
         {
             InitializeComponent();
@@ -132,6 +133,7 @@ namespace App.Views.Views.Shopping
                     Request.SizeId = item.SizeId;
                     Request.SizeName = item.SizeName;
                     Request.productName = item.ProductName;
+                        Request.DiscountPercent = product.DiscountPercent;
                     addToCart(Request);//Call Delegate
                     }
                     else { MessageBox.Show("Số lượng phải lớn hơn 0!"); }

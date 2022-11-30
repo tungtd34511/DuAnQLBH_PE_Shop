@@ -14,5 +14,6 @@ namespace App.Data.Repositories.Customers
     {
         Task<IEnumerable<Customer>> GetByPhoneNumber(string phonenumber);
         Task<PagedResult<Customer>> GetPaging(GetCustomerPagingRequest request);
+        Task<string> Validate(string phonenumber);
     }
 }

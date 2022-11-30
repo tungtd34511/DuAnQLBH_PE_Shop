@@ -118,16 +118,9 @@ namespace App.Views.Views.Product
             {
                 ErorTxt += "Không được bỏ trống giá nhập!\n";
             }
-            else
-            {
-            }
             if (String.IsNullOrEmpty(TxtOringinalPrice.Text))
             {
                 ErorTxt += "Không được bỏ trống tên sản phẩm!\n";
-            }
-            else
-            {
-                
             }
             if (ErorTxt != "")
             {
@@ -198,7 +191,7 @@ namespace App.Views.Views.Product
             lblTitle.Text = "Sửa Sản Phẩm " + "(ID:" + Product.Id.ToString() + ")";
             TxtNameProduct.Text = Product.Name;
             txtPrice.Text = Product.Price.ToString();
-            TxtOringinalPrice.Text = Product.Price.ToString();
+            TxtOringinalPrice.Text = Product.OriginalPrice.ToString();
             TxtDescripton.Text = Product.Description.ToString();
             TxtDetails.Text = Product.Details.ToString();
             //
@@ -248,6 +241,10 @@ namespace App.Views.Views.Product
                     {
                         MessageBox.Show("Cập nhật sản phẩm thất bại !", "Thông báo", MessageBoxButtons.OK);
                     }
+                }
+                else
+                {
+                    MessageBox.Show("Something worng!");
                 }
             }
         }
@@ -327,9 +324,11 @@ namespace App.Views.Views.Product
             }
             else if (Convert.ToDecimal(txtPrice.Text) < Convert.ToDecimal(TxtOringinalPrice.Text))
             {
-                txt += "Giá bán phải lớn hơn giá nhật";
+                txt += "Giá bán phải lớn hơn giá nhập";
             }
-            txt += _services.Validate(TxtNameProduct.Text);
+            if (TxtNameProduct.Text != Product.Name) { 
+            txt += await _services.Validate(TxtNameProduct.Text);
+            }
             return txt;
         }
     }

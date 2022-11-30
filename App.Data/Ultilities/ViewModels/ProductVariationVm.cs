@@ -18,5 +18,6 @@ namespace App.Data.Ultilities.ViewModels
         public string SizeName { get; set; }
         public int Stock { get; set; }
         public bool IsDeleted { get; set; }
+        public int Discount { get; set; }
     }
 }

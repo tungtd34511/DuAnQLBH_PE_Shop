@@ -38,13 +38,12 @@ namespace App.Views.Views.Layout
         public Data.Entities.User User { get; set; }
         public Data.Entities.UserDetail UserDetail { get; set; }
         public VBButton _btnAcctive { get; set; } = new();
-        public List<VBButton> _ListControls { get; set; }=new() ;
-        public _Layout(IServiceProvider serviceProvide, IUserService userService, Data.Entities.User user)
+        public List<VBButton> _ListControls { get; set; } = new();
+        public _Layout(IServiceProvider serviceProvide, IUserService userService)
         {
             InitializeComponent();
             _serviceProvide = serviceProvide;
             _userService = userService;
-            User = user;
         }
         private async Task OpenchildForm(Form form)
         {
@@ -90,18 +89,26 @@ namespace App.Views.Views.Layout
             _btnAcctive.ForeColor = Color.FromArgb(90, 76, 219);
             _btnAcctive.IconColor = Color.FromArgb(90, 76, 219);
         }
-
+        private async Task LoadUser()
+        {
+            if (!String.IsNullOrEmpty(UserDetail.ImagePath))
+            {
+                panlImG.BackgroundImage = Image.FromFile(UserDetail.ImagePath);
+            }
+            txtName.Text = UserDetail.Name;
+        }
         private async void _Layout_Load(object sender, EventArgs e)
         {
             this.Hide();
             var login = _serviceProvide.GetRequiredService<UserLogin>();
-            
+
             login.FormClosed += async (o, s) =>
             {
                 if (login.IsAuthenticate)
                 {
-                    MessageBox.Show(User.Id.ToString());
+                    User = login.User;
                     UserDetail = await _userService.GetDetailById(User.Id);
+                    await LoadUser();
                     //
                     await AcctiveBtn(BtnHome);
                     var form = _serviceProvide.GetRequiredService<UserDetails>();
@@ -149,7 +156,7 @@ namespace App.Views.Views.Layout
                 }
             };
             login.ShowDialog();
-            
+
         }
 
         private async void vbButton5_Click(object sender, EventArgs e)
@@ -164,7 +171,9 @@ namespace App.Views.Views.Layout
         {
             if (_btnAcctive != vbButton4)
             {
-                await OpenchildForm(_serviceProvide.GetRequiredService<ShoppingIndex>());
+                var form = _serviceProvide.GetRequiredService<ShoppingIndex>();
+                form.User = User;
+                await OpenchildForm(form);
             }
         }
 
@@ -172,7 +181,9 @@ namespace App.Views.Views.Layout
         {
             if (_btnAcctive != vbButton6)
             {
-                await OpenchildForm(_serviceProvide.GetRequiredService<OrderIndex>());
+                var form = _serviceProvide.GetRequiredService<OrderIndex>();
+                form.User = User;
+                await OpenchildForm(form);
             }
         }
 
@@ -202,7 +213,7 @@ namespace App.Views.Views.Layout
             {
                 var form = _serviceProvide.GetRequiredService<UserDetails>();
                 User.UserDetail = UserDetail;
-                form.User= User;
+                form.User = User;
                 await OpenchildForm(form);
             }
         }
@@ -216,9 +227,10 @@ namespace App.Views.Views.Layout
             {
                 if (login.IsAuthenticate)
                 {
+                    User = login.User;
                     UserDetail = await _userService.GetDetailById(User.Id);
+                    await LoadUser();
                     //
-                    
                     var form = _serviceProvide.GetRequiredService<UserDetails>();
                     User.UserDetail = UserDetail;
                     form.User = User;

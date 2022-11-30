@@ -13,8 +13,8 @@ namespace App.Data.Entities
         public DateTime FromDate { set; get; }
         public DateTime ToDate { set; get; }
         public bool ApplyForAll { set; get; }
-        public int? DiscountPercent { set; get; }
-        public decimal? DiscountAmount { set; get; }
+        public int DiscountPercent { set; get; }
+        public decimal DiscountAmount { set; get; }
         public string ProductIds { set; get; } // aplly theo id sản phẩm
         public string ProductCategoryIds { set; get; } // apply theo danh mục
         public PromotionStatus Status { set; get; }

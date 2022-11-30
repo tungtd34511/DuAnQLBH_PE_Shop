@@ -14,5 +14,6 @@ namespace App.Data.Entities
         public string? Address { get; set; }
         public string? Email { get; set; }
         public virtual List<Order> Orders { get; set; }
+        public DateTime Created { get; set; }
     }
 }

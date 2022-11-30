@@ -58,42 +58,109 @@ namespace App.Data.Repositories.Products
                              ProductName = pd.Name
                          }).ToListAsync();
         }
+        public int MyProperty { get; set; }
+        
         public async Task<PagedResult<ProductVariationVm>> GetPaging(GetPagingProductVariationRequest request)
         {
-            var query = from pv in _context.ProductVariations
-                        join c in _context.Colors on pv.ColorId equals c.Id
-                        join s in _context.Sizes on pv.SizeId equals s.Id
-                        join pd in _context.ProductDetails on pv.ProductId equals pd.ProductId
-                        select new {pv,c,s,pd };
-            if (!String.IsNullOrEmpty(request.Keyword))
+            //            Không sắp xếp
+            //Theo mã(Tăng)
+            //Theo mã(Giảm)
+            //Theo tên sản phẩm(A-Z)
+            //Theo tên sản phẩm(Z-A)
+            //Theo màu(A -Z)
+            //Theo màu(Z-A)
+            //Theo kích cỡ(A - Z)
+            //Theo kích cỡ(Z - A)
+            //Theo so luong(A - Z)
+            //Theo so luong(A - Z)
+            //Theo trạng thái(Hiện - Ẩn)
+            //Theo trạng thái(Ẩn - Hiện)
+            try
             {
-                query = query.Where(c => c.pv.Id.ToString() == request.Keyword || c.pd.Name.ToLower().Contains(request.Keyword.ToLower()));
-            }
-            var total = await query.CountAsync();
-            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
-                .Take(request.PageSize)
-                .Select(x=>new ProductVariationVm()
+                var query = from pv in _context.ProductVariations
+                            join c in _context.Colors on pv.ColorId equals c.Id
+                            join s in _context.Sizes on pv.SizeId equals s.Id
+                            join pd in _context.ProductDetails on pv.ProductId equals pd.ProductId
+                            select new { pv, c, s, pd };
+                if (!String.IsNullOrEmpty(request.Keyword))
                 {
-                    ColorId = x.c.Id,
-                    ColorName = x.c.Name,
-                    Id = x.pv.Id,
-                    SizeId = x.pv.SizeId,
-                    SizeName =x.s.Name,
-                    Stock = x.pv.Stock,
-                    IsDeleted= x.pv.IsDeleted,
-                    ProductId = x.pv.Id,
-                    ProductName = x.pd.Name
-                }).ToListAsync();
-            //4. Select 
+                    query = query.Where(c => c.pv.Id.ToString() == request.Keyword || c.pd.Name.ToLower().Contains(request.Keyword.ToLower()));
+                }
+                if (!request.UnHide)
+                {
+                    query = query.Where(c => c.pv.IsDeleted ==false);
+                }
+                switch (request.OrderBy)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        query = query.OrderBy(c => c.pv.Id);
+                        break;
+                    case 2:
+                        query = query.OrderByDescending(c => c.pv.Id);
+                        break;
+                    case 3:
+                        query = query.OrderBy(c => c.pd.Name);
+                        break;
+                    case 4:
+                        query = query.OrderByDescending(c => c.pd.Name);
+                        break;
+                    case 5:
+                        query = query.OrderBy(c => c.c.Name);
+                        break;
+                    case 6:
+                        query = query.OrderByDescending(c => c.c.Name);
+                        break;
+                    case 7:
+                        query = query.OrderBy(c => c.s.Id);
+                        break;
+                    case 8:
+                        query = query.OrderByDescending(c => c.s.Id);
+                        break;
+                    case 9:
+                        query = query.OrderBy(c => c.pv.Stock);
+                        break;
+                    case 10:
+                        query = query.OrderByDescending(c => c.pv.Stock);
+                        break;
+                    case 11:
+                        query = query.OrderBy(c => c.pv.IsDeleted);
+                        break;
+                    case 12:
+                        query = query.OrderByDescending(c => c.pv.IsDeleted);
+                        break;
+                }
+                var total = await query.CountAsync();
+                var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+                    .Take(request.PageSize)
+                    .Select(x => new ProductVariationVm()
+                    {
+                        ColorId = x.c.Id,
+                        ColorName = x.c.Name,
+                        Id = x.pv.Id,
+                        SizeId = x.pv.SizeId,
+                        SizeName = x.s.Name,
+                        Stock = x.pv.Stock,
+                        IsDeleted = x.pv.IsDeleted,
+                        ProductId = x.pv.Id,
+                        ProductName = x.pd.Name
+                    }).ToListAsync();
+                //4. Select 
 
-            var pagedResult = new PagedResult<ProductVariationVm>()
+                var pagedResult = new PagedResult<ProductVariationVm>()
+                {
+                    TotalRecords = total,
+                    PageSize = request.PageSize,
+                    PageIndex = request.PageIndex,
+                    Items = data
+                };
+                return pagedResult;
+            }
+            catch
             {
-                TotalRecords = total,
-                PageSize = request.PageSize,
-                PageIndex = request.PageIndex,
-                Items = data
-            };
-            return pagedResult;
+                return new() { Items = new(), PageSize = 20, PageIndex = 1, TotalRecords = 0 };
+            }
         }
 
         public async Task<bool> Contain(ProductVariation request)

@@ -1,5 +1,6 @@
 ﻿using App.Data.Entities;
 using App.Data.Repositories.Orders;
+using App.Data.Repositories.Users;
 using App.Data.Ultilities.Catalog.Orders;
 using App.Data.Ultilities.Common;
 using App.Data.Ultilities.ViewModels;
@@ -15,10 +16,12 @@ namespace App.Business.Sevices.Orders
     {
         private readonly IOrderRepositories _orderRepositories;
         private readonly IOrderHistoryRepositories _orderHistoryRepositories;
-        public OrderService(IOrderRepositories orderRepositories, IOrderHistoryRepositories orderHistoryRepositories)
+        private readonly IUserDetailRepositories _userDetailRepositories;
+        public OrderService(IOrderRepositories orderRepositories, IOrderHistoryRepositories orderHistoryRepositories, IUserDetailRepositories userDetailRepositories)
         {
             _orderRepositories = orderRepositories;
             _orderHistoryRepositories = orderHistoryRepositories;
+            _userDetailRepositories = userDetailRepositories;
         }
         public async Task<PagedResult<OderInPagingVm>> GetPagingOrder(GetPagingOrderRequest request)
         {
@@ -44,6 +47,23 @@ namespace App.Business.Sevices.Orders
             {
                 return false;
             }
+        }
+        public async Task<bool> CanceledOrder(Order order, OrderHistory orderHistory)
+        {
+            try
+            {
+                await _orderRepositories.UpdateOneAsync(order);
+                await _orderHistoryRepositories.AddOneAsync(orderHistory);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public async Task<UserDetail> GetDetailByuserID(Guid Id)
+        {
+            return await _userDetailRepositories.GetAsync(new object[] { Id });
         }
     }
 }

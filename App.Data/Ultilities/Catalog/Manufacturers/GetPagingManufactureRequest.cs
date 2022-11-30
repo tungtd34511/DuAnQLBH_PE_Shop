@@ -9,5 +9,8 @@ namespace App.Data.Ultilities.Catalog.Manufacturers
 {
     public class GetPagingManufactureRequest : PagedResultBase
     {
+        public string Keyword { get; set; }
+        public bool UnHide { get; set; }
+        public int OrderBy { get; set; }
     }
 }

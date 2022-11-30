@@ -10,7 +10,7 @@ namespace App.Data.Ultilities.Common
 
         public int PageSize { get; set; } = 20;
 
-        public int TotalRecords { get; set; }
+        public int TotalRecords { get; set; } = 0;
 
         public int PageCount
         {

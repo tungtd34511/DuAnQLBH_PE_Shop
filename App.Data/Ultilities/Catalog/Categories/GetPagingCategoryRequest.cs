@@ -9,5 +9,8 @@ namespace App.Data.Ultilities.Catalog.Categories
 {
     public class GetPagingCategoryRequest: PagingRequestBase
     {
+        public string Keyword { get; set; } = "";
+        public int Orderby { get; set; } = 0;
+        public bool Unhide { get; set; } = false;
     }
 }

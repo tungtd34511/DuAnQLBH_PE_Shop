@@ -11,7 +11,7 @@ namespace App.Data.Entities
     {
         public int Id { get; set; }
         public DateTime Created { set; get; }
-        public string? ShipName { set; get; }
+        public string? ShipName { set; get; } 
         public string? ShipAddress { set; get; }
         public string? ShipEmail { set; get; }
         public string? ShipPhoneNumber { set; get; }

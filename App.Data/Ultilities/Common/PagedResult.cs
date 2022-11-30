@@ -6,6 +6,6 @@ namespace App.Data.Ultilities.Common
 {
     public class PagedResult<T> : PagedResultBase
     {
-        public List<T> Items { set; get; }
+        public List<T> Items { set; get; } = new();
     }
 }

@@ -7,6 +7,7 @@ using App.Data.Repositories.Catalog.Sizes;
 using App.Data.Repositories.Customers;
 using App.Data.Repositories.Orders;
 using App.Data.Repositories.Products;
+using App.Data.Repositories.Promotions;
 using App.Data.Ultilities.Catalog.Carts;
 using App.Data.Ultilities.Catalog.Products;
 using App.Data.Ultilities.Common;
@@ -30,7 +31,8 @@ namespace App.Business.Sevices.Shoppings
         private readonly IColorRepositories _colorRepositories;
         private readonly ISizeRepositories _sizeRepositories;
         private readonly ICategoryRepositories _categoryRepositories;
-        public ShoppingService(IProductRepositories productRepositories, IProductVariationRepositories productVariationRepositories, ICartRepositories cartRepositories, IProductInCartRepositories productInCartRepositories, IOrderRepositories orderRepositories, ICustomerRepositories customerRepositories, ICategoryRepositories categoryRepositories, ISizeRepositories sizeRepositories, IColorRepositories colorRepositories)
+        private readonly IPromotionRepositories _promotionRepositories;
+        public ShoppingService(IProductRepositories productRepositories, IProductVariationRepositories productVariationRepositories, ICartRepositories cartRepositories, IProductInCartRepositories productInCartRepositories, IOrderRepositories orderRepositories, ICustomerRepositories customerRepositories, ICategoryRepositories categoryRepositories, ISizeRepositories sizeRepositories, IColorRepositories colorRepositories, IPromotionRepositories promotionRepositories)
         {
             _productRepositories = productRepositories;
             _productVariationRepositories = productVariationRepositories;
@@ -41,15 +43,39 @@ namespace App.Business.Sevices.Shoppings
             _categoryRepositories = categoryRepositories;
             _sizeRepositories = sizeRepositories;
             _colorRepositories = colorRepositories;
+            _promotionRepositories = promotionRepositories;
         }
 
         public async Task<PagedResult<ProductInShoppingVm>> GetProducts(GetPagingShoppingRequest request)
         {
-            return await _productRepositories.GetPagingForShopping(request);
+            var pagedResult = await _productRepositories.GetPagingForShopping(request);
+            Promotions = await _promotionRepositories.GetPromotionActive();
+            var p = pagedResult.Items[0];
+
+            try
+            {
+                pagedResult.Items = pagedResult.Items.Select( p => new ProductInShoppingVm() { Id = p.Id, Name = p.Name, Price = p.Price, ThumbailImage = p.ThumbailImage, DiscountPercent = GetPromotion(p) }).ToList();
+            }
+            catch {
+
+            }
+            return pagedResult;
+        }
+        public List<Promotion> Promotions { get; set; }
+        public int GetPromotion(ProductInShoppingVm pv)
+        {
+            foreach(var pm in Promotions)
+            {
+                if(pm.ProductIds.Split(" ").Contains(pv.Id.ToString()) || pv.Cats.Any(c => pm.ProductCategoryIds.Split(" ").Contains(c)) || pm.ApplyForAll)
+                {
+                    return pm.DiscountPercent;
+                }
+            }
+            return 0;
         }
         public async Task<List<ProductVariationVm>> GetPvVMByProductId(int pId) // lấy pv viewmodel
         {
-            return await _productVariationRepositories.GetVMByProductId(pId);
+            return  await _productVariationRepositories.GetVMByProductId(pId); ;
         }
         public async Task<List<CartItemViewModel>> GetItemByCartId(int cartId)
         {
@@ -130,6 +156,15 @@ namespace App.Business.Sevices.Shoppings
                 Sizes = await _sizeRepositories.GetAllForCreate(),
                 Categories = await _categoryRepositories.GetAllForCreate(),
             };
+        }
+        public async Task<string> Validate(string phonenumber)
+        {
+            return await _customerRepositories.Validate(phonenumber);
+        }
+
+        public async Task<bool> AddCustomer(Customer customer)
+        {
+            return await _customerRepositories.AddOneAsync(customer);
         }
     }
 }

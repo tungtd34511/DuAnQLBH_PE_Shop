@@ -24,7 +24,10 @@ namespace App.Views.Views.Catalog.Manufacturers
         private async Task<string> Validate()
         {
             var txt = "";
-            txt += await _manufactureServices.Valiate(txtName.Text);
+            if(Manufacturer.Name != txtName.Text)
+            {
+                txt += await _manufactureServices.Valiate(txtName.Text);
+            }
             if (txtName.Text.Length > 50 || String.IsNullOrEmpty(txtName.Text))
             {
                 txt += "Tên nhà sản xuất phải từ 1 đến 50 ký tự";
