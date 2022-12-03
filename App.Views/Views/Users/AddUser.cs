@@ -1,4 +1,5 @@
 ﻿using App.Business.Sevices.Users;
+using App.Business.Ultilities.Mails;
 using App.Data.Ultilities.Enums;
 using System;
 using System.Collections.Generic;
@@ -60,13 +61,13 @@ namespace App.Views.Views.Users
             CombRole.SelectedIndex = 1;
             combGender.SelectedIndex = 0;
         }
-
         private async void BtnSave_Click(object sender, EventArgs e)
         {
             var id = Guid.NewGuid();
             User.Id= id;
             User.Status = UserStatus.FirstLogin;
             User.UserName = "Peshop" + GeneratePassword(true, true, true, false, 4);
+
             User.PasswordHash = GeneratePassword(true, true, true, false, 8);
             User.Role = Roles[CombRole.SelectedIndex];
             User.UserDetail.Name = txtName.Text;
@@ -78,9 +79,13 @@ namespace App.Views.Views.Users
             User.UserDetail.CCCD = txtCCCD.Text;
             User.UserDetail.PhoneNumber = txtPhoneNumber.Text;
             User.UserDetail.ImagePath = "C:\\Users\\taduy\\source\\repos\\DuAnQLBH_PE_Shop\\App.Business\\Images\\6d391946-6c70-4c79-ad96-fd4f058eb0e7.jpg";
-            if (await _userService.AddUser(User))
+			SentMail.SendMailGoogleSmtp("tungtdph16451@fpt.edu.vn", "taduytung24112000@gmail.com", "Tài Khoản và Mật khẩu từ Egale", "<h1>Tài khoản <h1/>\n" + $"{User.UserName}" + "<h1>Mật khẩu <h1/>\n" + $"{User.PasswordHash}"
+
+					, "tungtdph16451@fpt.edu.vn", "Taduytung123");
+			if (await _userService.AddUser(User))
             {
-                MessageBox.Show("Thêm mới nhân viên thành công!");
+				
+				MessageBox.Show("Thêm mới nhân viên thành công!");
                 Close();
             }
             else

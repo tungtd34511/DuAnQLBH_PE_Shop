@@ -166,5 +166,13 @@ namespace App.Business.Sevices.Shoppings
         {
             return await _customerRepositories.AddOneAsync(customer);
         }
-    }
+        public async Task<ProductInShoppingVm> GetProductShoppingById(int id)
+        {
+            return await _productRepositories.GetProductShoppingById(id);
+        }
+		 public async Task<ProductVariationVm> GetByQR(int id)
+        {
+            return await _productVariationRepositories.GetByQR(id);
+        }
+	}
 }

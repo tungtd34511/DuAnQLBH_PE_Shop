@@ -27,5 +27,8 @@ namespace App.Business.Sevices.Shoppings
         Task<DataForProductFilter> GetDataForFilter();
         Task<string> Validate(string phonenumber);
         Task<bool> AddCustomer(Customer customer);
-    }
+        Task<ProductInShoppingVm> GetProductShoppingById(int id);
+        Task<ProductVariationVm> GetByQR(int id);
+
+	}
 }

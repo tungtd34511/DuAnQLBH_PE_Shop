@@ -71,7 +71,7 @@ namespace App.Views.Views.Shopping
         private async Task LoadTblProducts()
         {
             
-            LblIndex.Text = Result.PageIndex.ToString() + "/" + Result.PageIndex.ToString();
+            LblIndex.Text = Result.PageIndex.ToString() + "/" + Result.PageCount.ToString();
             TblProducts.Controls.Clear();
             foreach (var item in Result.Items)
             {
@@ -142,7 +142,7 @@ namespace App.Views.Views.Shopping
                 TblProduct.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.04301F));
                 TblProduct.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 77.95699F));
                 TblProduct.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
-                TblProduct.Size = new System.Drawing.Size(184, 204);
+                TblProduct.Size = new System.Drawing.Size(184, 194);
                 TblProduct.Click += async (o, s) =>
                 {
                     await ShowAddToCart(item.Id,item.DiscountPercent);
@@ -320,10 +320,8 @@ namespace App.Views.Views.Shopping
             };
             MenuFillter.Items.Add(hostTool);
         }
-        #region QR code
-
-        #endregion
-        private async Task<Panel> AddPanlCart(Cart cart)
+		
+		private async Task<Panel> AddPanlCart(Cart cart)
         {
             // 
             // pnlCart
@@ -449,7 +447,7 @@ namespace App.Views.Views.Shopping
         }
         private async Task AddPanlItemCart(AddToCartRequest request)
         {
-            var product = Result.Items.FirstOrDefault(c => c.Id == request.productId);
+            var product = await _shoppingService.GetProductShoppingById(request.productId);
             // 
             // label4
             // 
@@ -621,7 +619,7 @@ namespace App.Views.Views.Shopping
         }
         private async void AddProductToCart(AddToCartRequest request)
         {
-            var product = Result.Items.FirstOrDefault(c => c.Id == request.productId);
+            var product = await _shoppingService.GetProductShoppingById(request.productId);
             var item = CartShow.ProductInCarts.FirstOrDefault(c => c.ProductVariationId == request.PvId);
             if (item != null)
             {
@@ -669,11 +667,11 @@ namespace App.Views.Views.Shopping
         }
         private async Task<Order> SetOder()
         {
-            var total = CartItems.Select(d => d.Price * d.Quantity).Sum();
+            var total = CartItems.Select(d => (d.Price*(100-d.DiscountPercent)/100) * d.Quantity).Sum();
             var oder = new Order()
             {
                 UserCreatedId = User.Id,
-                CustomerId = Customer.Id,
+                CustomerId = Customer.Id != 0?Customer.Id:null,
                 ShipAddress = txtAddress.Text,
                 ShipEmail = txtEmail.Text,
                 ShipName = txtCustomerName.Text,
@@ -962,9 +960,10 @@ namespace App.Views.Views.Shopping
 
         private void BtnQR_Click(object sender, EventArgs e)
         {
-            var form = _serviceProviders.GetRequiredService<QRcode>();
-            form.Show();
-        }
+            var formQr = _serviceProviders.GetRequiredService<QRcode>();
+            formQr.ADDtoCarts = AddProductToCart;
+            formQr.ShowDialog();
+		}
         // thêm khách hàng
         private async void vbButton4_Click(object sender, EventArgs e)
         {

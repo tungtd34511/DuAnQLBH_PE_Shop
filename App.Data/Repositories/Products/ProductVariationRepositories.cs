@@ -167,5 +167,25 @@ namespace App.Data.Repositories.Products
         {
             return await Entities.AnyAsync(c=>c.ProductId== request.ProductId&&c.SizeId==request.SizeId&&c.ColorId==request.ColorId);
         }
+        public async Task<ProductVariationVm> GetByQR(int id)
+        {
+            var pv = await Entities.FirstOrDefaultAsync(c=>c.Id==id);
+            if (pv == null)
+            {
+                return new();
+            }
+            else
+            {
+                return new ProductVariationVm()
+                {
+                    Id = pv.Id,
+                    SizeId = pv.SizeId,
+                    ColorName = _context.Colors.FirstOrDefault(c => c.Id == pv.ColorId).Name,
+                    ColorId = pv.ColorId,
+                    ProductId= pv.ProductId,
+                    SizeName = _context.Sizes.FirstOrDefault(c=>c.Id==pv.SizeId).Name
+                };
+            }
+        }
     }
 }

@@ -19,5 +19,7 @@ namespace App.Data.Repositories.Products
         Task<List<ProductVariation>> GetByProductId(int pId);
         Task<List<ProductVariationVm>> GetVMByProductId(int pId);
         Task<bool> Contain(ProductVariation request);
-    }
+        Task<ProductVariationVm> GetByQR(int id);
+
+	}
 }

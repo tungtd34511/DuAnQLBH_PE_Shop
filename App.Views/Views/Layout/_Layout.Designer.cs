@@ -214,8 +214,8 @@ namespace App.Views.Views.Layout
             // 
             // panlImG
             // 
-            this.panlImG.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.panlImG.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.panlImG.BackColor = System.Drawing.Color.Black;
+            this.panlImG.BackgroundColor = System.Drawing.Color.Black;
             this.panlImG.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.panlImG.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.panlImG.BorderRadius = 25;
@@ -225,7 +225,7 @@ namespace App.Views.Views.Layout
             this.panlImG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.panlImG.ForeColor = System.Drawing.Color.White;
             this.panlImG.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.panlImG.IconColor = System.Drawing.Color.Black;
+            this.panlImG.IconColor = System.Drawing.Color.Bisque;
             this.panlImG.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.panlImG.Location = new System.Drawing.Point(3, 3);
             this.panlImG.Margin = new System.Windows.Forms.Padding(5);
