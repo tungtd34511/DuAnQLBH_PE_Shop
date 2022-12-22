@@ -125,7 +125,7 @@ namespace App.Data.Repositories.Orders
             var order = await Entities.FindAsync(id);
             if (order == null)
             {
-                return null;
+                return new();
             }
 
             var orderVm = new OrderVm()
@@ -191,9 +191,12 @@ namespace App.Data.Repositories.Orders
                                            SizeId = s.Id,
                                            Stock = pv.Stock,
                                            ColorName = c.Name,
-                                           ProductName = pd.Name
+                                           ProductName = pd.Name,
+                                           SizeName = s.Name,ColorId=c.Id,Id=pv.Id,ProductId=pv.ProductId,
+                                           IsDeleted = pv.IsDeleted,
+                                           Discount = 0
                                        }).ToListAsync();
-                var TopFive = await _context.ProductInOrders.Where(c => orders.Select(d => d.Id).Contains(c.OrderId)).GroupBy(c => _context.ProductVariations.First(e => e.Id == c.ProductVariationId).ProductId).Select(g => new TopFiveVm() { Name = _context.ProductDetails.First(c => c.ProductId == g.Key).Name, Count = g.Count() }).ToListAsync();
+                var TopFive = await _context.ProductInOrders.Where(c => orders.Select(d => d.Id).Contains(c.OrderId)).GroupBy(c => _context.ProductVariations.First(e => e.Id == c.ProductVariationId).ProductId).Select(g => new TopFiveVm() { Name = _context.ProductDetails.First(c => c.ProductId == g.Key).Name, Count = g.Select(c=>c.Quantity).Sum() }).ToListAsync();
 
                 var thongke = new ThongKeViewModel()
                 {

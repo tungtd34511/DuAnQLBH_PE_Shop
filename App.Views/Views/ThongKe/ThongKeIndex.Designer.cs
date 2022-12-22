@@ -210,12 +210,12 @@
             this.LblRevenues.AutoSize = true;
             this.LblRevenues.BackColor = System.Drawing.Color.Transparent;
             this.LblRevenues.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.LblRevenues.Font = new System.Drawing.Font("Segoe UI Semilight", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.LblRevenues.Font = new System.Drawing.Font("Segoe UI Semilight", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.LblRevenues.ForeColor = System.Drawing.Color.White;
-            this.LblRevenues.Location = new System.Drawing.Point(15, 124);
+            this.LblRevenues.Location = new System.Drawing.Point(15, 138);
             this.LblRevenues.Margin = new System.Windows.Forms.Padding(0);
             this.LblRevenues.Name = "LblRevenues";
-            this.LblRevenues.Size = new System.Drawing.Size(244, 59);
+            this.LblRevenues.Size = new System.Drawing.Size(184, 45);
             this.LblRevenues.TabIndex = 5;
             this.LblRevenues.Text = "1231111141 đ\r\n";
             // 
@@ -262,12 +262,12 @@
             this.lblTotalOrder.AutoSize = true;
             this.lblTotalOrder.BackColor = System.Drawing.Color.Transparent;
             this.lblTotalOrder.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblTotalOrder.Font = new System.Drawing.Font("Segoe UI Semilight", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblTotalOrder.Font = new System.Drawing.Font("Segoe UI Semilight", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblTotalOrder.ForeColor = System.Drawing.Color.White;
-            this.lblTotalOrder.Location = new System.Drawing.Point(15, 124);
+            this.lblTotalOrder.Location = new System.Drawing.Point(15, 138);
             this.lblTotalOrder.Margin = new System.Windows.Forms.Padding(0);
             this.lblTotalOrder.Name = "lblTotalOrder";
-            this.lblTotalOrder.Size = new System.Drawing.Size(244, 59);
+            this.lblTotalOrder.Size = new System.Drawing.Size(184, 45);
             this.lblTotalOrder.TabIndex = 5;
             this.lblTotalOrder.Text = "1231111141 đ\r\n";
             // 
@@ -549,6 +549,7 @@
             this.vbButton2.TextColor = System.Drawing.Color.White;
             this.vbButton2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.vbButton2.UseVisualStyleBackColor = false;
+            this.vbButton2.Visible = false;
             // 
             // tableLayoutPanel4
             // 

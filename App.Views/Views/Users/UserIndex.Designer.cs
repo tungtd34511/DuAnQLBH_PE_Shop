@@ -492,6 +492,7 @@
             this.Comb_OderBy.Name = "Comb_OderBy";
             this.Comb_OderBy.Size = new System.Drawing.Size(133, 39);
             this.Comb_OderBy.TabIndex = 8;
+            this.Comb_OderBy.Visible = false;
             // 
             // customPanel1
             // 

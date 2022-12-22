@@ -156,7 +156,7 @@ namespace App.Views.Views.Promotion
                 var text = txtSearch.Text.ToLower();
                 foreach (Control check in TblProduct.Controls)
                 {
-                    check.Visible = check.Name.ToLower().Contains(text);
+                    check.Visible = check.Text.ToLower().Contains(text);
                 }
             }
         }

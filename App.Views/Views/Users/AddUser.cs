@@ -93,7 +93,6 @@ namespace App.Views.Views.Users
                 MessageBox.Show("Thêm mới nhân viên thất bại");
             }
         }
-
         private void BtnBack_Click(object sender, EventArgs e)
         {
             Close();

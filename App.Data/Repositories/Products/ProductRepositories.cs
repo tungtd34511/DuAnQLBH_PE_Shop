@@ -351,31 +351,38 @@ namespace App.Data.Repositories.Products
 			//public IEnumerable<string> Cats { set; get; } = Enumerable.Empty<string>();
 			//public string? ThumbailImage { get; set; }
 			//public int DiscountPercent { get; set; } = 0;
-			var product = await Entities.FirstOrDefaultAsync(c => c.Id == id);
-			
-			if (product == null)
+			try
+			{
+				var product = await Entities.FirstOrDefaultAsync(c => c.Id == id);
+
+				if (product == null)
+				{
+					return new();
+				}
+				var detail = await _context.ProductDetails.FirstOrDefaultAsync(c => c.ProductId == id);
+				var imgs = await _context.ProductImages.Where(c => c.ProductId == id).ToListAsync();
+				var pv = new ProductInShoppingVm()
+				{
+					Id = id,
+					Cats = _context.ProductInCategories.Where(c => c.ProductId == id).Select(c => c.CategoryId.ToString()).ToList(),
+					Name = detail.Name,
+					Price = product.Price,
+					ThumbailImage = imgs.Count > 0 ? imgs[0].ImagePath : ""
+				};
+				var promotions = await _context.Promotions.Where(c => c.FromDate < DateTime.Now && c.ToDate > DateTime.Now && c.Status == Ultilities.Enums.PromotionStatus.Active).ToListAsync();
+				foreach (var pm in promotions)
+				{
+					if (pm.ProductIds.Split(" ").Contains(pv.Id.ToString()) || pv.Cats.Any(c => pm.ProductCategoryIds.Split(" ").Contains(c)) || pm.ApplyForAll)
+					{
+						pv.DiscountPercent = pm.DiscountPercent;
+					}
+				}
+				return pv;
+			}
+			catch
 			{
 				return new();
 			}
-			var detail = await _context.ProductDetails.FirstOrDefaultAsync(c => c.ProductId == id);
-			var imgs = await _context.ProductImages.Where(c=>c.ProductId== id).ToListAsync();
-			var pv = new ProductInShoppingVm()
-			{
-				Id = id,
-				Cats = _context.ProductInCategories.Where(c => c.ProductId == id).Select(c => c.CategoryId.ToString()).ToList(),
-				Name = detail.Name,
-				Price = product.Price,
-				ThumbailImage = imgs.Count > 0 ? imgs[0].ImagePath : ""
-			};
-			var promotions = await _context.Promotions.Where(c => c.FromDate < DateTime.Now && c.ToDate > DateTime.Now && c.Status == Ultilities.Enums.PromotionStatus.Active).ToListAsync();
-			foreach (var pm in promotions)
-			{
-				if (pm.ProductIds.Split(" ").Contains(pv.Id.ToString()) || pv.Cats.Any(c => pm.ProductCategoryIds.Split(" ").Contains(c)) || pm.ApplyForAll)
-				{
-					pv.DiscountPercent = pm.DiscountPercent;
-				}
-			}
-			return pv;
 		}
 	}
 }

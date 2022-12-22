@@ -46,7 +46,14 @@ namespace App.Data.Repositories.Carts
         }
         public async Task<List<ProductInCart>> GetByCartID(int cartId)
         {
-            return await Entities.Where(c => c.CartId == cartId).ToListAsync();
+            try
+            {
+                return await Entities.Where(c => c.CartId == cartId).ToListAsync();
+            }
+            catch
+            {
+                return new();
+            }
         }
     }
 }

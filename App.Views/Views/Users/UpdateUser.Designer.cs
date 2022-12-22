@@ -376,7 +376,7 @@
             this.TxtAddress.Name = "TxtAddress";
             this.TxtAddress.Size = new System.Drawing.Size(389, 172);
             this.TxtAddress.TabIndex = 0;
-            this.TxtAddress.Text = "label";
+            this.TxtAddress.Text = "";
             // 
             // UpdateUser
             // 

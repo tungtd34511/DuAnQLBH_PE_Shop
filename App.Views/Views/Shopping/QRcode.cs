@@ -48,7 +48,6 @@ namespace App.Views.Views.Shopping
 				if (result != null)
 				{
 					txtQR.Text = result.ToString();
-					
 				}
 			}
 		}
@@ -60,9 +59,16 @@ namespace App.Views.Views.Shopping
 			{
 				combCam.Items.Add(Device.Name);
 			}
-
-			combCam.SelectedIndex = 0;
-			timer1.Start();
+			if(combCam.Items.Count > 0)
+			{
+                combCam.SelectedIndex = 0;
+                timer1.Start();
+            }
+			else
+			{
+				BtnStart.Enabled = false;
+				MessageBox.Show("Chưa kết nối đến camera vui lòng kiểm tra!");
+			}
 
 		}
 
@@ -76,9 +82,18 @@ namespace App.Views.Views.Shopping
 
 		private void QRcode_FormClosing(object sender, FormClosingEventArgs e)
 		{
-
-			timer1.Stop();
-			_videoCaptureDevice.SignalToStop();
+			try
+			{
+				timer1.Stop();
+				if (_videoCaptureDevice != null)
+				{
+					_videoCaptureDevice.SignalToStop();
+				}
+			}
+			catch
+			{
+				MessageBox.Show("Vui lòng kiểm tra camera của bạn");
+			}
 		}
 
 		private async void txtQR_TextChanged(object sender, EventArgs e)

@@ -30,52 +30,59 @@ namespace App.Views.Views.ThongKe
             string.Format("{0}({1:P})", charpoint.Y, charpoint.Participation);
         private async Task LoadThongke()
         {
-            Result = await _thongKeServices.GetThongKe(Request);
-            DgridLowStocks.DataSource = null;
-            DgridLowStocks.DataSource = Result.LowStocks;
-            lblTotalOrder.Text = Result.TotalOrders.ToString();
-            LblCanceled.Text = Result.TotalOrderCanceleds.ToString();
-            LblOrderConfirms.Text = Result.TotalOrderConfirms.ToString();
-            LblShipping.Text = Result.TotalOrderShippings.ToString();
-            LblRevenues.Text = Result.Revenues.Sum().ToString() + "VNĐ";
-            LblSucces.Text = Result.TotalOrderSuccesss.ToString();
-            var titles = new List<string>();
-            for (DateTime i = Request.Started.Date; i <= Request.Ended.Date; i = i.AddDays(1))
+            try
             {
-                titles.Add(i.ToString("dd/MM/yyyy"));
-            }
-            ChartRevenues.AxisY.Clear();
-            ChartRevenues.AxisY.Add(new LiveCharts.Wpf.Axis
-            {
-                Title = "Doanh thu ",
-            });
-            ChartRevenues.AxisX.Clear();
-            ChartRevenues.AxisX.Add(new LiveCharts.Wpf.Axis
-            {
-                Title = "Ngày",
-                Labels = titles.ToArray()
-            });
-            PieTop5.Series.Clear();
-            foreach (var x in Result.TopFive)
-            {
-                PieTop5.Series.Add(new PieSeries()
+                Result = await _thongKeServices.GetThongKe(Request);
+                DgridLowStocks.DataSource = null;
+                DgridLowStocks.DataSource = Result.LowStocks;
+                lblTotalOrder.Text = Result.TotalOrders.ToString();
+                LblCanceled.Text = Result.TotalOrderCanceleds.ToString();
+                LblOrderConfirms.Text = Result.TotalOrderConfirms.ToString();
+                LblShipping.Text = Result.TotalOrderShippings.ToString();
+                LblRevenues.Text = Result.Revenues.Sum().ToString("#,### VNĐ");
+                LblSucces.Text = Result.TotalOrderSuccesss.ToString();
+                var titles = new List<string>();
+                for (DateTime i = Request.Started.Date; i <= Request.Ended.Date; i = i.AddDays(1))
                 {
-                    Title = x.Name,
-                    Values = new ChartValues<double>() { x.Count },
-                    DataLabels = true,
-                    LabelPoint = labelPoint
+                    titles.Add(i.ToString("dd/MM/yyyy"));
+                }
+                ChartRevenues.AxisY.Clear();
+                ChartRevenues.AxisY.Add(new LiveCharts.Wpf.Axis
+                {
+                    Title = "Doanh thu ",
+                });
+                ChartRevenues.AxisX.Clear();
+                ChartRevenues.AxisX.Add(new LiveCharts.Wpf.Axis
+                {
+                    Title = "Ngày",
+                    Labels = titles.ToArray()
+                });
+                PieTop5.Series.Clear();
+                foreach (var x in Result.TopFive)
+                {
+                    PieTop5.Series.Add(new PieSeries()
+                    {
+                        Title = x.Name,
+                        Values = new ChartValues<double>() { x.Count },
+                        DataLabels = true,
+                        LabelPoint = labelPoint
+                    });
+                }
+                PieTop5.LegendLocation = LegendLocation.Bottom;
+                ChartRevenues.Series.Clear();
+                int j = 0;
+                var chart = new ChartValues<decimal>();
+                chart.AddRange(Result.Revenues);
+                ChartRevenues.Series.Add(new LineSeries()
+                {
+                    Title = "Doanh thu",
+                    Values = chart
                 });
             }
-            PieTop5.LegendLocation = LegendLocation.Bottom;
-            ChartRevenues.Series.Clear();
-            int j = 0;
-            var chart = new ChartValues<decimal>();
-            chart.AddRange(Result.Revenues);
-            ChartRevenues.Series.Add(new LineSeries()
+            catch
             {
-                Title = "Doanh thu",
-                Values = chart
-            });
+                MessageBox.Show("Vui lòng mở lại trang!");
+            }
         }
         private async void ThongKeIndex_Load(object sender, EventArgs e)
         {

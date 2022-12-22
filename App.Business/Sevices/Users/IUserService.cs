@@ -21,5 +21,6 @@ namespace App.Business.Sevices.Users
         Task<User> GetById(Guid id);
         Task<bool> ChaneStatus(User user);
         Task<bool> AddUser(User user);
+        Task<string> GetMD5(string pass);
     }
 }

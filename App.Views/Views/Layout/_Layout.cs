@@ -108,6 +108,7 @@ namespace App.Views.Views.Layout
                 {
                     User = login.User;
                     UserDetail = await _userService.GetDetailById(User.Id);
+                    await IsAdmin();
                     await LoadUser();
                     //
                     await AcctiveBtn(BtnHome);
@@ -229,6 +230,7 @@ namespace App.Views.Views.Layout
                 {
                     User = login.User;
                     UserDetail = await _userService.GetDetailById(User.Id);
+                    await IsAdmin();
                     await LoadUser();
                     //
                     var form = _serviceProvide.GetRequiredService<UserDetails>();
@@ -253,6 +255,21 @@ namespace App.Views.Views.Layout
             {
                 var form = _serviceProvide.GetRequiredService<PromotionIndex>();
                 await OpenchildForm(form);
+            }
+        }
+        private async Task IsAdmin()
+        {
+            if (User.Role == Data.Ultilities.Enums.Role.Admin)
+            {
+                vbButton7.Visible= true;
+                vbButton9.Visible= true;
+                vbButton10.Visible = true;
+            }
+            else
+            {
+                vbButton7.Visible = false;
+                vbButton9.Visible = false;
+                vbButton10.Visible = false;
             }
         }
     }

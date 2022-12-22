@@ -62,5 +62,9 @@ namespace App.Business.Sevices.Users
             user.PasswordHash = _userRepositories.GetMD5(user.PasswordHash);
             return await _userRepositories.AddOneAsync(user);
         }
+        public async Task<string> GetMD5(string pass)
+        {
+            return _userRepositories.GetMD5(pass);
+        }
     }
 }

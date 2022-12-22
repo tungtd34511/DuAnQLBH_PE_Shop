@@ -416,9 +416,18 @@ namespace App.Views.Views.Shopping
                             }
                             else
                             {
-                                await AcctiveTitleOder((Panel)TblCartTittles.Controls[i]);
-                                CartShow = Carts[i];
-                                await SetupList();
+                                if (i == 0)
+                                {
+                                    await AcctiveTitleOder((Panel)TblCartTittles.Controls[i]);
+                                    CartShow = Carts[i];
+                                    await SetupList();
+                                }
+                                else
+                                {
+                                    await AcctiveTitleOder((Panel)TblCartTittles.Controls[i - 1]);
+                                    CartShow = Carts[i - 1];
+                                    await SetupList();
+                                }
                             }
                         }
                     }
@@ -731,9 +740,18 @@ namespace App.Views.Views.Shopping
                                     }
                                     else
                                     {
-                                        await AcctiveTitleOder((Panel)TblCartTittles.Controls[i]);
-                                        CartShow = Carts[i];
-                                        await SetupList();
+                                        if (i == 0)
+                                        {
+                                            await AcctiveTitleOder((Panel)TblCartTittles.Controls[i]);
+                                            CartShow = Carts[i];
+                                            await SetupList();
+                                        }
+                                        else
+                                        {
+                                            await AcctiveTitleOder((Panel)TblCartTittles.Controls[i-1]);
+                                            CartShow = Carts[i-1];
+                                            await SetupList();
+                                        }
                                     }
                                 }
                             }
@@ -773,10 +791,7 @@ namespace App.Views.Views.Shopping
                             var result = await _shoppingService.AddOrder(await SetOder());
                             if (result)
                             {
-                                MessageBox.Show("Đặt hàng thành công!");
-                            }
-                            else
-                            {
+                                MessageBox.Show("Đặt Hàng thành công!");
                                 var i = TblCartTittles.Controls.IndexOf(PanlActive); // Vị trí của cart trong ds
                                 if (await _shoppingService.RemoveCart(CartShow))
                                 {
@@ -801,17 +816,25 @@ namespace App.Views.Views.Shopping
                                         }
                                         else
                                         {
-                                            await AcctiveTitleOder((Panel)TblCartTittles.Controls[i]);
-                                            CartShow = Carts[i];
-                                            await SetupList();
+                                            if (i == 0)
+                                            {
+                                                await AcctiveTitleOder((Panel)TblCartTittles.Controls[i]);
+                                                CartShow = Carts[i];
+                                                await SetupList();
+                                            }
+                                            else
+                                            {
+                                                await AcctiveTitleOder((Panel)TblCartTittles.Controls[i - 1]);
+                                                CartShow = Carts[i - 1];
+                                                await SetupList();
+                                            }
                                         }
                                     }
                                 }
-
-                                else
-                                {
-                                    MessageBox.Show("Đặt hàng thất bại!");
-                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Đặt Hàng thất bại!");
                             }
                         }
                     }

@@ -36,7 +36,8 @@ namespace App.Views.Views.Promotion
             form.FormClosed += async (o, s) =>
             {
                 this.Controls[0].Show();
-                await this.LoadForm();
+                Result = await _promotionService.GetPaging(Request);
+                await LoadForm();
             };
             this.Controls[0].Hide();
             this.Controls.Add(form);
@@ -229,8 +230,9 @@ namespace App.Views.Views.Promotion
                         if (await _promotionService.Update(item))
                         {
                             MessageBox.Show("Cập nhật thành công !");
-                            await LoadForm();
-                        }
+                                Result = await _promotionService.GetPaging(Request);
+                                await LoadForm();
+                            }
                         else
                         {
                             MessageBox.Show("Cập nhật thất bại !");
@@ -244,7 +246,8 @@ namespace App.Views.Views.Promotion
                         if (await _promotionService.Update(item))
                         {
                             MessageBox.Show("Cập nhật thành công !");
-                            await LoadForm();
+                            Result = await _promotionService.GetPaging(Request);
+                                await LoadForm();
                         }
                         else
                         {
@@ -263,7 +266,8 @@ namespace App.Views.Views.Promotion
             form.FormClosed += async(o, s) =>
             {
                 this.Controls[0].Show();
-                await this.LoadForm();
+                Result = await _promotionService.GetPaging(Request);
+                await LoadForm();
             };
             this.Controls[0].Hide();
             this.Controls.Add(form);
